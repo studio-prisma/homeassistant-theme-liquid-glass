@@ -1,0 +1,112 @@
+# =====================================================================
+# Liquid Glass — card-mod Snippets
+#
+# Drop-in CSS mods for popular HA cards.
+# Requires: card-mod (HACS) installed.
+# Each snippet uses theme variables, so it adapts automatically when
+# you switch between Liquid Glass / Liquid Glass Light / Liquid Glass Compact.
+# =====================================================================
+
+# ---------------------------------------------------------------------
+# 1) Universal Glass Card Base
+#    Applies the full glass-morphism effect to any ha-card.
+#    Paste under any card config:
+#      card_mod:
+#        style: |
+#          ...
+# ---------------------------------------------------------------------
+glass_card_base: &glass_card_base
+  card_mod:
+    style: |
+      ha-card {
+        background: var(--glass-bg);
+        backdrop-filter: var(--glass-blur);
+        -webkit-backdrop-filter: var(--glass-blur);
+        border: var(--glass-border);
+        border-radius: var(--glass-radius);
+        box-shadow: var(--glass-shadow);
+        transition: all var(--transition-duration) var(--transition-timing-function);
+      }
+      ha-card:hover {
+        background: var(--glass-bg-hover);
+      }
+
+# ---------------------------------------------------------------------
+# 2) Status-Glow Overlay
+#    Adds a subtle directional glow when an entity is active.
+#    Variants: warm / cool / violet / mint
+# ---------------------------------------------------------------------
+glow_warm:
+  card_mod:
+    style: |
+      ha-card {
+        background: var(--glass-bg), var(--glass-glow-warm);
+        background-blend-mode: overlay;
+      }
+
+glow_cool:
+  card_mod:
+    style: |
+      ha-card {
+        background: var(--glass-bg), var(--glass-glow-cool);
+        background-blend-mode: overlay;
+      }
+
+# ---------------------------------------------------------------------
+# 3) Pill Toggle (compact rounded toggle button)
+# ---------------------------------------------------------------------
+pill_toggle:
+  card_mod:
+    style: |
+      ha-card {
+        border-radius: var(--glass-radius-pill);
+        padding: 6px 14px;
+        height: auto;
+      }
+
+# ---------------------------------------------------------------------
+# 4) Mushroom Card — Glass Skin
+#    Layers the glass aesthetic on top of mushroom-template-card.
+# ---------------------------------------------------------------------
+mushroom_glass:
+  card_mod:
+    style: |
+      ha-card {
+        background: var(--glass-bg) !important;
+        backdrop-filter: var(--glass-blur);
+        -webkit-backdrop-filter: var(--glass-blur);
+        border: var(--glass-border);
+        border-radius: var(--mush-control-border-radius, 20px);
+      }
+      mushroom-shape-icon {
+        --shape-color: rgba(var(--rgb-state, 122, 184, 255), 0.18);
+      }
+
+# ---------------------------------------------------------------------
+# 5) Sidebar Slim Mode
+#    Reduces sidebar width and refines hover state.
+#    Apply via theme override or a header-card mod.
+# ---------------------------------------------------------------------
+sidebar_slim:
+  card_mod:
+    style:
+      ".": |
+        :host {
+          --mdc-drawer-width: 56px !important;
+        }
+        ha-sidebar {
+          background: var(--sidebar-background-color);
+        }
+
+# ---------------------------------------------------------------------
+# 6) Header Hide (clean look on wall-tablets)
+# ---------------------------------------------------------------------
+header_hide:
+  card_mod:
+    style: |
+      app-header {
+        display: none;
+      }
+      hui-view {
+        padding-top: 16px !important;
+      }

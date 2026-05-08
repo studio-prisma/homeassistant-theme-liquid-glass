@@ -1,0 +1,170 @@
+# =====================================================================
+# Liquid Glass — Demo Dashboard
+#
+# A minimal showcase dashboard for the Liquid Glass theme.
+# Replace the example entity_ids (light.living_room, climate.thermostat,
+# etc.) with your own. The structure highlights the theme's strengths:
+# layered translucency, per-domain status glow, sidebar refinement.
+#
+# Usage:
+#   1. Copy this file content into a new dashboard via Settings →
+#      Dashboards → Add Dashboard → "Show in sidebar" → switch to
+#      "Take control" / Raw config editor.
+#   2. Adjust entity references to your setup.
+#   3. Apply the theme: Profile → Theme → Liquid Glass (or Light/Compact).
+# =====================================================================
+
+title: Liquid Glass Demo
+theme: Liquid Glass
+views:
+
+  # -------------------------------------------------------------------
+  # View 1: Overview — Hero showcase
+  # -------------------------------------------------------------------
+  - title: Overview
+    path: overview
+    icon: mdi:home
+    type: sections
+    max_columns: 3
+    sections:
+
+      # ---- SECTION: Climate & Light ----
+      - type: grid
+        cards:
+          - type: heading
+            heading: Living Areas
+            heading_style: title
+
+          - type: tile
+            entity: light.living_room
+            name: Living Room
+            features:
+              - type: light-brightness
+
+          - type: tile
+            entity: light.kitchen
+            name: Kitchen
+            features:
+              - type: light-brightness
+
+          - type: tile
+            entity: climate.thermostat
+            name: Climate
+            features:
+              - type: target-temperature
+
+          - type: tile
+            entity: cover.bedroom_blinds
+            name: Bedroom Blinds
+
+      # ---- SECTION: Media & Presence ----
+      - type: grid
+        cards:
+          - type: heading
+            heading: Media & Presence
+            heading_style: title
+
+          - type: media-control
+            entity: media_player.living_room
+
+          - type: tile
+            entity: person.you
+            name: You
+
+          - type: tile
+            entity: lock.front_door
+            name: Front Door
+
+      # ---- SECTION: Sensors ----
+      - type: grid
+        cards:
+          - type: heading
+            heading: Sensors
+            heading_style: title
+
+          - type: glance
+            entities:
+              - entity: sensor.outdoor_temperature
+                name: Outdoor
+              - entity: sensor.indoor_humidity
+                name: Humidity
+              - entity: sensor.co2
+                name: CO₂
+              - entity: sensor.air_quality
+                name: Air
+
+          - type: sensor
+            entity: sensor.energy_today
+            name: Energy Today
+            graph: line
+
+  # -------------------------------------------------------------------
+  # View 2: Mushroom Showcase
+  # -------------------------------------------------------------------
+  - title: Mushroom
+    path: mushroom
+    icon: mdi:mushroom
+    badges: []
+    cards:
+      - type: vertical-stack
+        cards:
+
+          - type: custom:mushroom-title-card
+            title: Mushroom + Liquid Glass
+
+          - type: horizontal-stack
+            cards:
+              - type: custom:mushroom-light-card
+                entity: light.bedside
+                name: Bedside
+                use_light_color: true
+              - type: custom:mushroom-fan-card
+                entity: fan.office
+                name: Office Fan
+              - type: custom:mushroom-media-player-card
+                entity: media_player.sonos
+
+          - type: horizontal-stack
+            cards:
+              - type: custom:mushroom-lock-card
+                entity: lock.front_door
+              - type: custom:mushroom-cover-card
+                entity: cover.garage
+              - type: custom:mushroom-person-card
+                entity: person.you
+
+          - type: custom:mushroom-template-card
+            primary: All quiet
+            secondary: "Last motion: {{ relative_time(states.binary_sensor.motion.last_changed) }}"
+            icon: mdi:home-heart
+            icon_color: green
+
+  # -------------------------------------------------------------------
+  # View 3: Compact (good for wall-tablets)
+  # -------------------------------------------------------------------
+  - title: Compact
+    path: compact
+    icon: mdi:tablet
+    theme: Liquid Glass Compact
+    badges: []
+    cards:
+      - type: grid
+        columns: 4
+        square: true
+        cards:
+          - type: tile
+            entity: light.living_room
+          - type: tile
+            entity: light.kitchen
+          - type: tile
+            entity: light.bedside
+          - type: tile
+            entity: light.office
+          - type: tile
+            entity: switch.coffee_maker
+          - type: tile
+            entity: switch.tv
+          - type: tile
+            entity: cover.garage
+          - type: tile
+            entity: lock.front_door
