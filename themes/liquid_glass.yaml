@@ -19,16 +19,23 @@ Liquid Glass:
   # ----- BASE SURFACES -----
   primary-background-color: "#0a0d18"
   secondary-background-color: "#0f1320"
-  card-background-color: "rgba(255, 255, 255, 0.05)"
-  ha-card-background: "rgba(255, 255, 255, 0.05)"
-  popup-background-color: "rgba(15, 19, 32, 0.92)"
-  app-header-background-color: "rgba(10, 13, 24, 0.6)"
+  card-background-color: "rgba(20, 25, 40, 0.75)"
+  ha-card-background: "rgba(20, 25, 40, 0.75)"
+  popup-background-color: "#0f1320"
+  app-header-background-color: "rgba(10, 13, 24, 0.85)"
   app-header-text-color: "#ffffff"
   sidebar-background-color: "#0a0d18"
 
-  # ----- BACKGROUND IMAGE (optional) -----
-  # Place liquid_glass_bg.png into /config/www/ then uncomment:
-  # lovelace-background: 'center / cover no-repeat url("/local/liquid_glass_bg.png") fixed, var(--primary-background-color)'
+  # ----- DIALOG / MODAL (System UI — opaque to keep Settings legible) -----
+  mdc-theme-surface: "#0f1320"
+  mdc-dialog-content-background: "#0f1320"
+  mdc-dialog-scrim-color: "rgba(0, 0, 0, 0.75)"
+  ha-dialog-surface-background: "#0f1320"
+
+  # ----- BACKGROUND IMAGE -----
+  # Default: aurora.png — replace via /config/www/ swap, or comment out to disable.
+  # Fallback to primary-background-color if file is missing.
+  lovelace-background: 'center / cover no-repeat url("/local/liquid_glass_bg.png") fixed, var(--primary-background-color)'
 
   # ----- TEXT -----
   primary-text-color: "#f5f7fa"
@@ -124,8 +131,8 @@ Liquid Glass:
   bubble-accent-color: "#7ab8ff"
 
   # ----- TYPOGRAPHY -----
-  primary-font-family: "'SF Pro Display', 'Inter', system-ui, sans-serif"
-  paper-font-common-base_-_font-family: "'SF Pro Display', 'Inter', system-ui, sans-serif"
+  primary-font-family: "'Inter', system-ui, 'Segoe UI', Roboto, sans-serif"
+  paper-font-common-base_-_font-family: "'Inter', system-ui, 'Segoe UI', Roboto, sans-serif"
 
   # ----- CARD-MOD GLOBAL VARIABLES (used by inline mods in dashboard) -----
   glass-bg: "rgba(255, 255, 255, 0.05)"
@@ -171,12 +178,18 @@ Liquid Glass:
 Liquid Glass Light:
   primary-background-color: "#f5f3ee"
   secondary-background-color: "#ffffff"
-  card-background-color: "rgba(255, 255, 255, 0.7)"
-  ha-card-background: "rgba(255, 255, 255, 0.7)"
-  popup-background-color: "rgba(255, 255, 255, 0.92)"
-  app-header-background-color: "rgba(245, 243, 238, 0.7)"
+  card-background-color: "rgba(255, 255, 255, 0.85)"
+  ha-card-background: "rgba(255, 255, 255, 0.85)"
+  popup-background-color: "#ffffff"
+  app-header-background-color: "rgba(245, 243, 238, 0.92)"
   app-header-text-color: "#1a1d24"
   sidebar-background-color: "#fafaf7"
+
+  # Dialog / Modal (System UI — opaque)
+  mdc-theme-surface: "#ffffff"
+  mdc-dialog-content-background: "#ffffff"
+  mdc-dialog-scrim-color: "rgba(0, 0, 0, 0.45)"
+  ha-dialog-surface-background: "#ffffff"
 
   primary-text-color: "#1a1d24"
   secondary-text-color: "rgba(26, 29, 36, 0.65)"
@@ -220,7 +233,7 @@ Liquid Glass Light:
   glass-radius-lg: "26px"
   glass-shadow: "0 4px 20px rgba(0, 0, 0, 0.06)"
 
-  primary-font-family: "'SF Pro Display', 'Inter', system-ui, sans-serif"
+  primary-font-family: "'Inter', system-ui, 'Segoe UI', Roboto, sans-serif"
 
 # =====================================================================
 # Liquid Glass Compact (dark + tighter spacing for wall-tablets)
@@ -228,12 +241,18 @@ Liquid Glass Light:
 Liquid Glass Compact:
   primary-background-color: "#0a0d18"
   secondary-background-color: "#0f1320"
-  card-background-color: "rgba(255, 255, 255, 0.05)"
-  ha-card-background: "rgba(255, 255, 255, 0.05)"
-  popup-background-color: "rgba(15, 19, 32, 0.92)"
-  app-header-background-color: "rgba(10, 13, 24, 0.6)"
+  card-background-color: "rgba(20, 25, 40, 0.75)"
+  ha-card-background: "rgba(20, 25, 40, 0.75)"
+  popup-background-color: "#0f1320"
+  app-header-background-color: "rgba(10, 13, 24, 0.85)"
   app-header-text-color: "#ffffff"
   sidebar-background-color: "#0a0d18"
+
+  # Dialog / Modal (System UI — opaque)
+  mdc-theme-surface: "#0f1320"
+  mdc-dialog-content-background: "#0f1320"
+  mdc-dialog-scrim-color: "rgba(0, 0, 0, 0.75)"
+  ha-dialog-surface-background: "#0f1320"
 
   primary-text-color: "#f5f7fa"
   secondary-text-color: "rgba(245, 247, 250, 0.65)"
@@ -284,4 +303,4 @@ Liquid Glass Compact:
 
   transition-duration: "150ms"
 
-  primary-font-family: "'SF Pro Display', 'Inter', system-ui, sans-serif"
+  primary-font-family: "'Inter', system-ui, 'Segoe UI', Roboto, sans-serif"

@@ -101,23 +101,44 @@ Minimum supported: **Core 2024.1.0** — earlier versions are missing some requi
 
 ---
 
-## Optional: Background Image
+## Background — Default + Pack
 
-The theme ships with a preset background image. To use it:
+The theme has a background image **active by default**. Out of the box, the dashboard expects `liquid_glass_bg.png` in your `/config/www/` folder. If the file is missing, it falls back to `--primary-background-color` (no crash).
+
+### Setup (one-time)
 
 1. Download [`docs/assets/liquid_glass_bg.png`](docs/assets/liquid_glass_bg.png) from this repo.
 2. Copy it into your HA `/config/www/` folder.
-3. In `themes/liquid_glass.yaml` (your installed copy), uncomment this line:
+3. Reload themes: Developer Tools → YAML → **Reload Themes**.
 
-   ```yaml
-   lovelace-background: 'center / cover no-repeat url("/local/liquid_glass_bg.png") fixed, var(--primary-background-color)'
-   ```
+That's it — the background appears.
 
-4. Reload themes (Developer Tools → YAML → Reload Themes).
+### Background Pack — Alternative Atmospheres
 
-The comma-fallback ensures that if the image fails to load, the dashboard falls back to the regular background color.
+Three vector alternatives ship in [`docs/assets/backgrounds/`](docs/assets/backgrounds/):
 
-**Bring your own image:** any 1920×1200+ PNG/JPG works. Lower opacity if it competes with cards — `opacity: 0.6` via card-mod or via a darkened version of the file.
+| File | Style |
+|---|---|
+| `dawn.svg` | Pastel sunrise — warm tones fading to twilight blue |
+| `night.svg` | Deep indigo — moon glow, scattered stars |
+| `calm.svg` | Minimal teal — horizon waves, low contrast |
+
+**To switch (per-dashboard, recommended):** Override the background in your dashboard's raw config — survives HACS updates.
+
+```yaml
+title: Home
+theme: Liquid Glass
+background: 'center / cover no-repeat url("/local/dawn.svg") fixed'
+views:
+  - title: Overview
+    # ...
+```
+
+**To switch globally (theme-level):** Edit your installed copy at `/config/themes/liquid_glass/liquid_glass.yaml`, change the `lovelace-background` URL. **Note:** this is overwritten on the next HACS update — re-apply after each update, or use the per-dashboard method above.
+
+### Bring Your Own
+
+Any 1920×1200+ PNG/JPG/SVG works. Save as `/config/www/liquid_glass_bg.png` to use the default theme path, or any name with a per-dashboard override. Darker images preserve card legibility — lower the brightness of busy photos before deploying.
 
 ---
 

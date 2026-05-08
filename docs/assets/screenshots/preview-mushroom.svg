@@ -24,8 +24,8 @@
   <ellipse cx="900" cy="280" rx="500" ry="320" fill="url(#orbB)"/>
 
   <!-- Title -->
-  <text x="60" y="56" font-family="-apple-system, system-ui, sans-serif" font-size="14" fill="#7ab8ff" letter-spacing="2">MUSHROOM CARDS</text>
-  <text x="60" y="86" font-family="-apple-system, system-ui, sans-serif" font-size="22" font-weight="600" fill="#ffffff">Color tokens harmonised with the theme</text>
+  <text x="60" y="56" font-family="system-ui, sans-serif" font-size="14" fill="#7ab8ff" letter-spacing="2">MUSHROOM CARDS</text>
+  <text x="60" y="86" font-family="system-ui, sans-serif" font-size="22" font-weight="600" fill="#ffffff">Color tokens harmonised with the theme</text>
 
   <!-- Mushroom card row 1 -->
   <g transform="translate(60, 130)" filter="url(#shadow3)">
@@ -34,8 +34,8 @@
       <rect width="48" height="48" rx="16" fill="#ffb454" fill-opacity="0.2"/>
       <path d="M 18 18 L 30 18 L 32 26 Q 32 32 24 32 Q 16 32 16 26 Z" fill="#ffb454"/>
     </g>
-    <text x="80" y="36" font-family="-apple-system, system-ui, sans-serif" font-size="14" font-weight="600" fill="#ffffff">Bedside</text>
-    <text x="80" y="54" font-family="-apple-system, system-ui, sans-serif" font-size="12" fill="#ffb454">on · 60%</text>
+    <text x="80" y="36" font-family="system-ui, sans-serif" font-size="14" font-weight="600" fill="#ffffff">Bedside</text>
+    <text x="80" y="54" font-family="system-ui, sans-serif" font-size="12" fill="#ffb454">on · 60%</text>
   </g>
 
   <g transform="translate(280, 130)" filter="url(#shadow3)">
@@ -44,8 +44,8 @@
       <rect width="48" height="48" rx="16" fill="#7ab8ff" fill-opacity="0.2"/>
       <circle cx="24" cy="24" r="9" fill="none" stroke="#7ab8ff" stroke-width="2.5"/>
     </g>
-    <text x="80" y="36" font-family="-apple-system, system-ui, sans-serif" font-size="14" font-weight="600" fill="#ffffff">Office Fan</text>
-    <text x="80" y="54" font-family="-apple-system, system-ui, sans-serif" font-size="12" fill="#7ab8ff">running</text>
+    <text x="80" y="36" font-family="system-ui, sans-serif" font-size="14" font-weight="600" fill="#ffffff">Office Fan</text>
+    <text x="80" y="54" font-family="system-ui, sans-serif" font-size="12" fill="#7ab8ff">running</text>
   </g>
 
   <g transform="translate(500, 130)" filter="url(#shadow3)">
@@ -54,8 +54,8 @@
       <rect width="48" height="48" rx="16" fill="#9d82e6" fill-opacity="0.2"/>
       <polygon points="20,16 20,32 34,24" fill="#9d82e6"/>
     </g>
-    <text x="80" y="36" font-family="-apple-system, system-ui, sans-serif" font-size="14" font-weight="600" fill="#ffffff">Sonos</text>
-    <text x="80" y="54" font-family="-apple-system, system-ui, sans-serif" font-size="12" fill="#9d82e6">playing</text>
+    <text x="80" y="36" font-family="system-ui, sans-serif" font-size="14" font-weight="600" fill="#ffffff">Sonos</text>
+    <text x="80" y="54" font-family="system-ui, sans-serif" font-size="12" fill="#9d82e6">playing</text>
   </g>
 
   <g transform="translate(720, 130)" filter="url(#shadow3)">
@@ -65,8 +65,8 @@
       <rect x="18" y="22" width="12" height="10" rx="1.5" stroke="#4ad295" stroke-width="2" fill="none"/>
       <path d="M 20 22 L 20 18 Q 20 14 24 14 Q 28 14 28 18 L 28 22" stroke="#4ad295" stroke-width="2" fill="none"/>
     </g>
-    <text x="80" y="36" font-family="-apple-system, system-ui, sans-serif" font-size="14" font-weight="600" fill="#ffffff">Front Door</text>
-    <text x="80" y="54" font-family="-apple-system, system-ui, sans-serif" font-size="12" fill="#4ad295">locked</text>
+    <text x="80" y="36" font-family="system-ui, sans-serif" font-size="14" font-weight="600" fill="#ffffff">Front Door</text>
+    <text x="80" y="54" font-family="system-ui, sans-serif" font-size="12" fill="#4ad295">locked</text>
   </g>
 
   <g transform="translate(940, 130)" filter="url(#shadow3)">
@@ -77,12 +77,12 @@
       <line x1="24" y1="20" x2="24" y2="24" stroke="#ff5a6e" stroke-width="2" stroke-linecap="round"/>
       <circle cx="24" cy="27" r="0.8" fill="#ff5a6e"/>
     </g>
-    <text x="80" y="36" font-family="-apple-system, system-ui, sans-serif" font-size="14" font-weight="600" fill="#ffffff">Garage</text>
-    <text x="80" y="54" font-family="-apple-system, system-ui, sans-serif" font-size="12" fill="#ff5a6e">open</text>
+    <text x="80" y="36" font-family="system-ui, sans-serif" font-size="14" font-weight="600" fill="#ffffff">Garage</text>
+    <text x="80" y="54" font-family="system-ui, sans-serif" font-size="12" fill="#ff5a6e">open</text>
   </g>
 
   <!-- Row 2 - Color tokens display -->
-  <text x="60" y="266" font-family="-apple-system, system-ui, sans-serif" font-size="12" fill="#f5f7fa" fill-opacity="0.55" letter-spacing="2">RGB TOKENS</text>
+  <text x="60" y="266" font-family="system-ui, sans-serif" font-size="12" fill="#f5f7fa" fill-opacity="0.55" letter-spacing="2">RGB TOKENS</text>
 
   <g transform="translate(60, 290)">
     <rect width="120" height="68" rx="16" fill="url(#glass3)" stroke="#ffffff" stroke-opacity="0.08"/>
@@ -140,5 +140,5 @@
     <text x="14" y="50" font-family="ui-monospace, monospace" font-size="10" fill="#f5f7fa" fill-opacity="0.55">255,90,110</text>
   </g>
 
-  <text x="60" y="412" font-family="-apple-system, system-ui, sans-serif" font-size="12" fill="#f5f7fa" fill-opacity="0.55">All ten <tspan font-family="ui-monospace, monospace">mush-rgb-*</tspan> tokens are predefined and used directly by the Mushroom card library.</text>
+  <text x="60" y="412" font-family="system-ui, sans-serif" font-size="12" fill="#f5f7fa" fill-opacity="0.55">All ten <tspan font-family="ui-monospace, monospace">mush-rgb-*</tspan> tokens are predefined and used directly by the Mushroom card library.</text>
 </svg>

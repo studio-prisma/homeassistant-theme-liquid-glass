@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1200" preserveAspectRatio="xMidYMid slice">
+  <defs>
+    <linearGradient id="calmBg" x1="0" y1="0" x2="0.3" y2="1">
+      <stop offset="0%" stop-color="#0a1828"/>
+      <stop offset="50%" stop-color="#143040"/>
+      <stop offset="100%" stop-color="#1d3a4a"/>
+    </linearGradient>
+    <radialGradient id="centerGlow" cx="0.5" cy="0.5" r="0.7">
+      <stop offset="0%" stop-color="#7ab8c8" stop-opacity="0.08"/>
+      <stop offset="100%" stop-color="#7ab8c8" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="waveFill" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#7ab8c8" stop-opacity="0.06"/>
+      <stop offset="100%" stop-color="#7ab8c8" stop-opacity="0.02"/>
+    </linearGradient>
+    <linearGradient id="waveFill2" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#a8d0d8" stop-opacity="0.05"/>
+      <stop offset="100%" stop-color="#a8d0d8" stop-opacity="0.01"/>
+    </linearGradient>
+  </defs>
+  <rect width="1920" height="1200" fill="url(#calmBg)"/>
+  <rect width="1920" height="1200" fill="url(#centerGlow)"/>
+  <!-- Soft horizontal waves -->
+  <path d="M 0 720 Q 480 660 960 720 T 1920 720 L 1920 1200 L 0 1200 Z" fill="url(#waveFill)"/>
+  <path d="M 0 820 Q 480 760 960 820 T 1920 820 L 1920 1200 L 0 1200 Z" fill="url(#waveFill2)"/>
+  <path d="M 0 920 Q 480 880 960 920 T 1920 920 L 1920 1200 L 0 1200 Z" fill="url(#waveFill)" opacity="0.5"/>
+  <!-- Subtle horizon line -->
+  <line x1="0" y1="600" x2="1920" y2="600" stroke="#7ab8c8" stroke-opacity="0.04" stroke-width="1"/>
+</svg>
