@@ -2,21 +2,17 @@
 # Liquid Glass — Custom HA Theme
 # Modern glass-morphism aesthetic with layered translucency
 #
-# Three theme variants in this file:
-#   - Liquid Glass          (default, dark)
-#   - Liquid Glass Light    (light-mode standalone)
-#   - Liquid Glass Compact  (dark + tighter spacing for wall-tablets)
-#
-# Drop into /config/themes/liquid_glass.yaml (HACS does this for you)
-# Add `frontend: themes: !include_dir_merge_named themes/` to configuration.yaml
-# Restart HA, then select your variant in Profile or per Dashboard.
+# Six theme variants:
+#   Liquid Glass             auto-switch (OS prefers-color-scheme)
+#   Liquid Glass Light only  always light, ignores OS
+#   Liquid Glass Dark only   always dark, ignores OS
+#   Liquid Glass Compact     always dark + tighter spacing
+#   Liquid Glass Sunset      always dark + warm rose/amber palette
+#   Liquid Glass Floorplan   always dark + heatmap glow
 # =====================================================================
 
-# =====================================================================
-# Liquid Glass (Dark — default)
-# =====================================================================
+# Liquid Glass — auto-switch
 Liquid Glass:
-  # ----- BASE SURFACES -----
   primary-background-color: "#0a0d18"
   secondary-background-color: "#0f1320"
   card-background-color: "rgba(20, 25, 40, 0.75)"
@@ -25,38 +21,28 @@ Liquid Glass:
   app-header-background-color: "rgba(10, 13, 24, 0.85)"
   app-header-text-color: "#ffffff"
   sidebar-background-color: "#0a0d18"
-
-  # ----- DIALOG / MODAL (System UI — opaque to keep Settings legible) -----
   mdc-theme-surface: "#0f1320"
   mdc-dialog-content-background: "#0f1320"
   mdc-dialog-scrim-color: "rgba(0, 0, 0, 0.75)"
   ha-dialog-surface-background: "#0f1320"
-
-  # ----- BACKGROUND IMAGE -----
-  # Default: aurora.png — replace via /config/www/ swap, or comment out to disable.
-  # Fallback to primary-background-color if file is missing.
+  mdc-snackbar-fill-color: "#0f1320"
+  mdc-snackbar-action-color: "#7ab8ff"
+  ha-toast-background-color: "#0f1320"
+  ha-toast-text-color: "#f5f7fa"
   lovelace-background: 'center / cover no-repeat url("/local/liquid_glass_bg.png") fixed, var(--primary-background-color)'
-
-  # ----- TEXT -----
   primary-text-color: "#f5f7fa"
   secondary-text-color: "rgba(245, 247, 250, 0.65)"
   text-primary-color: "#ffffff"
   disabled-text-color: "rgba(245, 247, 250, 0.35)"
-
-  # ----- BRAND / ACCENT -----
-  primary-color: "#7ab8ff"           # soft cyan blue accent
-  accent-color: "#ffb454"            # warm amber for state-glow
+  primary-color: "#7ab8ff"
+  accent-color: "#ffb454"
   light-primary-color: "#a8d0ff"
   dark-primary-color: "#3a7fcf"
-
-  # ----- STATE COLORS -----
   state-icon-color: "rgba(245, 247, 250, 0.85)"
   state-icon-active-color: "#ffb454"
   state-icon-unavailable-color: "rgba(245, 247, 250, 0.25)"
   paper-item-icon-color: "rgba(245, 247, 250, 0.75)"
   paper-item-icon-active-color: "#ffb454"
-
-  # Domain state colors (per-domain glow)
   state-light-active-color: "#ffb454"
   state-switch-active-color: "#7ab8ff"
   state-binary_sensor-alerting-color: "#ff5a6e"
@@ -68,44 +54,45 @@ Liquid Glass:
   state-person-active-color: "#4ad295"
   state-lock-active-color: "#4ad295"
   state-vacuum-active-color: "#7ab8ff"
-
-  # ----- SEMANTIC -----
   success-color: "#4ad295"
   warning-color: "#ffb454"
   error-color: "#ff5a6e"
   info-color: "#7ab8ff"
-
-  # ----- SIDEBAR REFINEMENT -----
   sidebar-icon-color: "rgba(245, 247, 250, 0.55)"
   sidebar-text-color: "rgba(245, 247, 250, 0.85)"
   sidebar-selected-icon-color: "#7ab8ff"
   sidebar-selected-text-color: "#ffffff"
   sidebar-selected-background-color: "rgba(122, 184, 255, 0.12)"
-
-  # ----- DIVIDERS / BORDERS -----
   divider-color: "rgba(255, 255, 255, 0.08)"
   outline-color: "rgba(255, 255, 255, 0.1)"
-  card-background-color-rgb: "255, 255, 255"
-
-  # ----- HA-CARD -----
   ha-card-border-radius: "22px"
   ha-card-border-width: "1px"
   ha-card-border-color: "rgba(255, 255, 255, 0.1)"
   ha-card-box-shadow: "0 8px 32px rgba(0, 0, 0, 0.25)"
-
-  # ----- INTERACTIVE -----
   switch-checked-color: "#7ab8ff"
   switch-unchecked-color: "rgba(255, 255, 255, 0.2)"
   paper-slider-active-color: "#7ab8ff"
   paper-slider-knob-color: "#ffffff"
   paper-slider-pin-color: "#7ab8ff"
   mdc-theme-primary: "#7ab8ff"
-
-  # ----- ANIMATIONS -----
   transition-duration: "200ms"
   transition-timing-function: "cubic-bezier(0.4, 0, 0.2, 1)"
-
-  # ----- MUSHROOM TOKENS -----
+  energy-grid-consumption-color: "#7ab8ff"
+  energy-grid-return-color: "#4ad295"
+  energy-solar-color: "#ffb454"
+  energy-battery-in-color: "#9d82e6"
+  energy-battery-out-color: "#ff8b4a"
+  energy-non-fossil-color: "#4ad295"
+  energy-gas-color: "#ff5a6e"
+  energy-water-color: "#64dcdc"
+  room-living-rgb: "255, 180, 84"
+  room-bedroom-rgb: "157, 130, 230"
+  room-office-rgb: "122, 184, 255"
+  room-kitchen-rgb: "255, 139, 74"
+  room-bathroom-rgb: "100, 220, 220"
+  room-garden-rgb: "74, 210, 149"
+  room-garage-rgb: "120, 120, 130"
+  room-workshop-rgb: "255, 200, 100"
   mush-rgb-amber: "255, 180, 84"
   mush-rgb-blue: "122, 184, 255"
   mush-rgb-cyan: "100, 220, 220"
@@ -121,20 +108,11 @@ Liquid Glass:
   mush-icon-border-radius: "16px"
   mush-card-primary-font-size: "15px"
   mush-card-secondary-font-size: "13px"
-
-  # ----- BUBBLE CARD TOKENS -----
   bubble-main-background-color: "rgba(255, 255, 255, 0.05)"
-  bubble-secondary-background-color: "rgba(255, 255, 255, 0.08)"
-  bubble-icon-background-color: "rgba(255, 255, 255, 0.08)"
   bubble-button-border-radius: "20px"
   bubble-pop-up-border-radius: "26px"
   bubble-accent-color: "#7ab8ff"
-
-  # ----- TYPOGRAPHY -----
   primary-font-family: "'Inter', system-ui, 'Segoe UI', Roboto, sans-serif"
-  paper-font-common-base_-_font-family: "'Inter', system-ui, 'Segoe UI', Roboto, sans-serif"
-
-  # ----- CARD-MOD GLOBAL VARIABLES (used by inline mods in dashboard) -----
   glass-bg: "rgba(255, 255, 255, 0.05)"
   glass-bg-hover: "rgba(255, 255, 255, 0.08)"
   glass-border: "1px solid rgba(255, 255, 255, 0.1)"
@@ -147,14 +125,55 @@ Liquid Glass:
   glass-glow-cool: "linear-gradient(135deg, rgba(122, 184, 255, 0.22), rgba(100, 220, 220, 0.08))"
   glass-glow-violet: "linear-gradient(135deg, rgba(157, 130, 230, 0.22), rgba(190, 150, 230, 0.08))"
   glass-glow-mint: "linear-gradient(135deg, rgba(74, 210, 149, 0.22), rgba(120, 230, 180, 0.08))"
+  modes:
+    light:
+      primary-background-color: "#f5f3ee"
+      secondary-background-color: "#ffffff"
+      card-background-color: "rgba(255, 255, 255, 0.85)"
+      ha-card-background: "rgba(255, 255, 255, 0.85)"
+      popup-background-color: "#ffffff"
+      app-header-background-color: "rgba(245, 243, 238, 0.92)"
+      app-header-text-color: "#1a1d24"
+      sidebar-background-color: "#fafaf7"
+      mdc-theme-surface: "#ffffff"
+      mdc-dialog-content-background: "#ffffff"
+      mdc-dialog-scrim-color: "rgba(0, 0, 0, 0.45)"
+      ha-dialog-surface-background: "#ffffff"
+      mdc-snackbar-fill-color: "#ffffff"
+      mdc-snackbar-action-color: "#3a7fcf"
+      ha-toast-background-color: "#ffffff"
+      ha-toast-text-color: "#1a1d24"
+      lovelace-background: 'center / cover no-repeat url("/local/dawn.svg") fixed, var(--primary-background-color)'
+      primary-text-color: "#1a1d24"
+      secondary-text-color: "rgba(26, 29, 36, 0.65)"
+      text-primary-color: "#0a0d18"
+      disabled-text-color: "rgba(26, 29, 36, 0.35)"
+      primary-color: "#3a7fcf"
+      accent-color: "#d97a3a"
+      state-icon-color: "rgba(26, 29, 36, 0.85)"
+      state-icon-active-color: "#d97a3a"
+      paper-item-icon-color: "rgba(26, 29, 36, 0.75)"
+      paper-item-icon-active-color: "#d97a3a"
+      sidebar-icon-color: "rgba(26, 29, 36, 0.55)"
+      sidebar-text-color: "rgba(26, 29, 36, 0.85)"
+      sidebar-selected-icon-color: "#3a7fcf"
+      sidebar-selected-text-color: "#0a0d18"
+      sidebar-selected-background-color: "rgba(58, 127, 207, 0.1)"
+      divider-color: "rgba(0, 0, 0, 0.08)"
+      outline-color: "rgba(0, 0, 0, 0.1)"
+      ha-card-border-color: "rgba(0, 0, 0, 0.06)"
+      ha-card-box-shadow: "0 4px 20px rgba(0, 0, 0, 0.06)"
+      switch-checked-color: "#3a7fcf"
+      switch-unchecked-color: "rgba(0, 0, 0, 0.2)"
+      paper-slider-active-color: "#3a7fcf"
+      mdc-theme-primary: "#3a7fcf"
+      glass-bg: "rgba(255, 255, 255, 0.65)"
+      glass-bg-hover: "rgba(255, 255, 255, 0.85)"
+      glass-border: "1px solid rgba(0, 0, 0, 0.08)"
+      glass-shadow: "0 4px 20px rgba(0, 0, 0, 0.06)"
 
-  # NOTE: No `modes:` block — theme stays dark on all OS settings.
-  # For light look, select "Liquid Glass Light" explicitly.
-
-# =====================================================================
-# Liquid Glass Light (standalone light variant)
-# =====================================================================
-Liquid Glass Light:
+# Liquid Glass Light only
+Liquid Glass Light only:
   primary-background-color: "#f5f3ee"
   secondary-background-color: "#ffffff"
   card-background-color: "rgba(255, 255, 255, 0.85)"
@@ -163,47 +182,82 @@ Liquid Glass Light:
   app-header-background-color: "rgba(245, 243, 238, 0.92)"
   app-header-text-color: "#1a1d24"
   sidebar-background-color: "#fafaf7"
-
-  # Dialog / Modal (System UI — opaque)
   mdc-theme-surface: "#ffffff"
   mdc-dialog-content-background: "#ffffff"
   mdc-dialog-scrim-color: "rgba(0, 0, 0, 0.45)"
   ha-dialog-surface-background: "#ffffff"
-
+  mdc-snackbar-fill-color: "#ffffff"
+  mdc-snackbar-action-color: "#3a7fcf"
+  ha-toast-background-color: "#ffffff"
+  ha-toast-text-color: "#1a1d24"
+  lovelace-background: 'center / cover no-repeat url("/local/dawn.svg") fixed, var(--primary-background-color)'
   primary-text-color: "#1a1d24"
   secondary-text-color: "rgba(26, 29, 36, 0.65)"
   text-primary-color: "#0a0d18"
   disabled-text-color: "rgba(26, 29, 36, 0.35)"
-
   primary-color: "#3a7fcf"
   accent-color: "#d97a3a"
   light-primary-color: "#7ab8ff"
   dark-primary-color: "#1d4f8f"
-
-  state-icon-color: "rgba(26, 29, 36, 0.75)"
+  state-icon-color: "rgba(26, 29, 36, 0.85)"
   state-icon-active-color: "#d97a3a"
-
+  paper-item-icon-color: "rgba(26, 29, 36, 0.75)"
+  paper-item-icon-active-color: "#d97a3a"
+  state-light-active-color: "#d97a3a"
+  state-switch-active-color: "#3a7fcf"
+  state-binary_sensor-alerting-color: "#c93343"
+  state-climate-heating-color: "#d97a3a"
+  state-climate-cooling-color: "#3a7fcf"
+  state-cover-active-color: "#3a7fcf"
+  state-fan-active-color: "#1f9999"
+  state-media_player-active-color: "#7a5fc4"
+  state-person-active-color: "#2a9968"
+  state-lock-active-color: "#2a9968"
+  state-vacuum-active-color: "#3a7fcf"
+  success-color: "#2a9968"
+  warning-color: "#d97a3a"
+  error-color: "#c93343"
+  info-color: "#3a7fcf"
   sidebar-icon-color: "rgba(26, 29, 36, 0.55)"
   sidebar-text-color: "rgba(26, 29, 36, 0.85)"
   sidebar-selected-icon-color: "#3a7fcf"
   sidebar-selected-text-color: "#0a0d18"
   sidebar-selected-background-color: "rgba(58, 127, 207, 0.1)"
-
   divider-color: "rgba(0, 0, 0, 0.08)"
   outline-color: "rgba(0, 0, 0, 0.1)"
-
   ha-card-border-radius: "22px"
-  ha-card-border-width: "1px"
   ha-card-border-color: "rgba(0, 0, 0, 0.06)"
   ha-card-box-shadow: "0 4px 20px rgba(0, 0, 0, 0.06)"
-
   switch-checked-color: "#3a7fcf"
   paper-slider-active-color: "#3a7fcf"
   mdc-theme-primary: "#3a7fcf"
-
   transition-duration: "200ms"
   transition-timing-function: "cubic-bezier(0.4, 0, 0.2, 1)"
-
+  energy-grid-consumption-color: "#3a7fcf"
+  energy-grid-return-color: "#2a9968"
+  energy-solar-color: "#d97a3a"
+  energy-battery-in-color: "#7a5fc4"
+  energy-battery-out-color: "#cc6533"
+  energy-non-fossil-color: "#2a9968"
+  energy-gas-color: "#c93343"
+  energy-water-color: "#1f9999"
+  room-living-rgb: "217, 122, 58"
+  room-bedroom-rgb: "122, 95, 196"
+  room-office-rgb: "58, 127, 207"
+  room-kitchen-rgb: "204, 101, 51"
+  room-bathroom-rgb: "31, 153, 153"
+  room-garden-rgb: "42, 153, 104"
+  room-garage-rgb: "120, 120, 130"
+  room-workshop-rgb: "204, 153, 51"
+  mush-rgb-amber: "217, 122, 58"
+  mush-rgb-blue: "58, 127, 207"
+  mush-rgb-cyan: "31, 153, 153"
+  mush-rgb-green: "42, 153, 104"
+  mush-rgb-orange: "204, 101, 51"
+  mush-rgb-pink: "204, 71, 122"
+  mush-rgb-purple: "122, 95, 196"
+  mush-rgb-red: "201, 51, 67"
+  mush-rgb-yellow: "204, 153, 51"
   glass-bg: "rgba(255, 255, 255, 0.65)"
   glass-bg-hover: "rgba(255, 255, 255, 0.85)"
   glass-border: "1px solid rgba(0, 0, 0, 0.08)"
@@ -211,13 +265,10 @@ Liquid Glass Light:
   glass-radius: "22px"
   glass-radius-lg: "26px"
   glass-shadow: "0 4px 20px rgba(0, 0, 0, 0.06)"
-
   primary-font-family: "'Inter', system-ui, 'Segoe UI', Roboto, sans-serif"
 
-# =====================================================================
-# Liquid Glass Compact (dark + tighter spacing for wall-tablets)
-# =====================================================================
-Liquid Glass Compact:
+# Liquid Glass Dark only
+Liquid Glass Dark only:
   primary-background-color: "#0a0d18"
   secondary-background-color: "#0f1320"
   card-background-color: "rgba(20, 25, 40, 0.75)"
@@ -226,37 +277,73 @@ Liquid Glass Compact:
   app-header-background-color: "rgba(10, 13, 24, 0.85)"
   app-header-text-color: "#ffffff"
   sidebar-background-color: "#0a0d18"
-
-  # Dialog / Modal (System UI — opaque)
   mdc-theme-surface: "#0f1320"
   mdc-dialog-content-background: "#0f1320"
   mdc-dialog-scrim-color: "rgba(0, 0, 0, 0.75)"
   ha-dialog-surface-background: "#0f1320"
-
+  mdc-snackbar-fill-color: "#0f1320"
+  mdc-snackbar-action-color: "#7ab8ff"
+  ha-toast-background-color: "#0f1320"
+  ha-toast-text-color: "#f5f7fa"
+  lovelace-background: 'center / cover no-repeat url("/local/liquid_glass_bg.png") fixed, var(--primary-background-color)'
   primary-text-color: "#f5f7fa"
   secondary-text-color: "rgba(245, 247, 250, 0.65)"
   text-primary-color: "#ffffff"
-
+  disabled-text-color: "rgba(245, 247, 250, 0.35)"
   primary-color: "#7ab8ff"
   accent-color: "#ffb454"
-
+  light-primary-color: "#a8d0ff"
+  dark-primary-color: "#3a7fcf"
   state-icon-color: "rgba(245, 247, 250, 0.85)"
   state-icon-active-color: "#ffb454"
-
-  # Tighter card spacing & smaller corners
-  ha-card-border-radius: "16px"
-  ha-card-border-width: "1px"
+  paper-item-icon-color: "rgba(245, 247, 250, 0.75)"
+  paper-item-icon-active-color: "#ffb454"
+  state-light-active-color: "#ffb454"
+  state-switch-active-color: "#7ab8ff"
+  state-binary_sensor-alerting-color: "#ff5a6e"
+  state-climate-heating-color: "#ff8b4a"
+  state-climate-cooling-color: "#7ab8ff"
+  state-cover-active-color: "#a8d0ff"
+  state-fan-active-color: "#64dcdc"
+  state-media_player-active-color: "#9d82e6"
+  state-person-active-color: "#4ad295"
+  state-lock-active-color: "#4ad295"
+  state-vacuum-active-color: "#7ab8ff"
+  success-color: "#4ad295"
+  warning-color: "#ffb454"
+  error-color: "#ff5a6e"
+  info-color: "#7ab8ff"
+  sidebar-icon-color: "rgba(245, 247, 250, 0.55)"
+  sidebar-text-color: "rgba(245, 247, 250, 0.85)"
+  sidebar-selected-icon-color: "#7ab8ff"
+  sidebar-selected-text-color: "#ffffff"
+  sidebar-selected-background-color: "rgba(122, 184, 255, 0.12)"
+  divider-color: "rgba(255, 255, 255, 0.08)"
+  outline-color: "rgba(255, 255, 255, 0.1)"
+  ha-card-border-radius: "22px"
   ha-card-border-color: "rgba(255, 255, 255, 0.1)"
-  ha-card-box-shadow: "0 4px 16px rgba(0, 0, 0, 0.2)"
-
-  # Mushroom: smaller controls
-  mush-control-border-radius: "14px"
-  mush-control-height: "36px"
-  mush-icon-border-radius: "12px"
-  mush-card-primary-font-size: "14px"
-  mush-card-secondary-font-size: "12px"
-
-  # Mushroom RGB tokens (kept identical to dark variant)
+  ha-card-box-shadow: "0 8px 32px rgba(0, 0, 0, 0.25)"
+  switch-checked-color: "#7ab8ff"
+  paper-slider-active-color: "#7ab8ff"
+  mdc-theme-primary: "#7ab8ff"
+  transition-duration: "200ms"
+  transition-timing-function: "cubic-bezier(0.4, 0, 0.2, 1)"
+  energy-grid-consumption-color: "#7ab8ff"
+  energy-grid-return-color: "#4ad295"
+  energy-solar-color: "#ffb454"
+  energy-battery-in-color: "#9d82e6"
+  energy-battery-out-color: "#ff8b4a"
+  energy-non-fossil-color: "#4ad295"
+  energy-gas-color: "#ff5a6e"
+  energy-water-color: "#64dcdc"
+  room-living-rgb: "255, 180, 84"
+  room-bedroom-rgb: "157, 130, 230"
+  room-office-rgb: "122, 184, 255"
+  room-kitchen-rgb: "255, 139, 74"
+  room-bathroom-rgb: "100, 220, 220"
+  room-garden-rgb: "74, 210, 149"
+  room-garage-rgb: "120, 120, 130"
+  room-workshop-rgb: "255, 200, 100"
   mush-rgb-amber: "255, 180, 84"
   mush-rgb-blue: "122, 184, 255"
   mush-rgb-cyan: "100, 220, 220"
@@ -266,12 +353,57 @@ Liquid Glass Compact:
   mush-rgb-purple: "157, 130, 230"
   mush-rgb-red: "255, 90, 110"
   mush-rgb-yellow: "255, 200, 100"
+  glass-bg: "rgba(255, 255, 255, 0.05)"
+  glass-bg-hover: "rgba(255, 255, 255, 0.08)"
+  glass-border: "1px solid rgba(255, 255, 255, 0.1)"
+  glass-blur: "blur(30px) saturate(1.4)"
+  glass-radius: "22px"
+  glass-radius-lg: "26px"
+  glass-shadow: "0 8px 32px rgba(0, 0, 0, 0.25)"
+  primary-font-family: "'Inter', system-ui, 'Segoe UI', Roboto, sans-serif"
 
-  # Bubble: smaller buttons
+# Liquid Glass Compact
+Liquid Glass Compact:
+  primary-background-color: "#0a0d18"
+  secondary-background-color: "#0f1320"
+  card-background-color: "rgba(20, 25, 40, 0.75)"
+  ha-card-background: "rgba(20, 25, 40, 0.75)"
+  popup-background-color: "#0f1320"
+  app-header-background-color: "rgba(10, 13, 24, 0.85)"
+  app-header-text-color: "#ffffff"
+  sidebar-background-color: "#0a0d18"
+  mdc-theme-surface: "#0f1320"
+  mdc-dialog-content-background: "#0f1320"
+  mdc-dialog-scrim-color: "rgba(0, 0, 0, 0.75)"
+  ha-dialog-surface-background: "#0f1320"
+  mdc-snackbar-fill-color: "#0f1320"
+  ha-toast-background-color: "#0f1320"
+  ha-toast-text-color: "#f5f7fa"
+  primary-text-color: "#f5f7fa"
+  secondary-text-color: "rgba(245, 247, 250, 0.65)"
+  primary-color: "#7ab8ff"
+  accent-color: "#ffb454"
+  state-icon-color: "rgba(245, 247, 250, 0.85)"
+  state-icon-active-color: "#ffb454"
+  ha-card-border-radius: "16px"
+  ha-card-border-color: "rgba(255, 255, 255, 0.1)"
+  ha-card-box-shadow: "0 4px 16px rgba(0, 0, 0, 0.2)"
+  mush-control-border-radius: "14px"
+  mush-control-height: "36px"
+  mush-icon-border-radius: "12px"
+  mush-card-primary-font-size: "14px"
+  mush-card-secondary-font-size: "12px"
+  mush-rgb-amber: "255, 180, 84"
+  mush-rgb-blue: "122, 184, 255"
+  mush-rgb-cyan: "100, 220, 220"
+  mush-rgb-green: "74, 210, 149"
+  mush-rgb-orange: "255, 139, 74"
+  mush-rgb-pink: "255, 122, 168"
+  mush-rgb-purple: "157, 130, 230"
+  mush-rgb-red: "255, 90, 110"
+  mush-rgb-yellow: "255, 200, 100"
   bubble-button-border-radius: "14px"
   bubble-pop-up-border-radius: "20px"
-
-  # Glass tokens (compact)
   glass-bg: "rgba(255, 255, 255, 0.05)"
   glass-bg-hover: "rgba(255, 255, 255, 0.08)"
   glass-border: "1px solid rgba(255, 255, 255, 0.1)"
@@ -279,7 +411,158 @@ Liquid Glass Compact:
   glass-radius: "16px"
   glass-radius-lg: "20px"
   glass-shadow: "0 4px 16px rgba(0, 0, 0, 0.2)"
-
   transition-duration: "150ms"
+  primary-font-family: "'Inter', system-ui, 'Segoe UI', Roboto, sans-serif"
 
+# Liquid Glass Sunset
+Liquid Glass Sunset:
+  primary-background-color: "#1a0d18"
+  secondary-background-color: "#22161e"
+  card-background-color: "rgba(50, 28, 38, 0.75)"
+  ha-card-background: "rgba(50, 28, 38, 0.75)"
+  popup-background-color: "#1f1218"
+  app-header-background-color: "rgba(26, 13, 24, 0.85)"
+  app-header-text-color: "#fff5ec"
+  sidebar-background-color: "#1a0d18"
+  mdc-theme-surface: "#1f1218"
+  mdc-dialog-content-background: "#1f1218"
+  mdc-dialog-scrim-color: "rgba(20, 5, 12, 0.75)"
+  ha-dialog-surface-background: "#1f1218"
+  mdc-snackbar-fill-color: "#1f1218"
+  ha-toast-background-color: "#1f1218"
+  ha-toast-text-color: "#fff5ec"
+  lovelace-background: 'center / cover no-repeat url("/local/dawn.svg") fixed, var(--primary-background-color)'
+  primary-text-color: "#fff5ec"
+  secondary-text-color: "rgba(255, 245, 236, 0.65)"
+  text-primary-color: "#ffffff"
+  disabled-text-color: "rgba(255, 245, 236, 0.35)"
+  primary-color: "#ff7aa8"
+  accent-color: "#ffb454"
+  light-primary-color: "#ffb0c8"
+  dark-primary-color: "#cf3a7f"
+  state-icon-color: "rgba(255, 245, 236, 0.85)"
+  state-icon-active-color: "#ffb454"
+  state-light-active-color: "#ffb454"
+  state-switch-active-color: "#ff7aa8"
+  state-binary_sensor-alerting-color: "#ff5a6e"
+  state-climate-heating-color: "#ff8b4a"
+  state-climate-cooling-color: "#ff7aa8"
+  state-cover-active-color: "#ffb0c8"
+  state-fan-active-color: "#ffd1a8"
+  state-media_player-active-color: "#cc82e6"
+  state-person-active-color: "#ffb454"
+  state-lock-active-color: "#ffb454"
+  success-color: "#a8d295"
+  warning-color: "#ffb454"
+  error-color: "#ff5a6e"
+  info-color: "#ff7aa8"
+  sidebar-icon-color: "rgba(255, 245, 236, 0.55)"
+  sidebar-text-color: "rgba(255, 245, 236, 0.85)"
+  sidebar-selected-icon-color: "#ff7aa8"
+  sidebar-selected-text-color: "#ffffff"
+  sidebar-selected-background-color: "rgba(255, 122, 168, 0.14)"
+  divider-color: "rgba(255, 245, 236, 0.08)"
+  outline-color: "rgba(255, 245, 236, 0.1)"
+  ha-card-border-radius: "22px"
+  ha-card-border-color: "rgba(255, 245, 236, 0.1)"
+  ha-card-box-shadow: "0 8px 32px rgba(40, 10, 24, 0.35)"
+  switch-checked-color: "#ff7aa8"
+  paper-slider-active-color: "#ff7aa8"
+  mdc-theme-primary: "#ff7aa8"
+  transition-duration: "200ms"
+  transition-timing-function: "cubic-bezier(0.4, 0, 0.2, 1)"
+  energy-grid-consumption-color: "#ff7aa8"
+  energy-grid-return-color: "#a8d295"
+  energy-solar-color: "#ffb454"
+  energy-battery-in-color: "#cc82e6"
+  energy-battery-out-color: "#ff8b4a"
+  energy-non-fossil-color: "#a8d295"
+  energy-gas-color: "#ff5a6e"
+  energy-water-color: "#ffd1a8"
+  room-living-rgb: "255, 180, 84"
+  room-bedroom-rgb: "204, 130, 230"
+  room-office-rgb: "255, 122, 168"
+  room-kitchen-rgb: "255, 139, 74"
+  room-bathroom-rgb: "255, 209, 168"
+  room-garden-rgb: "168, 210, 149"
+  room-garage-rgb: "150, 130, 140"
+  room-workshop-rgb: "255, 200, 100"
+  mush-rgb-amber: "255, 180, 84"
+  mush-rgb-blue: "255, 122, 168"
+  mush-rgb-cyan: "255, 209, 168"
+  mush-rgb-green: "168, 210, 149"
+  mush-rgb-orange: "255, 139, 74"
+  mush-rgb-pink: "255, 122, 168"
+  mush-rgb-purple: "204, 130, 230"
+  mush-rgb-red: "255, 90, 110"
+  mush-rgb-yellow: "255, 200, 100"
+  glass-bg: "rgba(255, 245, 236, 0.05)"
+  glass-bg-hover: "rgba(255, 245, 236, 0.08)"
+  glass-border: "1px solid rgba(255, 245, 236, 0.1)"
+  glass-blur: "blur(30px) saturate(1.4)"
+  glass-radius: "22px"
+  glass-radius-lg: "26px"
+  glass-shadow: "0 8px 32px rgba(40, 10, 24, 0.35)"
+  glass-glow-warm: "linear-gradient(135deg, rgba(255, 122, 168, 0.28), rgba(255, 180, 84, 0.1))"
+  glass-glow-cool: "linear-gradient(135deg, rgba(255, 122, 168, 0.22), rgba(204, 130, 230, 0.08))"
+  primary-font-family: "'Inter', system-ui, 'Segoe UI', Roboto, sans-serif"
+
+# Liquid Glass Floorplan
+Liquid Glass Floorplan:
+  primary-background-color: "#0a0d18"
+  secondary-background-color: "#0f1320"
+  card-background-color: "rgba(20, 25, 40, 0.6)"
+  ha-card-background: "rgba(20, 25, 40, 0.6)"
+  popup-background-color: "#0f1320"
+  app-header-background-color: "rgba(10, 13, 24, 0.85)"
+  app-header-text-color: "#ffffff"
+  sidebar-background-color: "#0a0d18"
+  mdc-theme-surface: "#0f1320"
+  mdc-dialog-content-background: "#0f1320"
+  mdc-dialog-scrim-color: "rgba(0, 0, 0, 0.75)"
+  ha-dialog-surface-background: "#0f1320"
+  mdc-snackbar-fill-color: "#0f1320"
+  ha-toast-background-color: "#0f1320"
+  ha-toast-text-color: "#f5f7fa"
+  primary-text-color: "#f5f7fa"
+  secondary-text-color: "rgba(245, 247, 250, 0.65)"
+  primary-color: "#7ab8ff"
+  accent-color: "#ffb454"
+  state-icon-color: "rgba(245, 247, 250, 0.85)"
+  state-icon-active-color: "#ffb454"
+  ha-card-border-radius: "20px"
+  ha-card-border-color: "rgba(255, 255, 255, 0.12)"
+  ha-card-box-shadow: "0 8px 32px rgba(0, 0, 0, 0.4)"
+  transition-duration: "300ms"
+  floorplan-room-default-glow: "rgba(122, 184, 255, 0.18)"
+  floorplan-room-active-glow: "rgba(255, 180, 84, 0.45)"
+  floorplan-room-warning-glow: "rgba(255, 90, 110, 0.5)"
+  floorplan-room-cool-glow: "rgba(122, 184, 255, 0.4)"
+  floorplan-room-empty-glow: "rgba(120, 120, 130, 0.15)"
+  floorplan-area-border: "1px solid rgba(255, 255, 255, 0.18)"
+  floorplan-area-radius: "16px"
+  floorplan-area-blur: "blur(20px) saturate(1.4)"
+  room-living-rgb: "255, 180, 84"
+  room-bedroom-rgb: "157, 130, 230"
+  room-office-rgb: "122, 184, 255"
+  room-kitchen-rgb: "255, 139, 74"
+  room-bathroom-rgb: "100, 220, 220"
+  room-garden-rgb: "74, 210, 149"
+  room-garage-rgb: "120, 120, 130"
+  room-workshop-rgb: "255, 200, 100"
+  mush-rgb-amber: "255, 180, 84"
+  mush-rgb-blue: "122, 184, 255"
+  mush-rgb-cyan: "100, 220, 220"
+  mush-rgb-green: "74, 210, 149"
+  mush-rgb-orange: "255, 139, 74"
+  mush-rgb-pink: "255, 122, 168"
+  mush-rgb-purple: "157, 130, 230"
+  mush-rgb-red: "255, 90, 110"
+  mush-rgb-yellow: "255, 200, 100"
+  glass-bg: "rgba(255, 255, 255, 0.04)"
+  glass-bg-hover: "rgba(255, 255, 255, 0.07)"
+  glass-border: "1px solid rgba(255, 255, 255, 0.12)"
+  glass-blur: "blur(20px) saturate(1.4)"
+  glass-radius: "20px"
+  glass-shadow: "0 8px 32px rgba(0, 0, 0, 0.4)"
   primary-font-family: "'Inter', system-ui, 'Segoe UI', Roboto, sans-serif"

@@ -110,3 +110,63 @@ header_hide:
       hui-view {
         padding-top: 16px !important;
       }
+
+# ---------------------------------------------------------------------
+# 7) Notification Toasts (HA built-in / mobile_app)
+#    Style the snackbar / toast widget consistently with the theme.
+#    Apply via global card-mod-theme entry or as raw lovelace mod.
+# ---------------------------------------------------------------------
+toast_glass:
+  card_mod:
+    style:
+      ".":
+        $: |
+          mwc-snackbar {
+            --mdc-snackbar-fill-color: var(--ha-toast-background-color, #0f1320) !important;
+            --mdc-snackbar-text-color: var(--ha-toast-text-color, #f5f7fa) !important;
+            --mdc-snackbar-action-color: var(--mdc-snackbar-action-color, var(--primary-color)) !important;
+            border-radius: var(--glass-radius, 18px) !important;
+            backdrop-filter: var(--glass-blur, blur(30px));
+            box-shadow: var(--glass-shadow);
+          }
+
+# ---------------------------------------------------------------------
+# 8) Pulse Effect on Active State
+#    Gives any card a brief glow pulse when its entity becomes active.
+#    Pure CSS — no Pyscript / Automation needed.
+# ---------------------------------------------------------------------
+pulse_active:
+  card_mod:
+    style: |
+      @keyframes glass-pulse {
+        0%   { box-shadow: 0 0 0 0 rgba(var(--rgb-state, 255, 180, 84), 0.45), var(--glass-shadow); }
+        70%  { box-shadow: 0 0 0 12px rgba(var(--rgb-state, 255, 180, 84), 0), var(--glass-shadow); }
+        100% { box-shadow: 0 0 0 0 rgba(var(--rgb-state, 255, 180, 84), 0), var(--glass-shadow); }
+      }
+      ha-card[state="on"],
+      ha-card[state="home"],
+      ha-card[state="playing"],
+      ha-card[state="heating"],
+      ha-card[state="cooling"] {
+        animation: glass-pulse 2.4s ease-out infinite;
+      }
+
+# ---------------------------------------------------------------------
+# 9) Per-Room Glow (uses room-*-rgb tokens from the theme)
+#    Apply different glows to cards based on the room they belong to.
+#    Set --rgb-state in the parent card config to switch palette.
+# ---------------------------------------------------------------------
+room_living:
+  card_mod:
+    style: |
+      ha-card { --rgb-state: var(--room-living-rgb); }
+
+room_bedroom:
+  card_mod:
+    style: |
+      ha-card { --rgb-state: var(--room-bedroom-rgb); }
+
+room_office:
+  card_mod:
+    style: |
+      ha-card { --rgb-state: var(--room-office-rgb); }

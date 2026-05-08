@@ -7,66 +7,63 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.2.0] - 2026-05-08
+
+### Added
+- **Six theme variants** with clear semantic naming:
+  - `Liquid Glass` — auto-switch via OS prefers-color-scheme (full coverage: background image, sidebar, modal, cards, glass tokens)
+  - `Liquid Glass Light only` — always light, ignores OS
+  - `Liquid Glass Dark only` — always dark, ignores OS
+  - `Liquid Glass Compact` — always dark + tighter spacing
+  - `Liquid Glass Sunset` — always dark + warm rose/amber palette (NEW)
+  - `Liquid Glass Floorplan` — always dark + heatmap-glow tokens for picture-element cards (NEW)
+- **Per-room accent tokens** — `room-living-rgb`, `room-bedroom-rgb`, `room-office-rgb`, `room-kitchen-rgb`, `room-bathroom-rgb`, `room-garden-rgb`, `room-garage-rgb`, `room-workshop-rgb`. Use via card-mod or as state colors.
+- **Energy Dashboard variables** — `energy-grid-consumption-color`, `energy-grid-return-color`, `energy-solar-color`, `energy-battery-in-color`, `energy-battery-out-color`, `energy-non-fossil-color`, `energy-gas-color`, `energy-water-color`. Built-in HA Energy view now matches the theme.
+- **Notification toast variables** — `mdc-snackbar-fill-color`, `mdc-snackbar-action-color`, `ha-toast-background-color`, `ha-toast-text-color`. System pop-ups stay on-brand.
+- **Floorplan-specific tokens** — `floorplan-room-default-glow`, `floorplan-room-active-glow`, `floorplan-room-warning-glow`, `floorplan-room-cool-glow`, `floorplan-area-border`, `floorplan-area-radius`, `floorplan-area-blur`.
+- **`docs/floorplan-snippets.yaml`** — picture-element snippets: room marker, heatmap, warning-pulse.
+- **`docs/card-mod-snippets.yaml`** extended with snippets 7–9: toast styling, pulse-on-active (pure CSS, no Pyscript), per-room glow.
+- **`README.de.md`** — German translation of the README.
+
+### Changed
+- **Auto-switch in `Liquid Glass` is now complete** — every relevant variable is mirrored in `modes:light` (background image, sidebar colors, modal vars, glass tokens, scrim). No more half-applied light mode on iOS.
+- README rewritten around the six-variant model.
+
+### Removed
+- The previous `modes:` block that only switched a subset of variables (causing the iOS half-light/half-dark bug). Replaced by the complete `modes:` block in `Liquid Glass` and the standalone variants.
+
 ## [1.1.2] - 2026-05-08
 
 ### Fixed
-- **Mixed light/dark rendering on iOS** — Removed the `modes:` block from "Liquid Glass". The theme no longer auto-switches based on the OS-level `prefers-color-scheme` setting. Each variant now stays consistent: "Liquid Glass" is always dark, "Liquid Glass Light" is always light, "Liquid Glass Compact" is always dark. Users on iOS who had system Light mode active no longer see dark backgrounds with mismatched light sidebars/dialogs.
-
-### Migration
-- If you previously relied on automatic light/dark switching, set up a Home Assistant automation calling the `frontend.set_theme` service based on `sun.sun` or a time trigger to switch between "Liquid Glass" and "Liquid Glass Light" explicitly.
+- **Mixed light/dark rendering on iOS** — Removed incomplete `modes:` block from "Liquid Glass". Each variant now stays consistent.
 
 ## [1.1.1] - 2026-05-08
 
 ### Fixed
-- **System UI legibility** — Settings dialogs (e.g. "Restart Home Assistant") were shown semi-transparent and visually overlapped by underlying setting cards. Modal/dialog surfaces are now opaque (`mdc-theme-surface`, `mdc-dialog-content-background`, `ha-dialog-surface-background`) and the scrim is darker (`rgba(0,0,0,0.75)`).
-- **Card stacking context** — `card-background-color` and `ha-card-background` changed from `rgba(255,255,255,0.05)` to `rgba(20,25,40,0.75)`. Eliminates the stacking-context bug introduced by Frontend 20260429.3 while keeping the glass aesthetic.
+- **System UI legibility** — Settings dialogs were shown semi-transparent and visually overlapped by underlying setting cards. Modal/dialog surfaces are now opaque.
+- **Card stacking context** — `card-background-color` from `rgba(255,255,255,0.05)` to `rgba(20,25,40,0.75)`. Eliminates Frontend 20260429.3 stacking-context bug.
 
 ### Changed
-- **Background image active by default** — `lovelace-background` is no longer commented out. Falls back to `primary-background-color` if the image file is missing. Users still need to copy `liquid_glass_bg.png` into `/config/www/` for the image to appear.
-- **Font stack** — replaced Apple-specific font identifiers with neutral cross-platform stack: `'Inter', system-ui, 'Segoe UI', Roboto, sans-serif`.
-- **App-header opacity** raised from 0.6 to 0.85 for better legibility against busy backgrounds.
+- Background image active by default. Font stack replaced with cross-platform neutral stack.
 
 ### Added
-- **Background Pack** — three vector alternatives in `docs/assets/backgrounds/`:
-  - `dawn.svg` (pastel sunrise)
-  - `night.svg` (deep indigo with stars)
-  - `calm.svg` (minimal teal waves)
-- **Per-dashboard background override** documented in README — survives HACS updates.
+- Background Pack (`dawn.svg`, `night.svg`, `calm.svg`).
 
 ## [1.1.0] - 2026-05-08
 
 ### Added
-- **Liquid Glass Light** — standalone light variant (separate top-level theme key)
-- **Liquid Glass Compact** — tighter spacing variant for wall-tablets and small displays
-- **Background image support** — `lovelace-background` variable, preset asset shipped at `docs/assets/liquid_glass_bg.png`
-- **Sidebar refinement** — `sidebar-icon-color`, `sidebar-text-color`, `sidebar-selected-icon-color`, `sidebar-selected-text-color`, `sidebar-selected-background-color`
-- **Per-domain status colors** extended: `state-cover-active-color`, `state-fan-active-color`, `state-media_player-active-color`, `state-person-active-color`, `state-lock-active-color`, `state-vacuum-active-color`
-- **Animation variables** — `transition-duration`, `transition-timing-function`
-- **Extended Mushroom tokens** — `mush-control-border-radius`, `mush-control-height`, `mush-icon-border-radius`, `mush-card-primary-font-size`, `mush-card-secondary-font-size`
-- **Demo dashboard** at `docs/demo-dashboard.yaml` (Overview / Mushroom / Compact views)
-- **Card-mod snippets** at `docs/card-mod-snippets.yaml` (6 drop-in mods)
-- **Visual previews** — three SVG mockups in `docs/assets/screenshots/` (main / cards / mushroom)
-
-### Changed
-- README rewritten with hero preview, variant overview, tested-versions block, background-image guide, demo-dashboard guide, card-mod section
-- `info.md` updated with hint about variants and tested versions
-
-### Tested
-- Home Assistant Core 2026.5.0
-- Supervisor 2026.04.2
-- Operating System 17.3
-- Frontend 20260429.3
+- Liquid Glass Light & Compact variants
+- Background image support, sidebar refinement, per-domain status colors
+- Animation variables, extended Mushroom tokens
+- Demo dashboard, card-mod snippets, three SVG previews
 
 ## [1.0.0] - 2026-05-08
 
 ### Added
 - Initial public release of Liquid Glass Theme
-- Glass-morphism aesthetic with layered translucent surfaces
-- Soft cyan accent (`#7ab8ff`) with warm amber state-glow (`#ffb454`)
-- Optimized color variables for dark dashboards
-- Full coverage of Home Assistant 2024.1.0+ theme variables
 
-[Unreleased]: https://github.com/studio-prisma/homeassistant-theme-liquid-glass/compare/v1.1.2...HEAD
+[Unreleased]: https://github.com/studio-prisma/homeassistant-theme-liquid-glass/compare/v1.2.0...HEAD
+[1.2.0]: https://github.com/studio-prisma/homeassistant-theme-liquid-glass/compare/v1.1.2...v1.2.0
 [1.1.2]: https://github.com/studio-prisma/homeassistant-theme-liquid-glass/compare/v1.1.1...v1.1.2
 [1.1.1]: https://github.com/studio-prisma/homeassistant-theme-liquid-glass/compare/v1.1.0...v1.1.1
 [1.1.0]: https://github.com/studio-prisma/homeassistant-theme-liquid-glass/compare/v1.0.0...v1.1.0
