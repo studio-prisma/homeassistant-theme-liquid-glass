@@ -7,6 +7,23 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.2.4] - 2026-05-08
+
+### Fixed
+- **Form fields with `light-dark()` and `wa-input` now render correctly dark** — HA Frontend 2026.x switched to the WebAwesome component library (`wa-input`, `wa-base`). Many form elements use the native CSS `light-dark()` function which depends on the document's `color-scheme` property — not on any `mdc-*` or `input-*` theme variable. This explains why earlier rounds of fixes didn't fully solve the issue.
+
+### Added
+- **`color-scheme: dark`** in every dark variant (and `color-scheme: light` in Light only / Auto's modes:light). Tells the browser to render native form elements, scrollbars, and `light-dark()`-driven CSS in dark mode.
+- **WebAwesome surface tokens** for `wa-input` and friends:
+  - `wa-color-surface-default` / `-raised` / `-lowered`
+  - `wa-color-text-normal` / `-quiet`
+  - `wa-color-neutral-fill-quiet` / `-normal`
+  - `wa-color-neutral-border-normal`
+  - `wa-color-brand-fill-normal` / `-loud` / `-on-loud` / `-text-normal`
+
+### Diagnostic credit
+- Caught via Chrome DevTools — the inspected element revealed `wa-input::part(input)` with `border-color: light-dark(...)`. That confirmed the new component model and the `color-scheme` lever.
+
 ## [1.2.3] - 2026-05-08
 
 ### Fixed
@@ -127,7 +144,8 @@ All values present in every dark variant (Liquid Glass, Compact, Sunset, Floorpl
 ### Added
 - Initial public release of Liquid Glass Theme
 
-[Unreleased]: https://github.com/studio-prisma/homeassistant-theme-liquid-glass/compare/v1.2.3...HEAD
+[Unreleased]: https://github.com/studio-prisma/homeassistant-theme-liquid-glass/compare/v1.2.4...HEAD
+[1.2.4]: https://github.com/studio-prisma/homeassistant-theme-liquid-glass/compare/v1.2.3...v1.2.4
 [1.2.3]: https://github.com/studio-prisma/homeassistant-theme-liquid-glass/compare/v1.2.2...v1.2.3
 [1.2.2]: https://github.com/studio-prisma/homeassistant-theme-liquid-glass/compare/v1.2.1...v1.2.2
 [1.2.1]: https://github.com/studio-prisma/homeassistant-theme-liquid-glass/compare/v1.2.0...v1.2.1
