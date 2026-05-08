@@ -15,14 +15,14 @@ A premium glass-morphism theme for Home Assistant — translucent surfaces, laye
 
 | Theme name (HA dropdown) | Behavior |
 |---|---|
-| **Liquid Glass** | Auto-switch via OS prefers-color-scheme — colors only (no background image) |
-| **Liquid Glass Light only** | Always light, ignores OS — uses `dawn.png` background |
-| **Liquid Glass Dark only** | Always dark, ignores OS — uses `aurora.png` background |
+| **Liquid Glass** ⭐ | **Default — always dark** with `aurora.png` background. Recommended. |
+| **Liquid Glass Auto (experimental)** | OS-driven light/dark — known HA limitations (see note) |
+| **Liquid Glass Light only** | Always light, ignores OS — `dawn.png` background |
 | **Liquid Glass Compact** | Always dark + tighter spacing for wall-tablets |
-| **Liquid Glass Sunset** | Always dark + warm rose/amber palette — uses `dawn.png` |
+| **Liquid Glass Sunset** | Always dark + warm rose/amber palette |
 | **Liquid Glass Floorplan** | Always dark + heatmap glow for picture-element cards |
 
-> **Why Auto-Switch has no background:** HA's `modes:` block does not reliably override the `lovelace-background` CSS variable across light/dark switches. To get a background image with auto-switch behavior, set up a Home Assistant automation that calls `frontend.set_theme` between **Light only** and **Dark only** based on `sun.sun` or a time pattern.
+> ⚠️ **Why "Auto" is experimental:** HA's `modes:` block does not reliably override the `lovelace-background` CSS variable, and certain form/dropdown components (search fields, language picker) may render with mismatched colors. The auto variant is best-effort. For consistent results, pick a fixed variant. To switch automatically by sun position, use a `frontend.set_theme` automation between **Liquid Glass** and **Liquid Glass Light only** — see Auto-Switch Strategy below.
 
 Pick in **Profile → Theme** or per dashboard via `theme: Liquid Glass Compact`.
 
@@ -34,17 +34,16 @@ Pick in **Profile → Theme** or per dashboard via `theme: Liquid Glass Compact`
 
 ![Mushroom integration](docs/assets/screenshots/preview-mushroom.svg)
 
-All ten `mush-rgb-*` tokens are predefined and used by the [Mushroom card library](https://github.com/piitaya/lovelace-mushroom).
-
 ## Features
 
 - Glass-morphism with layered translucent surfaces and blur
 - Per-domain status colors: light, switch, climate, cover, fan, media_player, person, lock, vacuum
-- **Per-room accent tokens** (`room-living-rgb`, `room-bedroom-rgb`, ...) — color cards differently per area
+- **Per-room accent tokens** (`room-living-rgb`, ...) — color cards differently per area
 - **Energy Dashboard integration** — grid, solar, battery, gas, water harmonized
 - **Notification toast styling** — system pop-ups match the theme
+- **Form field & dropdown styling** — language picker, search fields, selects render correctly in dark mode (no white-on-white text)
 - Sidebar refinement, Mushroom & Bubble card tokens
-- Card-mod global variables for inline mods
+- Card-mod global variables
 - **Background Pack** — four PNGs (Aurora, Dawn, Night, Calm)
 
 ## Tested With
@@ -57,13 +56,12 @@ Minimum supported: **Core 2024.1.0**.
 
 ## Installation
 
-### Step 1 — Theme via HACS (Custom Repository)
+### Step 1 — Theme via HACS
 
-1. Open **HACS** → **Frontend** → top-right menu → **Custom repositories**
+1. **HACS** → **Frontend** → top-right menu → **Custom repositories**
 2. URL: `https://github.com/studio-prisma/homeassistant-theme-liquid-glass`
-3. Category: **Theme** → **Add**
-4. Install **Liquid Glass Theme** from the list
-5. Restart Home Assistant
+3. Category: **Theme** → **Add** → install
+4. Restart HA
 
 `configuration.yaml`:
 
@@ -72,42 +70,36 @@ frontend:
   themes: !include_dir_merge_named themes/
 ```
 
-### Step 2 — Background Images (one-time setup)
-
-Theme variants reference images at `/local/liquid_glass/`. Set this up once:
+### Step 2 — Background images (one-time setup)
 
 1. Create folder: `/config/www/liquid_glass/`
-2. Download all four PNGs from [`docs/assets/backgrounds/`](docs/assets/backgrounds/) and copy into the new folder:
-   - `aurora.png` (used by Dark only, Compact, Floorplan)
-   - `dawn.png` (used by Light only, Sunset)
+2. Download all four PNGs from [`docs/assets/backgrounds/`](docs/assets/backgrounds/) into the new folder:
+   - `aurora.png` (default for Liquid Glass, Compact, Floorplan, Auto)
+   - `dawn.png` (Light only, Sunset)
    - `night.png` (alternative)
    - `calm.png` (alternative)
 3. Reload themes: Developer Tools → YAML → **Reload Themes**
 
-If a file is missing, the theme falls back to the solid background color (no crash).
+Missing files → fallback to solid background color.
 
 ### Step 3 — Activate
 
-**Profile → Theme** → select your variant.
+**Profile → Theme** → **Liquid Glass** (recommended default).
 
 ## Background Pack
 
-Four PNGs ship in [`docs/assets/backgrounds/`](docs/assets/backgrounds/):
-
 | File | Style | Default for |
 |---|---|---|
-| `aurora.png` | Deep blue ambient gradient | Dark only, Compact, Floorplan |
-| `dawn.png` | Pastel sunrise — warm tones to twilight | Light only, Sunset |
-| `night.png` | Deep indigo + moon + scattered stars | — (alternative) |
-| `calm.png` | Minimal teal — horizon waves | — (alternative) |
+| `aurora.png` | Deep blue ambient | Liquid Glass, Compact, Floorplan, Auto |
+| `dawn.png` | Pastel sunrise | Light only, Sunset |
+| `night.png` | Indigo + moon + stars | alternative |
+| `calm.png` | Minimal teal waves | alternative |
 
 ### Switch backgrounds per dashboard
 
-The cleanest way (survives HACS updates) — override per dashboard:
-
 ```yaml
 title: Home
-theme: Liquid Glass Dark only
+theme: Liquid Glass
 background: 'center / cover no-repeat url("/local/liquid_glass/night.png") fixed'
 views:
   - title: Overview
@@ -115,31 +107,20 @@ views:
 
 ### Bring your own image
 
-Any 1920×1200+ PNG/JPG works. Drop it into `/config/www/liquid_glass/` and reference it via dashboard background or by editing the theme file.
+Any 1920×1200+ PNG/JPG. Drop into `/config/www/liquid_glass/` and reference via dashboard background.
 
-**Free sources for licensable backgrounds:**
-- [Unsplash](https://unsplash.com/) — high-quality photography, free to use
-- [Pexels](https://pexels.com/) — same, broad library
-- [Pixabay](https://pixabay.com/) — includes vectors and illustrations
-- AI-generators: Midjourney, DALL-E, Stable Diffusion — prompt for "premium dashboard background, deep blue ambient, soft gradient, minimal, 16:10"
+**Free sources:**
+- [Unsplash](https://unsplash.com/), [Pexels](https://pexels.com/), [Pixabay](https://pixabay.com/)
+- AI generators: Midjourney / DALL-E / Stable Diffusion. Prompt: *"premium dashboard background, deep blue ambient, soft gradient, minimal, 16:10"*
 
-Aim for **dark, low-contrast** images — busy or bright photos compete with cards. Optimal: subtle gradient with soft focal point, ≤ 500 KB.
+Aim dark, low-contrast, ≤ 500 KB.
 
-## Auto-Switch Strategy
+## Auto-Switch Strategy (recommended)
 
-Two ways to get OS-driven Light/Dark behavior:
-
-**Option A — `Liquid Glass` (built-in auto-switch, colors only)**
-- Pick **Liquid Glass** in Profile → Theme
-- Sidebar, cards, dialogs, glass tokens swap with OS setting
-- Background image is **NOT** swapped (HA limitation — see note above)
-
-**Option B — Automation between Light only / Dark only (full coverage)**
-- Pick `Liquid Glass Dark only` initially
-- Add automation:
+Skip the experimental built-in auto and use a HA automation — fully reliable:
 
 ```yaml
-alias: Theme — Sunset switches to Dark
+alias: Theme — Sunset to Dark
 trigger:
   - platform: sun
     event: sunset
@@ -147,9 +128,9 @@ trigger:
 action:
   - service: frontend.set_theme
     data:
-      name: Liquid Glass Dark only
+      name: Liquid Glass
 
-alias: Theme — Sunrise switches to Light
+alias: Theme — Sunrise to Light
 trigger:
   - platform: sun
     event: sunrise
@@ -159,22 +140,20 @@ action:
       name: Liquid Glass Light only
 ```
 
-Option B gives you complete light/dark transitions including backgrounds.
+Full light/dark transitions including backgrounds, no surprises.
 
 ## Demo Dashboard
 
-[`docs/demo-dashboard.yaml`](docs/demo-dashboard.yaml) — generic showcase with Overview / Mushroom / Compact views. Adjust entity IDs to your setup.
+[`docs/demo-dashboard.yaml`](docs/demo-dashboard.yaml) — generic showcase. Adjust entity IDs.
 
 ## Card-mod Snippets
 
-Two snippet files for users with [card-mod](https://github.com/thomasloven/lovelace-card-mod):
+For users with [card-mod](https://github.com/thomasloven/lovelace-card-mod):
 
-- [`docs/card-mod-snippets.yaml`](docs/card-mod-snippets.yaml) — nine drop-in mods: glass base, status-glow, pulse-on-active, toast styling, per-room tokens, sidebar slim, header hide
-- [`docs/floorplan-snippets.yaml`](docs/floorplan-snippets.yaml) — picture-element snippets: room marker, heatmap, warning-pulse
+- [`docs/card-mod-snippets.yaml`](docs/card-mod-snippets.yaml) — nine drop-in mods
+- [`docs/floorplan-snippets.yaml`](docs/floorplan-snippets.yaml) — picture-element snippets
 
 ## Customization
-
-All colors and tokens are exposed as theme variables. Quick brand swap:
 
 ```yaml
 Liquid Glass:
@@ -182,20 +161,18 @@ Liquid Glass:
   accent-color: "#7af5b8"
 ```
 
-The Sunset variant ships as a pre-baked example.
-
 ## Versioning
 
-This project follows [Semantic Versioning](https://semver.org/). See [`CHANGELOG.md`](CHANGELOG.md) and [GitHub Releases](../../releases).
+[Semantic Versioning](https://semver.org/). See [`CHANGELOG.md`](CHANGELOG.md).
 
 ## Contributing
 
-Issues and PRs welcome — see [`CONTRIBUTING.md`](CONTRIBUTING.md).
+See [`CONTRIBUTING.md`](CONTRIBUTING.md).
 
 ## Credits
 
 - Designed & maintained by **studio-prisma**
-- Mushroom & Bubble card token compatibility ensured against their respective documentation
+- Mushroom & Bubble card token compatibility ensured
 
 ## License
 

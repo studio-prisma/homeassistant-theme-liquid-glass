@@ -7,6 +7,26 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.2.2] - 2026-05-08
+
+### Changed
+- **Renaming for clarity** — "Liquid Glass" is now the **default fixed-dark variant** (recommended). The OS-driven auto-switch was renamed to "Liquid Glass Auto (experimental)" and clearly marked as best-effort.
+  - Old `Liquid Glass Dark only` → renamed to `Liquid Glass`
+  - Old `Liquid Glass` (auto-switch) → renamed to `Liquid Glass Auto (experimental)`
+
+### Fixed
+- **White text on white background in form fields** — language picker, search inputs, dropdowns and select components rendered with default browser white due to missing `mdc-text-field-*` and `mdc-select-*` theme variables. Fixed by setting:
+  - `mdc-text-field-fill-color`, `mdc-text-field-ink-color`, `mdc-text-field-label-ink-color`, `mdc-text-field-idle-line-color`, `mdc-text-field-hover-line-color`, `mdc-text-field-disabled-*`
+  - `mdc-select-fill-color`, `mdc-select-ink-color`, `mdc-select-label-ink-color`, `mdc-select-idle-line-color`, `mdc-select-disabled-*`
+  - `mdc-list-item-text-color`, `mdc-list-item-graphic-color`, `mwc-list-item-text-color`
+  - `paper-listbox-background-color`, `paper-listbox-color`
+  - `paper-input-container-color`, `paper-input-container-input-color`, `paper-input-container-focus-color`
+  - All variables present in every dark variant + light pendants in Light only and Auto's modes:light block.
+
+### Migration
+- If you previously had **"Liquid Glass"** active (auto-switch), you'll now see the fixed dark variant — same look as before but no more light-mode mixing on iOS.
+- If you actively want the experimental auto behavior, switch to **"Liquid Glass Auto (experimental)"** in Profile → Theme.
+
 ## [1.2.1] - 2026-05-08
 
 ### Fixed
@@ -82,7 +102,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 - Initial public release of Liquid Glass Theme
 
-[Unreleased]: https://github.com/studio-prisma/homeassistant-theme-liquid-glass/compare/v1.2.1...HEAD
+[Unreleased]: https://github.com/studio-prisma/homeassistant-theme-liquid-glass/compare/v1.2.2...HEAD
+[1.2.2]: https://github.com/studio-prisma/homeassistant-theme-liquid-glass/compare/v1.2.1...v1.2.2
 [1.2.1]: https://github.com/studio-prisma/homeassistant-theme-liquid-glass/compare/v1.2.0...v1.2.1
 [1.2.0]: https://github.com/studio-prisma/homeassistant-theme-liquid-glass/compare/v1.1.2...v1.2.0
 [1.1.2]: https://github.com/studio-prisma/homeassistant-theme-liquid-glass/compare/v1.1.1...v1.1.2
