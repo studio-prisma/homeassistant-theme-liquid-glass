@@ -7,6 +7,32 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.2.5] - 2026-05-08
+
+### Fixed
+- **Form-field backgrounds finally dark in dark mode** — The remaining white-background problem on alarm-code input, to-do "add entry", time-pickers, and language/dropdown selectors. Root cause: HA Frontend 2026.x routes these components through two new token namespaces that no prior version of this theme covered:
+  - `--ha-color-form-*` (used by `ha-input` → `wa-input` for form-control backgrounds, borders, hover/disabled states)
+  - `--md-sys-color-*` and `--md-list-item-*` (used by `ha-combo-box-item`, `ha-generic-picker`, all Material Web 3 dialogs and dropdowns)
+
+  The theme's existing `mdc-*`, `paper-*`, `input-*`, and `wa-color-*` tokens never reached these elements because Home Assistant has migrated their styling to the new token families.
+
+### Added
+**HA form-control tokens** (10 per variant — drives all `ha-input` / `wa-input` form controls):
+`ha-color-form-background`, `ha-color-form-background-hover`, `ha-color-form-background-disabled`, `ha-color-border-neutral-quiet`, `ha-color-border-neutral-normal`, `ha-color-border-neutral-loud`, `ha-color-border-danger-normal`, `ha-color-text-primary`, `ha-color-text-secondary`, `ha-color-neutral-60`
+
+**Material Web 3 surface tokens** (16 per variant — drives Material Web 3 dialogs, combo-boxes, dropdowns, list-items):
+`md-sys-color-surface`, `md-sys-color-surface-container`, `md-sys-color-surface-container-low`, `md-sys-color-surface-container-high`, `md-sys-color-surface-container-highest`, `md-sys-color-surface-variant`, `md-sys-color-on-surface`, `md-sys-color-on-surface-variant`, `md-sys-color-primary`, `md-sys-color-on-primary`, `md-sys-color-secondary-container`, `md-sys-color-on-secondary-container`, `md-sys-color-outline`, `md-sys-color-outline-variant`, `md-sys-color-background`, `md-sys-color-on-background`, `md-list-item-label-text-color`, `md-list-item-supporting-text-color`, `md-list-item-leading-icon-color`, `md-list-item-container-color`
+
+All new tokens use `var(--primary-text-color)`, `var(--card-background-color)` and friends, so per-variant palettes (Sunset rose/amber, Floorplan heatmap) inherit automatically.
+
+### Diagnostic credit
+- DOM inspection on `<wa-input>` (To-Do input + alarm-code) confirmed `appearance="material"` + transparent `<input>` background — proving the white background comes from the surrounding container, not the input itself.
+- DOM inspection on `<ha-combo-box-item>` (language picker) revealed `color: var(--md-list-item-label-text-color, var(--md-sys-color-on-surface, #1d1b20))` — the `#1d1b20` fallback is what was rendering on dark theme.
+- Cross-referenced HA frontend source `src/components/input/ha-input.ts` and `src/components/ha-base-time-input.ts` to enumerate every CSS custom property used.
+
+### Known not-yet-fixed
+- `light-dark()`-driven default border colors on native `<input>` elements (the grey 118/118/118 vs 133/133/133 pair) remain — they only respond to the actual CSS `color-scheme` property, which HA exposes only as a regular theme token (rendered as `--color-scheme: dark` and ignored by browsers). Workaround for v1.3.0: ship a small `extra_module_url` JS loader that sets `document.documentElement.style.colorScheme`.
+
 ## [1.2.4] - 2026-05-08
 
 ### Fixed
