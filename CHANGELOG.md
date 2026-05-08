@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.1.2] - 2026-05-08
+
+### Fixed
+- **Mixed light/dark rendering on iOS** — Removed the `modes:` block from "Liquid Glass". The theme no longer auto-switches based on the OS-level `prefers-color-scheme` setting. Each variant now stays consistent: "Liquid Glass" is always dark, "Liquid Glass Light" is always light, "Liquid Glass Compact" is always dark. Users on iOS who had system Light mode active no longer see dark backgrounds with mismatched light sidebars/dialogs.
+
+### Migration
+- If you previously relied on automatic light/dark switching, set up a Home Assistant automation calling the `frontend.set_theme` service based on `sun.sun` or a time trigger to switch between "Liquid Glass" and "Liquid Glass Light" explicitly.
+
 ## [1.1.1] - 2026-05-08
 
 ### Fixed
@@ -58,7 +66,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Optimized color variables for dark dashboards
 - Full coverage of Home Assistant 2024.1.0+ theme variables
 
-[Unreleased]: https://github.com/studio-prisma/homeassistant-theme-liquid-glass/compare/v1.1.1...HEAD
+[Unreleased]: https://github.com/studio-prisma/homeassistant-theme-liquid-glass/compare/v1.1.2...HEAD
+[1.1.2]: https://github.com/studio-prisma/homeassistant-theme-liquid-glass/compare/v1.1.1...v1.1.2
 [1.1.1]: https://github.com/studio-prisma/homeassistant-theme-liquid-glass/compare/v1.1.0...v1.1.1
 [1.1.0]: https://github.com/studio-prisma/homeassistant-theme-liquid-glass/compare/v1.0.0...v1.1.0
 [1.0.0]: https://github.com/studio-prisma/homeassistant-theme-liquid-glass/releases/tag/v1.0.0

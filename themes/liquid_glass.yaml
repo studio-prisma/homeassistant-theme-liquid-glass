@@ -148,29 +148,8 @@ Liquid Glass:
   glass-glow-violet: "linear-gradient(135deg, rgba(157, 130, 230, 0.22), rgba(190, 150, 230, 0.08))"
   glass-glow-mint: "linear-gradient(135deg, rgba(74, 210, 149, 0.22), rgba(120, 230, 180, 0.08))"
 
-  modes:
-    light:
-      primary-background-color: "#f5f3ee"
-      secondary-background-color: "#ffffff"
-      card-background-color: "rgba(255, 255, 255, 0.7)"
-      ha-card-background: "rgba(255, 255, 255, 0.7)"
-      primary-text-color: "#1a1d24"
-      secondary-text-color: "rgba(26, 29, 36, 0.65)"
-      sidebar-background-color: "#fafaf7"
-      sidebar-icon-color: "rgba(26, 29, 36, 0.55)"
-      sidebar-text-color: "rgba(26, 29, 36, 0.85)"
-      sidebar-selected-background-color: "rgba(58, 127, 207, 0.1)"
-      glass-bg: "rgba(255, 255, 255, 0.65)"
-      glass-bg-hover: "rgba(255, 255, 255, 0.85)"
-      glass-border: "1px solid rgba(0, 0, 0, 0.08)"
-      glass-shadow: "0 4px 20px rgba(0, 0, 0, 0.06)"
-    dark:
-      primary-background-color: "#0a0d18"
-      secondary-background-color: "#0f1320"
-      card-background-color: "rgba(255, 255, 255, 0.05)"
-      ha-card-background: "rgba(255, 255, 255, 0.05)"
-      primary-text-color: "#f5f7fa"
-      secondary-text-color: "rgba(245, 247, 250, 0.65)"
+  # NOTE: No `modes:` block — theme stays dark on all OS settings.
+  # For light look, select "Liquid Glass Light" explicitly.
 
 # =====================================================================
 # Liquid Glass Light (standalone light variant)
