@@ -7,6 +7,31 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.2.3] - 2026-05-08
+
+### Fixed
+- **More white-on-white form fields** — Time-pickers, date-pickers, password fields, language picker, "add entry" inputs and header-menu hover states still rendered with default browser colors after v1.2.2. HA Frontend uses additional variables that v1.2.2 didn't cover.
+
+### Added
+Twenty-five additional theme variables across all variants:
+
+**HA `input-*` aliases** (drives `ha-textfield`, `ha-combo-box`, `ha-time-input`, `ha-date-input`):
+`input-fill-color`, `input-ink-color`, `input-label-ink-color`, `input-idle-line-color`, `input-hover-line-color`, `input-outlined-idle-border-color`, `input-outlined-hover-border-color`, `input-disabled-fill-color`, `input-disabled-ink-color`, `input-disabled-line-color`
+
+**Outlined text fields**:
+`mdc-text-field-outlined-idle-border-color`, `mdc-text-field-outlined-hover-border-color`, `mdc-text-field-outlined-disabled-border-color`
+
+**Menu surfaces & text colors** (dropdown background, list text, hint text):
+`mdc-menu-surface-fill-color`, `mdc-theme-text-primary-on-background`, `mdc-theme-text-secondary-on-background`, `mdc-theme-text-hint-on-background`, `mdc-theme-text-disabled-on-background`
+
+**Hover states** (header menu, list rows):
+`mdc-list-item-hover-state-layer-color`, `mdc-list-item-hover-state-layer-opacity`, `mdc-list-item-focus-state-layer-color`
+
+**Disabled buttons** (Save / Submit when greyed):
+`mdc-button-disabled-fill-color`, `mdc-button-disabled-ink-color`, `mdc-button-outline-color`
+
+All values present in every dark variant (Liquid Glass, Compact, Sunset, Floorplan, Auto's main block) plus light pendants in Light only and Auto's modes:light.
+
 ## [1.2.2] - 2026-05-08
 
 ### Changed
@@ -102,7 +127,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 - Initial public release of Liquid Glass Theme
 
-[Unreleased]: https://github.com/studio-prisma/homeassistant-theme-liquid-glass/compare/v1.2.2...HEAD
+[Unreleased]: https://github.com/studio-prisma/homeassistant-theme-liquid-glass/compare/v1.2.3...HEAD
+[1.2.3]: https://github.com/studio-prisma/homeassistant-theme-liquid-glass/compare/v1.2.2...v1.2.3
 [1.2.2]: https://github.com/studio-prisma/homeassistant-theme-liquid-glass/compare/v1.2.1...v1.2.2
 [1.2.1]: https://github.com/studio-prisma/homeassistant-theme-liquid-glass/compare/v1.2.0...v1.2.1
 [1.2.0]: https://github.com/studio-prisma/homeassistant-theme-liquid-glass/compare/v1.1.2...v1.2.0
