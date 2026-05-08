@@ -4,16 +4,21 @@ A premium glass-morphism theme for Home Assistant — translucent surfaces, soft
 
 ## Six variants
 
-- **Liquid Glass** — auto-switches with OS (Light/Dark)
-- **Liquid Glass Light only** — always light
-- **Liquid Glass Dark only** — always dark
+- **Liquid Glass** — auto-switch (colors only, no background image)
+- **Liquid Glass Light only** — always light, with `dawn.png` background
+- **Liquid Glass Dark only** — always dark, with `aurora.png` background
 - **Liquid Glass Compact** — wall-tablets, dense layouts
 - **Liquid Glass Sunset** — warm rose/amber palette
 - **Liquid Glass Floorplan** — heatmap-glow for picture-element cards
 
-## Activation
+## Setup
 
-After install, restart HA → **Profile → Theme** → select your variant.
+After install, restart HA. Then:
+
+1. Create folder `/config/www/liquid_glass/`
+2. Copy all PNGs from `docs/assets/backgrounds/` into it (`aurora`, `dawn`, `night`, `calm`)
+3. Reload themes
+4. **Profile → Theme** → select your variant
 
 `configuration.yaml`:
 
@@ -21,10 +26,6 @@ After install, restart HA → **Profile → Theme** → select your variant.
 frontend:
   themes: !include_dir_merge_named themes/
 ```
-
-## Optional Background
-
-Copy `docs/assets/liquid_glass_bg.png` (or any SVG from `docs/assets/backgrounds/`) into your `/config/www/` folder. Theme uses it automatically.
 
 ## Tested
 

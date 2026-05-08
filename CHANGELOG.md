@@ -7,6 +7,26 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.2.1] - 2026-05-08
+
+### Fixed
+- **Auto-switch background bug** — `lovelace-background` could not reliably be overridden in `modes:light` (HA `modes:` block limitation with complex CSS shorthands). The `Liquid Glass` auto-switch variant no longer sets a background image — it switches colors only. For full light/dark with backgrounds, switch between `Liquid Glass Light only` and `Liquid Glass Dark only` via automation (see README).
+
+### Changed
+- **Background folder reorganized** — all four backgrounds now live in `/config/www/liquid_glass/` (instead of `/config/www/`). Cleaner structure, easier to manage.
+- **All backgrounds are now PNGs** — `aurora.png`, `dawn.png`, `night.png`, `calm.png`. Higher visual fidelity than the previous SVG vectors. Each ~300–500 KB.
+- Theme paths updated: `/local/liquid_glass/aurora.png` (was `/local/liquid_glass_bg.png`), `/local/liquid_glass/dawn.png` (was `/local/dawn.svg`).
+- README rewritten with clearer 3-step install (theme + backgrounds + activate) and a section pointing users to free background sources (Unsplash, Pexels, AI generators).
+
+### Removed
+- `dawn.svg`, `night.svg`, `calm.svg` from `docs/assets/backgrounds/` (replaced by PNG versions).
+- `liquid_glass_bg.png` from `docs/assets/` (now `docs/assets/backgrounds/aurora.png`).
+
+### Migration
+- Create `/config/www/liquid_glass/` and copy all four PNGs in.
+- If you had `liquid_glass_bg.png` in `/config/www/`, you can remove it.
+- Theme will fall back to solid color if PNG is missing — no crash.
+
 ## [1.2.0] - 2026-05-08
 
 ### Added
@@ -62,7 +82,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 - Initial public release of Liquid Glass Theme
 
-[Unreleased]: https://github.com/studio-prisma/homeassistant-theme-liquid-glass/compare/v1.2.0...HEAD
+[Unreleased]: https://github.com/studio-prisma/homeassistant-theme-liquid-glass/compare/v1.2.1...HEAD
+[1.2.1]: https://github.com/studio-prisma/homeassistant-theme-liquid-glass/compare/v1.2.0...v1.2.1
 [1.2.0]: https://github.com/studio-prisma/homeassistant-theme-liquid-glass/compare/v1.1.2...v1.2.0
 [1.1.2]: https://github.com/studio-prisma/homeassistant-theme-liquid-glass/compare/v1.1.1...v1.1.2
 [1.1.1]: https://github.com/studio-prisma/homeassistant-theme-liquid-glass/compare/v1.1.0...v1.1.1
