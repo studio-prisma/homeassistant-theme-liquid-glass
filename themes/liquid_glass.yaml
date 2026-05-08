@@ -1,0 +1,127 @@
+# =====================================================================
+# Liquid Glass — Custom HA Theme
+# Modern glass-morphism aesthetic with layered translucency
+# Drop this into /config/themes/liquid_glass.yaml
+# Add `frontend: themes: !include_dir_merge_named themes/` to configuration.yaml
+# Restart HA, then select theme "Liquid Glass" in Profile or per Dashboard.
+# =====================================================================
+
+Liquid Glass:
+  # ----- BASE SURFACES -----
+  primary-background-color: "#0a0d18"
+  secondary-background-color: "#0f1320"
+  card-background-color: "rgba(255, 255, 255, 0.05)"
+  ha-card-background: "rgba(255, 255, 255, 0.05)"
+  popup-background-color: "rgba(15, 19, 32, 0.92)"
+  app-header-background-color: "rgba(10, 13, 24, 0.6)"
+  app-header-text-color: "#ffffff"
+  sidebar-background-color: "#0a0d18"
+
+  # ----- TEXT -----
+  primary-text-color: "#f5f7fa"
+  secondary-text-color: "rgba(245, 247, 250, 0.65)"
+  text-primary-color: "#ffffff"
+  disabled-text-color: "rgba(245, 247, 250, 0.35)"
+
+  # ----- BRAND / ACCENT -----
+  primary-color: "#7ab8ff"           # soft cyan blue accent
+  accent-color: "#ffb454"            # warm amber for state-glow
+  light-primary-color: "#a8d0ff"
+  dark-primary-color: "#3a7fcf"
+
+  # ----- STATE COLORS -----
+  state-icon-color: "rgba(245, 247, 250, 0.85)"
+  state-icon-active-color: "#ffb454"
+  state-icon-unavailable-color: "rgba(245, 247, 250, 0.25)"
+  paper-item-icon-color: "rgba(245, 247, 250, 0.75)"
+  paper-item-icon-active-color: "#ffb454"
+
+  # Domain state colors
+  state-light-active-color: "#ffb454"
+  state-switch-active-color: "#7ab8ff"
+  state-binary_sensor-alerting-color: "#ff5a6e"
+  state-climate-heating-color: "#ff8b4a"
+  state-climate-cooling-color: "#7ab8ff"
+
+  # ----- SEMANTIC -----
+  success-color: "#4ad295"
+  warning-color: "#ffb454"
+  error-color: "#ff5a6e"
+  info-color: "#7ab8ff"
+
+  # ----- DIVIDERS / BORDERS -----
+  divider-color: "rgba(255, 255, 255, 0.08)"
+  outline-color: "rgba(255, 255, 255, 0.1)"
+  card-background-color-rgb: "255, 255, 255"
+
+  # ----- HA-CARD -----
+  ha-card-border-radius: "22px"
+  ha-card-border-width: "1px"
+  ha-card-border-color: "rgba(255, 255, 255, 0.1)"
+  ha-card-box-shadow: "0 8px 32px rgba(0, 0, 0, 0.25)"
+
+  # ----- INTERACTIVE -----
+  switch-checked-color: "#7ab8ff"
+  switch-unchecked-color: "rgba(255, 255, 255, 0.2)"
+  paper-slider-active-color: "#7ab8ff"
+  paper-slider-knob-color: "#ffffff"
+  paper-slider-pin-color: "#7ab8ff"
+  mdc-theme-primary: "#7ab8ff"
+
+  # ----- MUSHROOM TOKENS -----
+  mush-rgb-amber: "255, 180, 84"
+  mush-rgb-blue: "122, 184, 255"
+  mush-rgb-cyan: "100, 220, 220"
+  mush-rgb-green: "74, 210, 149"
+  mush-rgb-orange: "255, 139, 74"
+  mush-rgb-pink: "255, 122, 168"
+  mush-rgb-purple: "157, 130, 230"
+  mush-rgb-red: "255, 90, 110"
+  mush-rgb-yellow: "255, 200, 100"
+  mush-rgb-disabled: "120, 120, 130"
+
+  # ----- BUBBLE CARD TOKENS -----
+  bubble-main-background-color: "rgba(255, 255, 255, 0.05)"
+  bubble-secondary-background-color: "rgba(255, 255, 255, 0.08)"
+  bubble-icon-background-color: "rgba(255, 255, 255, 0.08)"
+  bubble-button-border-radius: "20px"
+  bubble-pop-up-border-radius: "26px"
+  bubble-accent-color: "#7ab8ff"
+
+  # ----- TYPOGRAPHY -----
+  primary-font-family: "-apple-system, 'SF Pro Display', 'Inter', system-ui, sans-serif"
+  paper-font-common-base_-_font-family: "-apple-system, 'SF Pro Display', 'Inter', system-ui, sans-serif"
+
+  # ----- CARD-MOD GLOBAL VARIABLES (used by inline mods in dashboard) -----
+  glass-bg: "rgba(255, 255, 255, 0.05)"
+  glass-bg-hover: "rgba(255, 255, 255, 0.08)"
+  glass-border: "1px solid rgba(255, 255, 255, 0.1)"
+  glass-blur: "blur(30px) saturate(1.4)"
+  glass-radius: "22px"
+  glass-radius-lg: "26px"
+  glass-radius-pill: "100px"
+  glass-shadow: "0 8px 32px rgba(0, 0, 0, 0.25)"
+  glass-glow-warm: "linear-gradient(135deg, rgba(255, 180, 84, 0.22), rgba(255, 200, 140, 0.08))"
+  glass-glow-cool: "linear-gradient(135deg, rgba(122, 184, 255, 0.22), rgba(100, 220, 220, 0.08))"
+  glass-glow-violet: "linear-gradient(135deg, rgba(157, 130, 230, 0.22), rgba(190, 150, 230, 0.08))"
+  glass-glow-mint: "linear-gradient(135deg, rgba(74, 210, 149, 0.22), rgba(120, 230, 180, 0.08))"
+
+  modes:
+    light:
+      primary-background-color: "#f5f3ee"
+      secondary-background-color: "#ffffff"
+      card-background-color: "rgba(255, 255, 255, 0.7)"
+      ha-card-background: "rgba(255, 255, 255, 0.7)"
+      primary-text-color: "#1a1d24"
+      secondary-text-color: "rgba(26, 29, 36, 0.65)"
+      glass-bg: "rgba(255, 255, 255, 0.65)"
+      glass-bg-hover: "rgba(255, 255, 255, 0.85)"
+      glass-border: "1px solid rgba(0, 0, 0, 0.08)"
+      glass-shadow: "0 4px 20px rgba(0, 0, 0, 0.06)"
+    dark:
+      primary-background-color: "#0a0d18"
+      secondary-background-color: "#0f1320"
+      card-background-color: "rgba(255, 255, 255, 0.05)"
+      ha-card-background: "rgba(255, 255, 255, 0.05)"
+      primary-text-color: "#f5f7fa"
+      secondary-text-color: "rgba(245, 247, 250, 0.65)"
