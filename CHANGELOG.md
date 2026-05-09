@@ -7,6 +7,85 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.2.8] - 2026-05-09
+
+### Fixed (WCAG AA contrast audit)
+Systematic audit of all foreground/background pairs across all variants. Two findings remediated:
+
+- **Light only — sidebar selected text was unreadable** on the semi-transparent blue tint over cream background. Changed `sidebar-selected-text-color` from a fixed dark hex to `var(--primary-text-color)` so it inherits the variant's primary text and stays legible.
+- **Liquid Glass / Compact / Floorplan — filled brand-button text contrast at 4.10:1** (marginal WCAG AA fail). Adjusted `--dark-primary-color` from `#3a7fcf` to `#2a6cb8` (slightly darker mid-blue). White text on the new accent now hits **5.47:1** (full WCAG AA pass). Sunset's rose accent (`#cf3a7f`) remains — already at 4.60:1.
+
+### Audit methodology
+Custom Python contrast checker resolves CSS `var()` chains within each variant, falls back to HA's known core color scale (from `src/resources/theme/color/core.globals.ts`), and computes WCAG-formula contrast ratios. Thresholds: 4.5:1 for normal text, 3:1 for interactive surfaces and large text.
+
+13 critical token pairs checked per variant (primary text on card/popup/primary-bg, secondary text, sidebar text, sidebar selected, app-header, toast, filled-brand text on accent, tinted-brand text, state icon, sidebar icon). Almost all pairs scored 12:1 to 19:1 — well above AAA — with only the two findings above.
+
+### Not changed
+- Sunset filled-brand at 4.60:1 — passes, no action needed.
+- Auto (experimental) — its `modes.light` block has its own light-mode tokens; audit was not extended into nested mode blocks (deferred to v1.3.x if needed).
+
+## [1.2.7] - 2026-05-09
+
+### Fixed
+- **Bright blue (#009ac7) on filled brand buttons no longer clashes with theme palette.** "Bedingung hinzufügen" / "Aktion hinzufügen" / similar `ha-button[variant="brand"][appearance="filled"]` controls now use the theme's own accent colors (`--dark-primary-color` at rest/active, `--primary-color` on hover).
+
+### Root cause
+HA Frontend's `darkSemanticColorStyles` (in `src/resources/theme/color/semantic.globals.ts`) defines fill-primary tokens only for **`quiet`** and **`normal`** intensities — the **`loud`** variants (`fill-primary-loud-resting/hover/active`) are simply missing from the dark block. Browsers fall through to the light-mode defaults, which resolve to `--ha-color-primary-40 = #009ac7` (HA's stock bright blue). That bright blue collides with theme palettes that use a different accent (Sunset rose, Liquid Glass mid-blue, etc.).
+
+### Added
+Per dark variant (Liquid Glass, Compact, Sunset, Floorplan), nine override tokens:
+- `ha-color-fill-primary-loud-resting/hover/active`
+- `ha-color-fill-primary-normal-resting/hover/active`
+- `ha-color-on-primary-quiet/normal/loud` (text color on primary surfaces)
+
+Background tokens map to `var(--dark-primary-color)` (rest/active) or `var(--primary-color)` (hover); text tokens map to `var(--primary-text-color)` / `var(--text-primary-color)`. Per-variant palettes drive both background **and** legible text automatically — no hardcoded hex, no light-blue-on-light-blue.
+
+Also added `--light-primary-color` and `--dark-primary-color` to **Compact** and **Floorplan** variants (were missing — both fell back to undefined behavior).
+
+### Out of scope (deferred to v1.2.8)
+A full WCAG AA contrast audit of all token combinations (4.5:1 text, 3:1 interactive surfaces). v1.2.7 fixes the most visible clash; the systematic audit comes next.
+
+## [1.2.6] - 2026-05-08
+
+### Fixed
+- **Tooltips, dropdown popovers, action-add dialogs, active-filter pills, section titles** — all the remaining white-on-white spots reported after v1.2.5 (Verisure tooltip, Browser-Mod tooltip, language-picker dropdown, automation-trigger "Zu" popover, action-hinzufügen drop zone, integrations active-filters bar).
+- **`wa-color-surface-raised` no longer semi-transparent** — the previous `rgba(20, 25, 40, 0.75)` value let the white body bleed through whenever a popover/dialog rendered on top. Now opaque (`#141928` dark, `#ffffff` light).
+
+### Root cause (this time the actual one)
+
+HA Frontend has a complete dark-mode token system (`darkSemanticColorStyles` + `darkColorStyles`) that automatically supplies dark values for **every** `--ha-color-fill-*-*-*`, `--ha-color-surface-*`, `--ha-color-form-*`, `--ha-color-text-*`, `--ha-color-border-*` token — but only when HA decides the theme is "dark".
+
+How HA decides (from `themes-mixin.ts`):
+
+```ts
+if (!selectedTheme.modes || !("dark" in selectedTheme.modes)) {
+  darkMode = false;          // ← without modes.dark, theme is forced LIGHT
+} else if (!("light" in selectedTheme.modes)) {
+  darkMode = true;            // ← only modes.dark, no modes.light → forced DARK
+}
+```
+
+Our dark variants ("Liquid Glass", "Compact", "Sunset", "Floorplan") had **no `modes:` block at all** → HA forced `darkMode = false` → none of HA's dark tokens were ever loaded. That's why the v1.2.4 / v1.2.5 token guesswork only patched the most visible spots and never reached tooltips, dialog overlays, and active-filter pills.
+
+### Added
+- **`modes: dark: {}`** (empty, declarative) on every dark variant: Liquid Glass, Compact, Sunset, Floorplan.
+- **`modes: light: {}`** on Light only.
+- Auto (experimental) unchanged — its existing `modes.light` block is intentional (v1.1.2 "disable auto switching" decision).
+
+### Side-effect bonus
+HA also injects `<meta name="color-scheme" content="dark">` whenever `darkMode = true`. That sets the actual CSS `color-scheme` property browsers need for the `light-dark()` function — which means the **`light-dark()` border-color residue from v1.2.4 is fixed by this release too.** v1.3.0 (JS-loader) likely no longer required.
+
+### Diagnostic credit
+- DOM inspection on `<wa-input>`, `<ha-combo-box-item>`, `<ha-tooltip>`, `<ha-section-title>`, `<wa-dialog>`, `.active-filters` confirmed the missing token layers.
+- Source-code analysis of HA frontend `dev` branch:
+  - `src/state/themes-mixin.ts` (darkMode resolution logic)
+  - `src/common/dom/apply_themes_on_element.ts` (theme rules merging + dark variables injection)
+  - `src/resources/theme/color/semantic.globals.ts` (full `--ha-color-fill-*` / `--ha-color-surface-*` token definitions for both light and dark)
+  - `src/resources/theme/color/color.globals.ts` (`darkColorStyles` triggers for `--primary-background-color`, `--card-background-color`)
+
+### Cleanup deferred to v1.2.7
+Many tokens added in v1.2.4 / v1.2.5 (`--mdc-*`, `--paper-*`, `--input-*`, `--wa-color-*`, the explicit `--ha-color-form-*` and `--md-sys-color-*` overrides) are now **redundant** because HA's dark variables cover them. Keeping them for one release as defense-in-depth; v1.2.7 will prune to the minimum required set.
+
 ## [1.2.5] - 2026-05-08
 
 ### Fixed

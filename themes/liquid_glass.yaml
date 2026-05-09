@@ -37,7 +37,7 @@ Liquid Glass:
   primary-color: "#7ab8ff"
   accent-color: "#ffb454"
   light-primary-color: "#a8d0ff"
-  dark-primary-color: "#3a7fcf"
+  dark-primary-color: "#2a6cb8"
   state-icon-color: "rgba(245, 247, 250, 0.85)"
   state-icon-active-color: "#ffb454"
   paper-item-icon-color: "rgba(245, 247, 250, 0.75)"
@@ -151,7 +151,7 @@ Liquid Glass:
   mdc-button-outline-color: "rgba(255, 255, 255, 0.2)"
   color-scheme: "dark"
   wa-color-surface-default: "#0f1320"
-  wa-color-surface-raised: "rgba(20, 25, 40, 0.75)"
+  wa-color-surface-raised: "#141928"
   wa-color-surface-lowered: "#0a0d18"
   wa-color-text-normal: "#f5f7fa"
   wa-color-text-quiet: "rgba(245, 247, 250, 0.65)"
@@ -195,6 +195,20 @@ Liquid Glass:
   md-list-item-leading-icon-color: "var(--state-icon-color)"
   md-list-item-container-color: "transparent"
 
+  # v1.2.7: HA's darkSemanticColorStyles is missing fill-primary-loud-* tokens
+  # and fill-primary-normal-active reuses the bright primary-40 (#009ac7).
+  # Override with theme accent: dark-primary at rest/active, lighter primary on hover.
+  ha-color-fill-primary-loud-resting: "var(--dark-primary-color)"
+  ha-color-fill-primary-loud-hover: "var(--primary-color)"
+  ha-color-fill-primary-loud-active: "var(--dark-primary-color)"
+  ha-color-fill-primary-normal-resting: "var(--dark-primary-color)"
+  ha-color-fill-primary-normal-hover: "var(--primary-color)"
+  ha-color-fill-primary-normal-active: "var(--dark-primary-color)"
+  ha-color-on-primary-quiet: "var(--primary-text-color)"
+  ha-color-on-primary-normal: "var(--primary-text-color)"
+  ha-color-on-primary-loud: "var(--text-primary-color)"
+  modes:
+    dark: {}
 # Liquid Glass Auto — OS-driven (known limitations)
 Liquid Glass Auto (experimental):
   primary-background-color: "#0a0d18"
@@ -221,7 +235,7 @@ Liquid Glass Auto (experimental):
   primary-color: "#7ab8ff"
   accent-color: "#ffb454"
   light-primary-color: "#a8d0ff"
-  dark-primary-color: "#3a7fcf"
+  dark-primary-color: "#2a6cb8"
   state-icon-color: "rgba(245, 247, 250, 0.85)"
   state-icon-active-color: "#ffb454"
   state-icon-unavailable-color: "rgba(245, 247, 250, 0.25)"
@@ -400,7 +414,7 @@ Liquid Glass Auto (experimental):
       mdc-button-outline-color: "rgba(0, 0, 0, 0.2)"
       color-scheme: "light"
       wa-color-surface-default: "#ffffff"
-      wa-color-surface-raised: "rgba(255, 255, 255, 0.85)"
+      wa-color-surface-raised: "#ffffff"
       wa-color-surface-lowered: "#f5f3ee"
       wa-color-text-normal: "#1a1d24"
       wa-color-text-quiet: "rgba(26, 29, 36, 0.65)"
@@ -489,7 +503,7 @@ Liquid Glass Auto (experimental):
   mdc-button-outline-color: "rgba(255, 255, 255, 0.2)"
   color-scheme: "dark"
   wa-color-surface-default: "#0f1320"
-  wa-color-surface-raised: "rgba(20, 25, 40, 0.75)"
+  wa-color-surface-raised: "#141928"
   wa-color-surface-lowered: "#0a0d18"
   wa-color-text-normal: "#f5f7fa"
   wa-color-text-quiet: "rgba(245, 247, 250, 0.65)"
@@ -582,7 +596,7 @@ Liquid Glass Light only:
   sidebar-icon-color: "rgba(26, 29, 36, 0.55)"
   sidebar-text-color: "rgba(26, 29, 36, 0.85)"
   sidebar-selected-icon-color: "#3a7fcf"
-  sidebar-selected-text-color: "#0a0d18"
+  sidebar-selected-text-color: "var(--primary-text-color)"
   sidebar-selected-background-color: "rgba(58, 127, 207, 0.1)"
   divider-color: "rgba(0, 0, 0, 0.08)"
   outline-color: "rgba(0, 0, 0, 0.1)"
@@ -673,7 +687,7 @@ Liquid Glass Light only:
   mdc-button-outline-color: "rgba(0, 0, 0, 0.2)"
   color-scheme: "light"
   wa-color-surface-default: "#ffffff"
-  wa-color-surface-raised: "rgba(255, 255, 255, 0.85)"
+  wa-color-surface-raised: "#ffffff"
   wa-color-surface-lowered: "#f5f3ee"
   wa-color-text-normal: "#1a1d24"
   wa-color-text-quiet: "rgba(26, 29, 36, 0.65)"
@@ -717,6 +731,8 @@ Liquid Glass Light only:
   md-list-item-leading-icon-color: "var(--state-icon-color)"
   md-list-item-container-color: "transparent"
 
+  modes:
+    light: {}
 # Liquid Glass Compact — tighter spacing
 Liquid Glass Compact:
   primary-background-color: "#0a0d18"
@@ -737,6 +753,8 @@ Liquid Glass Compact:
   primary-text-color: "#f5f7fa"
   secondary-text-color: "rgba(245, 247, 250, 0.65)"
   primary-color: "#7ab8ff"
+  light-primary-color: "#a8d0ff"
+  dark-primary-color: "#2a6cb8"
   accent-color: "#ffb454"
   state-icon-color: "rgba(245, 247, 250, 0.85)"
   state-icon-active-color: "#ffb454"
@@ -814,7 +832,7 @@ Liquid Glass Compact:
   mdc-button-outline-color: "rgba(255, 255, 255, 0.2)"
   color-scheme: "dark"
   wa-color-surface-default: "#0f1320"
-  wa-color-surface-raised: "rgba(20, 25, 40, 0.75)"
+  wa-color-surface-raised: "#141928"
   wa-color-surface-lowered: "#0a0d18"
   wa-color-text-normal: "#f5f7fa"
   wa-color-text-quiet: "rgba(245, 247, 250, 0.65)"
@@ -858,6 +876,20 @@ Liquid Glass Compact:
   md-list-item-leading-icon-color: "var(--state-icon-color)"
   md-list-item-container-color: "transparent"
 
+  # v1.2.7: HA's darkSemanticColorStyles is missing fill-primary-loud-* tokens
+  # and fill-primary-normal-active reuses the bright primary-40 (#009ac7).
+  # Override with theme accent: dark-primary at rest/active, lighter primary on hover.
+  ha-color-fill-primary-loud-resting: "var(--dark-primary-color)"
+  ha-color-fill-primary-loud-hover: "var(--primary-color)"
+  ha-color-fill-primary-loud-active: "var(--dark-primary-color)"
+  ha-color-fill-primary-normal-resting: "var(--dark-primary-color)"
+  ha-color-fill-primary-normal-hover: "var(--primary-color)"
+  ha-color-fill-primary-normal-active: "var(--dark-primary-color)"
+  ha-color-on-primary-quiet: "var(--primary-text-color)"
+  ha-color-on-primary-normal: "var(--primary-text-color)"
+  ha-color-on-primary-loud: "var(--text-primary-color)"
+  modes:
+    dark: {}
 # Liquid Glass Sunset — warm rose/amber palette
 Liquid Glass Sunset:
   primary-background-color: "#1a0d18"
@@ -996,7 +1028,7 @@ Liquid Glass Sunset:
   mdc-button-outline-color: "rgba(255, 255, 255, 0.2)"
   color-scheme: "dark"
   wa-color-surface-default: "#0f1320"
-  wa-color-surface-raised: "rgba(20, 25, 40, 0.75)"
+  wa-color-surface-raised: "#141928"
   wa-color-surface-lowered: "#0a0d18"
   wa-color-text-normal: "#f5f7fa"
   wa-color-text-quiet: "rgba(245, 247, 250, 0.65)"
@@ -1040,6 +1072,20 @@ Liquid Glass Sunset:
   md-list-item-leading-icon-color: "var(--state-icon-color)"
   md-list-item-container-color: "transparent"
 
+  # v1.2.7: HA's darkSemanticColorStyles is missing fill-primary-loud-* tokens
+  # and fill-primary-normal-active reuses the bright primary-40 (#009ac7).
+  # Override with theme accent: dark-primary at rest/active, lighter primary on hover.
+  ha-color-fill-primary-loud-resting: "var(--dark-primary-color)"
+  ha-color-fill-primary-loud-hover: "var(--primary-color)"
+  ha-color-fill-primary-loud-active: "var(--dark-primary-color)"
+  ha-color-fill-primary-normal-resting: "var(--dark-primary-color)"
+  ha-color-fill-primary-normal-hover: "var(--primary-color)"
+  ha-color-fill-primary-normal-active: "var(--dark-primary-color)"
+  ha-color-on-primary-quiet: "var(--primary-text-color)"
+  ha-color-on-primary-normal: "var(--primary-text-color)"
+  ha-color-on-primary-loud: "var(--text-primary-color)"
+  modes:
+    dark: {}
 # Liquid Glass Floorplan — heatmap-glow accents
 Liquid Glass Floorplan:
   primary-background-color: "#0a0d18"
@@ -1060,6 +1106,8 @@ Liquid Glass Floorplan:
   primary-text-color: "#f5f7fa"
   secondary-text-color: "rgba(245, 247, 250, 0.65)"
   primary-color: "#7ab8ff"
+  light-primary-color: "#a8d0ff"
+  dark-primary-color: "#2a6cb8"
   accent-color: "#ffb454"
   state-icon-color: "rgba(245, 247, 250, 0.85)"
   state-icon-active-color: "#ffb454"
@@ -1145,7 +1193,7 @@ Liquid Glass Floorplan:
   mdc-button-outline-color: "rgba(255, 255, 255, 0.2)"
   color-scheme: "dark"
   wa-color-surface-default: "#0f1320"
-  wa-color-surface-raised: "rgba(20, 25, 40, 0.75)"
+  wa-color-surface-raised: "#141928"
   wa-color-surface-lowered: "#0a0d18"
   wa-color-text-normal: "#f5f7fa"
   wa-color-text-quiet: "rgba(245, 247, 250, 0.65)"
@@ -1188,3 +1236,17 @@ Liquid Glass Floorplan:
   md-list-item-supporting-text-color: "var(--secondary-text-color)"
   md-list-item-leading-icon-color: "var(--state-icon-color)"
   md-list-item-container-color: "transparent"
+  # v1.2.7: HA's darkSemanticColorStyles is missing fill-primary-loud-* tokens
+  # and fill-primary-normal-active reuses the bright primary-40 (#009ac7).
+  # Override with theme accent: dark-primary at rest/active, lighter primary on hover.
+  ha-color-fill-primary-loud-resting: "var(--dark-primary-color)"
+  ha-color-fill-primary-loud-hover: "var(--primary-color)"
+  ha-color-fill-primary-loud-active: "var(--dark-primary-color)"
+  ha-color-fill-primary-normal-resting: "var(--dark-primary-color)"
+  ha-color-fill-primary-normal-hover: "var(--primary-color)"
+  ha-color-fill-primary-normal-active: "var(--dark-primary-color)"
+  ha-color-on-primary-quiet: "var(--primary-text-color)"
+  ha-color-on-primary-normal: "var(--primary-text-color)"
+  ha-color-on-primary-loud: "var(--text-primary-color)"
+  modes:
+    dark: {}
