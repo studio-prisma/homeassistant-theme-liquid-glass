@@ -224,7 +224,7 @@ Side effect: HA also injects `<meta name="color-scheme" content="dark">`, which 
 ### Known limitations
 
 - **Auto (experimental)** — its `modes.light` block is fully populated for OS-driven switching, but `modes.dark` is intentionally not declared (legacy decision from v1.1.2 to disable HA's auto-switch). Use the [Auto-Switch Strategy](#auto-switch-strategy-recommended) automation pattern for reliable light/dark transitions.
-- **WCAG AA audit scope** — covered all top-level variants. The Auto theme's nested `modes.light` block was not audited token-by-token in v1.2.8 (deferred — its tokens overlap heavily with the Light only variant which did pass).
+- **WCAG AA audit — Auto `modes.light` block** — token-by-token audit completed (13 critical pairs, same methodology as v1.2.8). **All 13 pairs pass** (3.78:1 to 17.18:1). The three previously-deferred marginal cases (filled-brand 3.63, tinted-brand 4.10, error-color 3.03) were resolved in this release — see CHANGELOG.
 
 ### Diagnosing issues
 

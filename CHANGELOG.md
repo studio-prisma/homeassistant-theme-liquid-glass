@@ -20,6 +20,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `hacs.json` `name`: "Liquid Glass Theme" → "Liquid Glass by Studio Prisma" (HACS-listing branding only — in-HA theme dropdown labels unchanged for backwards compatibility with existing `theme: Liquid Glass` configs).
 - `info.md` tested-versions block synced with current README (HA Core 2026.5.0, Frontend 20260509.x, Supervisor 2026.05.0, OS 17.3) plus explicit minimum-supported note.
 
+### Fixed (Auto-Variant `modes.light` WCAG AA audit — completed v1.2.8 deferral)
+Re-ran the same 13-pair contrast methodology from v1.2.8, this time on the Auto variant's nested `modes.light` block. Initial audit found 3 marginal fails — all fixed in this release:
+
+- **`text-primary-color`** in `modes.light`: `"#0a0d18"` → `"#ffffff"`. Was inheriting near-black from the dark-mode definition; on the mid-blue brand accent the contrast was 3.63:1 (FAIL). Fix raises filled-brand button text to **5.34:1** (full WCAG AA pass).
+- **`primary-color`** in `modes.light`: `"#3a7fcf"` → `"#2a6cb8"`. Aligned with the v1.2.8 dark-primary token. Tinted-brand text on white card was 4.10:1 (marginal fail), now **5.34:1** (full WCAG AA pass).
+- **`error-color`** added to `modes.light`: `"#c4334a"` (previously fell back to dark-mode `#ff5a6e`, which had only 3.03:1 on white card). Now **5.36:1** (full WCAG AA pass).
+
+Full audit result: **all 13 critical pairs pass** (3.78:1 sidebar-icon to 17.18:1 sidebar-selected).
+
 ## [1.2.8] - 2026-05-09
 
 ### Fixed (WCAG AA contrast audit)
