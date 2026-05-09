@@ -1,7 +1,6 @@
 {
-  "name": "Liquid Glass Theme",
+  "name": "Liquid Glass by Studio Prisma",
   "content_in_root": false,
   "filename": "liquid_glass.yaml",
   "render_readme": true,
-  "homeassistant": "2024.1.0"
-}
+  "homeassistant": "2

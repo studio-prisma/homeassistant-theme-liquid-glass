@@ -156,11 +156,51 @@ For users with [card-mod](https://github.com/thomasloven/lovelace-card-mod):
 
 ## Customization
 
+### Override base colors
+
 ```yaml
 Liquid Glass:
   primary-color: "#ff7a8a"
   accent-color: "#7af5b8"
 ```
+
+### Per-room accent tokens
+
+Each variant ships eight room tokens as RGB triplets, ready to use with `rgb()` / `rgba()` for area-specific tinting. Defaults live inside `themes/liquid_glass.yaml`; override per dashboard via card-mod or globally via theme-mixin.
+
+| Token | Default (Liquid Glass) | Suggested area |
+|---|---|---|
+| `--room-living-rgb` | `255, 180, 84` (amber) | Living room |
+| `--room-bedroom-rgb` | `157, 130, 230` (lavender) | Bedroom |
+| `--room-office-rgb` | `122, 184, 255` (sky blue) | Office / Workspace |
+| `--room-kitchen-rgb` | `255, 139, 74` (coral) | Kitchen |
+| `--room-bathroom-rgb` | `100, 220, 220` (teal) | Bathroom |
+| `--room-garden-rgb` | `74, 210, 149` (mint) | Garden / Outdoor |
+| `--room-garage-rgb` | `120, 120, 130` (graphite) | Garage / Utility |
+| `--room-workshop-rgb` | `255, 200, 100` (warm gold) | Workshop / Hobby |
+
+**Use in a card via card-mod:**
+
+```yaml
+type: tile
+entity: light.living_room_main
+card_mod:
+  style: |
+    ha-card {
+      background: rgba(var(--room-living-rgb), 0.18);
+      border-left: 3px solid rgb(var(--room-living-rgb));
+    }
+```
+
+**Override globally (per theme):**
+
+```yaml
+Liquid Glass:
+  room-living-rgb: "210, 90, 130"   # custom rose for living
+  room-office-rgb: "90, 200, 170"   # custom teal for office
+```
+
+> Tokens are RGB triplets (no `rgb(...)` wrapper) so you can use them with both `rgb()` for solid colors and `rgba()` for transparency.
 
 ## Architecture — Token Layers
 
@@ -179,30 +219,4 @@ HA's frontend has accumulated several CSS-token generations as the codebase evol
 
 HA's resolver (`src/state/themes-mixin.ts`) requires a theme to declare a `modes:` block before it loads `darkSemanticColorStyles` + `darkColorStyles`. Every dark variant in this theme declares an empty `modes: dark: {}` to trigger the load — that's what gives tooltips, dropdown popovers, dialog backgrounds, and active-filter pills their dark backgrounds without us having to enumerate every single token by hand.
 
-Side effect: HA also injects `<meta name="color-scheme" content="dark">`, which gives browsers the actual CSS `color-scheme` property they need for the `light-dark()` function. Native `<input type="time">` and `<input type="number">` (alarm code, time pickers) inherit this and render correctly.
-
-### Known limitations
-
-- **Auto (experimental)** — its `modes.light` block is fully populated for OS-driven switching, but `modes.dark` is intentionally not declared (legacy decision from v1.1.2 to disable HA's auto-switch). Use the [Auto-Switch Strategy](#auto-switch-strategy-recommended) automation pattern for reliable light/dark transitions.
-- **WCAG AA audit scope** — covered all top-level variants. The Auto theme's nested `modes.light` block was not audited token-by-token in v1.2.8 (deferred — its tokens overlap heavily with the Light only variant which did pass).
-
-### Diagnosing issues
-
-Open the offending element in DevTools → Elements → expand `#shadow-root` chains → Computed tab → look for the CSS variable that resolves the wrong color. Issue templates in [`CONTRIBUTING.md`](CONTRIBUTING.md) walk through the format.
-
-## Versioning
-
-[Semantic Versioning](https://semver.org/). See [`CHANGELOG.md`](CHANGELOG.md).
-
-## Contributing
-
-See [`CONTRIBUTING.md`](CONTRIBUTING.md).
-
-## Credits
-
-- Designed & maintained by **studio-prisma**
-- Mushroom & Bubble card token compatibility ensured
-
-## License
-
-MIT — see [LICENSE](LICENSE).
+Side 

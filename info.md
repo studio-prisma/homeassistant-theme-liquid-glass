@@ -29,8 +29,9 @@ frontend:
 
 ## Tested
 
-HA Core 2026.5.0 · Frontend 20260429.3 · Supervisor 2026.04.2 · OS 17.3
+HA Core 2026.5.0 · Frontend 20260509.x · Supervisor 2026.05.0 · OS 17.3
+Minimum supported: Core 2024.1.0.
 
 ## Maintainer
 
-[studio-prisma](https://github.com/studio-prisma).
+[studio-prisma](h

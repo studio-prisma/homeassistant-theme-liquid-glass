@@ -12,6 +12,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - README "Known limitations" subsection clarifying Auto-theme behavior and v1.2.8 audit scope.
 - CONTRIBUTING "Diagnosing color / white-on-white / unreadable text bugs" section with DOM-inspect walkthrough — meant to prevent the speculative-fix-stacking pattern that hit v1.2.2–v1.2.4.
 - `.github/workflows/release.yml` — auto-creates a GitHub Release with extracted CHANGELOG notes whenever a `v*` tag is pushed. Includes `workflow_dispatch` for backfilling releases on existing tags.
+- `.github/workflows/validate.yml` — HACS Action validation for category `theme` on push, pull_request, daily schedule, and manual dispatch.
+- `.github/dependabot.yml` — weekly bumps of GitHub Actions dependencies (Mondays, Europe/Berlin), labeled `dependencies` + `ci`.
+- README "Per-room accent tokens" subsection (EN + DE) documenting the eight `--room-*-rgb` tokens with default values, suggested areas, and concrete card-mod + theme-override examples.
+
+### Changed
+- `hacs.json` `name`: "Liquid Glass Theme" → "Liquid Glass by Studio Prisma" (HACS-listing branding only — in-HA theme dropdown labels unchanged for backwards compatibility with existing `theme: Liquid Glass` configs).
+- `info.md` tested-versions block synced with current README (HA Core 2026.5.0, Frontend 20260509.x, Supervisor 2026.05.0, OS 17.3) plus explicit minimum-supported note.
 
 ## [1.2.8] - 2026-05-09
 
@@ -256,12 +263,4 @@ All values present in every dark variant (Liquid Glass, Compact, Sunset, Floorpl
 - Initial public release of Liquid Glass Theme
 
 [Unreleased]: https://github.com/studio-prisma/homeassistant-theme-liquid-glass/compare/v1.2.4...HEAD
-[1.2.4]: https://github.com/studio-prisma/homeassistant-theme-liquid-glass/compare/v1.2.3...v1.2.4
-[1.2.3]: https://github.com/studio-prisma/homeassistant-theme-liquid-glass/compare/v1.2.2...v1.2.3
-[1.2.2]: https://github.com/studio-prisma/homeassistant-theme-liquid-glass/compare/v1.2.1...v1.2.2
-[1.2.1]: https://github.com/studio-prisma/homeassistant-theme-liquid-glass/compare/v1.2.0...v1.2.1
-[1.2.0]: https://github.com/studio-prisma/homeassistant-theme-liquid-glass/compare/v1.1.2...v1.2.0
-[1.1.2]: https://github.com/studio-prisma/homeassistant-theme-liquid-glass/compare/v1.1.1...v1.1.2
-[1.1.1]: https://github.com/studio-prisma/homeassistant-theme-liquid-glass/compare/v1.1.0...v1.1.1
-[1.1.0]: https://github.com/studio-prisma/homeassistant-theme-liquid-glass/compare/v1.0.0...v1.1.0
-[1.0.0]: https://github.com/studio-prisma/homeassistant-theme-liquid-glass/releases/tag/v1.0.0
+[1.2.4]: https://git

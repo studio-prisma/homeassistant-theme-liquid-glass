@@ -122,12 +122,16 @@ Nebeneffekt: HA injiziert dann auch `<meta name="color-scheme" content="dark">`,
 
 DevTools → Elements → `#shadow-root`-Ketten aufklappen → Computed-Tab → CSS-Variable identifizieren, die die falsche Farbe resolved. Issue-Templates in [`CONTRIBUTING.md`](CONTRIBUTING.md) führen durch das Format.
 
-## Snippets
+## Anpassung
 
-- [`docs/demo-dashboard.yaml`](docs/demo-dashboard.yaml) — Showcase
-- [`docs/card-mod-snippets.yaml`](docs/card-mod-snippets.yaml) — 9 Drop-in-Mods
-- [`docs/floorplan-snippets.yaml`](docs/floorplan-snippets.yaml) — Picture-Element-Snippets
+### Basis-Farben überschreiben
 
-## Lizenz
+```yaml
+Liquid Glass:
+  primary-color: "#ff7a8a"
+  accent-color: "#7af5b8"
+```
 
-MIT — siehe [LICENSE](LICENSE).
+### Per-Room-Accent-Tokens
+
+Jede Variante liefert acht Raum-Tokens als RGB-Triplets — ready-to-use für `rgb()` / `rgba()`, um Karten pro Bereich einzufärben. Defaults stehen 
