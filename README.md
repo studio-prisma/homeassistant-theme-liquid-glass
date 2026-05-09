@@ -41,7 +41,7 @@ Pick in **Profile → Theme** or per dashboard via `theme: Liquid Glass Compact`
 - **Per-room accent tokens** (`room-living-rgb`, ...) — color cards differently per area
 - **Energy Dashboard integration** — grid, solar, battery, gas, water harmonized
 - **Notification toast styling** — system pop-ups match the theme
-- **Form field & dropdown styling** — language picker, search fields, selects render correctly in dark mode (no white-on-white text)
+- **Form field & dropdown styling** — language picker, search fields, selects, alarm-code input, time pickers, tooltips, dialog popovers all render correctly in dark mode via HA's dark token system (`modes:` block triggers `darkSemanticColorStyles` + `<meta color-scheme=dark>` injection — see [Architecture](#architecture--token-layers))
 - Sidebar refinement, Mushroom & Bubble card tokens
 - Card-mod global variables
 - **Background Pack** — four PNGs (Aurora, Dawn, Night, Calm)
@@ -49,10 +49,11 @@ Pick in **Profile → Theme** or per dashboard via `theme: Liquid Glass Compact`
 ## Tested With
 
 - Home Assistant Core 2026.5.0
-- Frontend 20260429.3
-- Supervisor 2026.04.2 / OS 17.3
+- Frontend 20260509.x (WebAwesome + Material Web 3 components)
+- Supervisor 2026.05.0 / OS 17.3
+- Browser: Chrome/Firefox/Safari/Edge desktop, iOS Companion App
 
-Minimum supported: **Core 2024.1.0**.
+Minimum supported: **Core 2024.1.0**. WCAG AA contrast verified for all dark variants (audit in v1.2.8).
 
 ## Installation
 
@@ -160,6 +161,34 @@ Liquid Glass:
   primary-color: "#ff7a8a"
   accent-color: "#7af5b8"
 ```
+
+## Architecture — Token Layers
+
+HA's frontend has accumulated several CSS-token generations as the codebase evolved. A theme that wants to render correctly on a modern HA install needs to cover all of them — that's why this file is large.
+
+| Layer | Used by | Generation |
+|---|---|---|
+| `--mdc-*` | Legacy Material Design Components | HA ≤ 2023 |
+| `--paper-*` | Polymer-era inputs | HA ≤ 2022 |
+| `--input-*`, `--mwc-*` | HA aliases for the above | bridge layer |
+| `--wa-color-*`, `--wa-form-control-*` | WebAwesome (Shoelace fork) — modern form controls | HA 2025+ |
+| `--ha-color-*`, `--ha-color-fill-*-*-*`, `--ha-color-surface-*` | HA's own semantic token system | HA 2025+ |
+| `--md-sys-color-*`, `--md-list-item-*` | Material Web 3 — combo-boxes, dialogs, list items | HA 2025+ |
+
+### How `modes:` unlocks dark mode
+
+HA's resolver (`src/state/themes-mixin.ts`) requires a theme to declare a `modes:` block before it loads `darkSemanticColorStyles` + `darkColorStyles`. Every dark variant in this theme declares an empty `modes: dark: {}` to trigger the load — that's what gives tooltips, dropdown popovers, dialog backgrounds, and active-filter pills their dark backgrounds without us having to enumerate every single token by hand.
+
+Side effect: HA also injects `<meta name="color-scheme" content="dark">`, which gives browsers the actual CSS `color-scheme` property they need for the `light-dark()` function. Native `<input type="time">` and `<input type="number">` (alarm code, time pickers) inherit this and render correctly.
+
+### Known limitations
+
+- **Auto (experimental)** — its `modes.light` block is fully populated for OS-driven switching, but `modes.dark` is intentionally not declared (legacy decision from v1.1.2 to disable HA's auto-switch). Use the [Auto-Switch Strategy](#auto-switch-strategy-recommended) automation pattern for reliable light/dark transitions.
+- **WCAG AA audit scope** — covered all top-level variants. The Auto theme's nested `modes.light` block was not audited token-by-token in v1.2.8 (deferred — its tokens overlap heavily with the Light only variant which did pass).
+
+### Diagnosing issues
+
+Open the offending element in DevTools → Elements → expand `#shadow-root` chains → Computed tab → look for the CSS variable that resolves the wrong color. Issue templates in [`CONTRIBUTING.md`](CONTRIBUTING.md) walk through the format.
 
 ## Versioning
 

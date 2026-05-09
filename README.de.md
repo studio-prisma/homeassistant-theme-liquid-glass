@@ -89,8 +89,38 @@ Quellen: [Unsplash](https://unsplash.com/), [Pexels](https://pexels.com/), [Pixa
 
 ## Getestet
 
-HA Core 2026.5.0 · Frontend 20260429.3 · Supervisor 2026.04.2 · OS 17.3
+HA Core 2026.5.0 · Frontend 20260509.x · Supervisor 2026.05.0 · OS 17.3
+Browser: Chrome/Firefox/Safari/Edge Desktop, iOS Companion App
+WCAG AA Kontrast verifiziert für alle Dark-Varianten (Audit in v1.2.8).
 Minimum: HA Core 2024.1.0.
+
+## Architektur — Token-Layer
+
+HAs Frontend hat über die Jahre mehrere CSS-Token-Generationen angesammelt. Ein Theme, das auf modernen HA-Installationen sauber rendert, muss alle abdecken — daher die Größe der YAML.
+
+| Layer | Genutzt von | Generation |
+|---|---|---|
+| `--mdc-*` | Legacy Material Design Components | HA ≤ 2023 |
+| `--paper-*` | Polymer-Inputs | HA ≤ 2022 |
+| `--input-*`, `--mwc-*` | HA-Aliases der obigen | Bridge-Layer |
+| `--wa-color-*` | WebAwesome (Shoelace-Fork) — moderne Form-Controls | HA 2025+ |
+| `--ha-color-*`, `--ha-color-fill-*-*-*`, `--ha-color-surface-*` | HA's eigenes Semantik-Token-System | HA 2025+ |
+| `--md-sys-color-*`, `--md-list-item-*` | Material Web 3 — Combo-Boxen, Dialoge, List-Items | HA 2025+ |
+
+### Wie `modes:` den Dark-Mode aktiviert
+
+HAs Resolver (`src/state/themes-mixin.ts`) lädt `darkSemanticColorStyles` + `darkColorStyles` nur, wenn das Theme einen `modes:`-Block deklariert. Jede dunkle Variante in diesem Theme deklariert ein leeres `modes: dark: {}`, um diesen Load zu triggern — dadurch rendern Tooltips, Dropdown-Popovers, Dialog-Hintergründe und Active-Filter-Pills automatisch dunkel, ohne dass wir jeden Token einzeln aufzählen müssen.
+
+Nebeneffekt: HA injiziert dann auch `<meta name="color-scheme" content="dark">`, was Browsern die echte CSS-`color-scheme`-Property gibt — die wiederum Native `<input type="time">` und `<input type="number">` (Alarm-Code, Time-Picker) korrekt rendern lässt.
+
+### Bekannte Limitierungen
+
+- **Auto (experimental)** — der `modes.light`-Block ist voll für OS-gesteuertes Switching, aber `modes.dark` ist bewusst nicht deklariert (Legacy-Entscheidung aus v1.1.2 zur Deaktivierung von HA's Auto-Switch). Für verlässlichen Light/Dark-Wechsel: Automation-Pattern aus dem [Auto-Switch-Abschnitt](#auto-switch--empfohlene-variante) nutzen.
+- **WCAG AA-Audit-Scope** — alle Top-Level-Varianten geprüft. Auto's verschachtelter `modes.light`-Block wurde in v1.2.8 nicht token-by-token auditiert (deferred — überlappt stark mit Light-only, das geprüft wurde).
+
+### Issues diagnostizieren
+
+DevTools → Elements → `#shadow-root`-Ketten aufklappen → Computed-Tab → CSS-Variable identifizieren, die die falsche Farbe resolved. Issue-Templates in [`CONTRIBUTING.md`](CONTRIBUTING.md) führen durch das Format.
 
 ## Snippets
 

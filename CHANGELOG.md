@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+- README "Architecture — Token Layers" section (EN + DE) documenting the six token generations the theme has to cover (mdc / paper / input / wa-color / ha-color-fill / md-sys-color) and the `modes:` mechanic that unlocks HA's dark token system.
+- README "Known limitations" subsection clarifying Auto-theme behavior and v1.2.8 audit scope.
+- CONTRIBUTING "Diagnosing color / white-on-white / unreadable text bugs" section with DOM-inspect walkthrough — meant to prevent the speculative-fix-stacking pattern that hit v1.2.2–v1.2.4.
+- `.github/workflows/release.yml` — auto-creates a GitHub Release with extracted CHANGELOG notes whenever a `v*` tag is pushed. Includes `workflow_dispatch` for backfilling releases on existing tags.
+
 ## [1.2.8] - 2026-05-09
 
 ### Fixed (WCAG AA contrast audit)

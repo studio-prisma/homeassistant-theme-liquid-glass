@@ -11,6 +11,22 @@ Use the [issue templates](.github/ISSUE_TEMPLATE/). Include:
 - Browser & version
 - Screenshot when relevant
 
+## Diagnosing color / white-on-white / unreadable text bugs
+
+HA's frontend renders form controls and dialogs through several token generations (see [README — Architecture](README.md#architecture--token-layers)). Before opening an issue:
+
+1. Open the affected element in DevTools → **Elements** tab
+2. Expand `#shadow-root (open)` chains until you reach the actual `<input>`, `<wa-input>`, `<ha-combo-box-item>` or similar
+3. **Computed** tab → identify the CSS variable resolving the wrong color (e.g. `color: var(--md-list-item-label-text-color, #1d1b20)`)
+4. **Styles** tab → confirm which rule is winning, which selector
+5. Include in the issue:
+   - The element tag (e.g. `<wa-input>` inside `<ha-input>`)
+   - The relevant CSS variable name(s)
+   - What color it currently resolves to vs. what's expected
+   - Screenshot of the Computed/Styles panel
+
+This prevents the speculative-fix-stacking pattern that hit v1.2.2 → v1.2.3 → v1.2.4 (each release added more tokens without identifying root cause).
+
 ## Submitting Changes
 
 1. Fork the repo
