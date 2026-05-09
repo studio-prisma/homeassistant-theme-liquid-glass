@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.3.0] - 2026-05-09
+
 ### Added
 - README "Architecture — Token Layers" section (EN + DE) documenting the six token generations the theme has to cover (mdc / paper / input / wa-color / ha-color-fill / md-sys-color) and the `modes:` mechanic that unlocks HA's dark token system.
 - README "Known limitations" subsection clarifying Auto-theme behavior and v1.2.8 audit scope.
@@ -271,5 +273,16 @@ All values present in every dark variant (Liquid Glass, Compact, Sunset, Floorpl
 ### Added
 - Initial public release of Liquid Glass Theme
 
-[Unreleased]: https://github.com/studio-prisma/homeassistant-theme-liquid-glass/compare/v1.2.4...HEAD
-[1.2.4]: https://git
+[Unreleased]: https://github.com/studio-prisma/homeassistant-theme-liquid-glass/compare/v1.3.0...HEAD
+[1.3.0]: https://github.com/studio-prisma/homeassistant-theme-liquid-glass/compare/v1.2.8...v1.3.0
+[1.2.8]: https://github.com/studio-prisma/homeassistant-theme-liquid-glass/compare/v1.2.7...v1.2.8
+[1.2.7]: https://github.com/studio-prisma/homeassistant-theme-liquid-glass/compare/v1.2.6...v1.2.7
+[1.2.6]: https://github.com/studio-prisma/homeassistant-theme-liquid-glass/compare/v1.2.5...v1.2.6
+[1.2.5]: https://github.com/studio-prisma/homeassistant-theme-liquid-glass/compare/v1.2.4...v1.2.5
+[1.2.4]: https://github.com/studio-prisma/homeassistant-theme-liquid-glass/compare/v1.2.3...v1.2.4
+[1.2.3]: https://github.com/studio-prisma/homeassistant-theme-liquid-glass/compare/v1.2.2...v1.2.3
+[1.2.2]: https://github.com/studio-prisma/homeassistant-theme-liquid-glass/compare/v1.2.1...v1.2.2
+[1.2.1]: https://github.com/studio-prisma/homeassistant-theme-liquid-glass/compare/v1.2.0...v1.2.1
+[1.2.0]: https://github.com/studio-prisma/homeassistant-theme-liquid-glass/compare/v1.1.0...v1.2.0
+[1.1.0]: https://github.com/studio-prisma/homeassistant-theme-liquid-glass/compare/v1.0.0...v1.1.0
+[1.0.0]: https://github.com/studio-prisma/homeassistant-theme-liquid-glass/releases/tag/v1.0.0
