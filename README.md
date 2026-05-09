@@ -219,4 +219,30 @@ HA's frontend has accumulated several CSS-token generations as the codebase evol
 
 HA's resolver (`src/state/themes-mixin.ts`) requires a theme to declare a `modes:` block before it loads `darkSemanticColorStyles` + `darkColorStyles`. Every dark variant in this theme declares an empty `modes: dark: {}` to trigger the load — that's what gives tooltips, dropdown popovers, dialog backgrounds, and active-filter pills their dark backgrounds without us having to enumerate every single token by hand.
 
-Side 
+Side effect: HA also injects `<meta name="color-scheme" content="dark">`, which gives browsers the actual CSS `color-scheme` property they need for the `light-dark()` function. Native `<input type="time">` and `<input type="number">` (alarm code, time pickers) inherit this and render correctly.
+
+### Known limitations
+
+- **Auto (experimental)** — its `modes.light` block is fully populated for OS-driven switching, but `modes.dark` is intentionally not declared (legacy decision from v1.1.2 to disable HA's auto-switch). Use the [Auto-Switch Strategy](#auto-switch-strategy-recommended) automation pattern for reliable light/dark transitions.
+- **WCAG AA audit scope** — covered all top-level variants. The Auto theme's nested `modes.light` block was not audited token-by-token in v1.2.8 (deferred — its tokens overlap heavily with the Light only variant which did pass).
+
+### Diagnosing issues
+
+Open the offending element in DevTools → Elements → expand `#shadow-root` chains → Computed tab → look for the CSS variable that resolves the wrong color. Issue templates in [`CONTRIBUTING.md`](CONTRIBUTING.md) walk through the format.
+
+## Versioning
+
+[Semantic Versioning](https://semver.org/). See [`CHANGELOG.md`](CHANGELOG.md).
+
+## Contributing
+
+See [`CONTRIBUTING.md`](CONTRIBUTING.md).
+
+## Credits
+
+- Designed & maintained by **studio-prisma**
+- Mushroom & Bubble card token compatibility ensured
+
+## License
+
+MIT — see [LICENSE](LICENSE).
