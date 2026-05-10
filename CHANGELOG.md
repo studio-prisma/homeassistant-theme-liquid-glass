@@ -7,6 +7,28 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+- `SECURITY.md` — disclosure policy. Documents the narrow security surface (frontend theme = no backend, no user data, no auth), points reporters to GitHub Private Vulnerability Reporting, defines a 14-day first-response target, lists supported versions (1.3.x), and clarifies out-of-scope items.
+- Three real dashboard screenshots replacing the previous SVG mockups: `preview-welcome.png` (hero — Welcome Home dashboard with gauges, energy stats, 24h temperature graph), `preview-overview.png` (Mushroom-style lights/media/switches/vacuum grid), `preview-security.png` (Home Security view with door sensors, cameras, presence tiles).
+- `docs/demo-dashboard.yaml` — fully sanitized generic showcase. All entity IDs and labels migrated to placeholder names (`light.living_room`, `switch.dishwasher`, `media_player.tv_living_room`, etc.) so users can map directly to their own setup. No personal references, no brand-specific identifiers (Verisure, Roborock, Samsung, Somneo etc. removed).
+- README **plug-and-play banner** directly under the hero image: explicit statement that the theme works on stock Lovelace cards with no per-card configuration. Clarifies that `card-mod` is optional and only required for the advanced snippets in `docs/`.
+- README **FAQ section** addressing the most common adoption questions: "Do I need card-mod for every card?" (no), "Do I need to edit YAML?" (no), "What cards are in the screenshots?" (stock + popular community), background-install rationale, troubleshooting pointer.
+- `info.md` plug-and-play note added so the same clarification appears in HACS' detail panel without users having to scroll into the README.
+
+### Changed
+- README hero + sections updated. "Card Anatomy" → "Overview — Lights, Media, Switches" and "Mushroom Cards" → "Home Security View" with matching real-screenshot captions.
+- README "Card-mod Snippets" section retitled to "**Optional: Card-mod Snippets**" with an explicit opt-in note ("Skip this section unless you want extra polish"). The per-room accent token example now leads with the theme-only path (no plugin required) and presents the card-mod variant as the optional second option — closes the community feedback "Does every card need the card-mod snippet?".
+
+### Fixed
+- README badge row: empty `href` on the HA-version badge (`[![HA](...)]()`) was breaking subsequent badges in HACS' Markdown renderer (License, Lang showed as plain text instead of badge images). HA badge now points to https://www.home-assistant.io/. Reordered badges in adoption-priority sequence (HACS · Min HA · License · Lang). DE-language badge label switched from "DE" to "Deutsch" for clarity.
+- `README.de.md` fully resynchronized with the EN README — was lagging behind for several releases. Now mirrors all current content: plug-and-play banner, Overview/Home-Security section names, real screenshot refs, Optional Card-mod heading, theme-only-first per-room accent example, Auto-variant WCAG audit closure, FAQ section.
+
+### Removed
+- SVG mockups in `docs/assets/screenshots/` (`preview-main.svg`, `preview-cards.svg`, `preview-mushroom.svg`) — superseded by the three real PNGs above.
+
+### Decided
+- **Code scanning (CodeQL etc.) intentionally not enabled.** Codebase is YAML and Markdown only — no executable program logic to analyze. Supply-chain hygiene for GitHub Actions covered by Dependabot. Documented in `SECURITY.md` so the "Code scanning alerts: Enabled" status without a backing workflow is recognized as a deliberate maintainer choice, not an oversight.
+
 ## [1.3.0] - 2026-05-09
 
 ### Added

@@ -1,15 +1,17 @@
 # Liquid Glass — Home Assistant Theme
 
 [![HACS Custom](https://img.shields.io/badge/HACS-Custom-orange.svg)](https://hacs.xyz/)
+[![Min HA Version](https://img.shields.io/badge/HA-2024.1.0%2B-blue.svg)](https://www.home-assistant.io/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-[![HA](https://img.shields.io/badge/HA-2024.1.0%2B-blue.svg)]()
-[![DE](https://img.shields.io/badge/Lang-DE-lightgrey.svg)](README.de.md)
+[![Deutsch](https://img.shields.io/badge/Lang-Deutsch-lightgrey.svg)](README.de.md)
 
 A premium glass-morphism theme for Home Assistant — translucent surfaces, layered blur, soft accents, refined dark UI. Six variants in one file.
 
 > Maintained by **studio-prisma**.
 
-![Liquid Glass Dashboard Preview](docs/assets/screenshots/preview-main.svg)
+![Liquid Glass — Welcome Home Dashboard](docs/assets/screenshots/preview-welcome.png)
+
+> 🎯 **Plug-and-play.** Install via HACS → activate the theme → done. The dashboards in the screenshots use stock Lovelace cards (tile, mushroom, mini-graph) — **no per-card configuration is needed for the theme to take effect**. Every card you already have automatically inherits the Liquid Glass look. `card-mod` is only required if you want to apply the **optional** advanced snippets in [`docs/`](docs/) (per-room accent overrides, floorplan glow). See [FAQ](#faq) below.
 
 ## Variants
 
@@ -26,13 +28,13 @@ A premium glass-morphism theme for Home Assistant — translucent surfaces, laye
 
 Pick in **Profile → Theme** or per dashboard via `theme: Liquid Glass Compact`.
 
-## Card Anatomy
+## Overview — Lights, Media, Switches
 
-![Card states](docs/assets/screenshots/preview-cards.svg)
+![Overview view with Mushroom cards, vacuum, media players, and switch tiles](docs/assets/screenshots/preview-overview.png)
 
-## Mushroom Cards
+## Home Security View
 
-![Mushroom integration](docs/assets/screenshots/preview-mushroom.svg)
+![Security view with door sensors, cameras, and presence tiles](docs/assets/screenshots/preview-security.png)
 
 ## Features
 
@@ -147,9 +149,11 @@ Full light/dark transitions including backgrounds, no surprises.
 
 [`docs/demo-dashboard.yaml`](docs/demo-dashboard.yaml) — generic showcase. Adjust entity IDs.
 
-## Card-mod Snippets
+## Optional: Card-mod Snippets
 
-For users with [card-mod](https://github.com/thomasloven/lovelace-card-mod):
+> ℹ️ **Skip this section unless you want extra polish.** The theme works fully without card-mod. The files below are **opt-in extras** — only install card-mod if you want them.
+
+For users who already have or want to install [card-mod](https://github.com/thomasloven/lovelace-card-mod):
 
 - [`docs/card-mod-snippets.yaml`](docs/card-mod-snippets.yaml) — nine drop-in mods
 - [`docs/floorplan-snippets.yaml`](docs/floorplan-snippets.yaml) — picture-element snippets
@@ -179,7 +183,9 @@ Each variant ships eight room tokens as RGB triplets, ready to use with `rgb()` 
 | `--room-garage-rgb` | `120, 120, 130` (graphite) | Garage / Utility |
 | `--room-workshop-rgb` | `255, 200, 100` (warm gold) | Workshop / Hobby |
 
-**Use in a card via card-mod:**
+**Theme-only usage (no plugin required):** the tokens are already wired into the theme's per-domain colors. You see them automatically.
+
+**Optional — per-card override via card-mod** (requires the [card-mod](https://github.com/thomasloven/lovelace-card-mod) plugin):
 
 ```yaml
 type: tile
@@ -192,7 +198,7 @@ card_mod:
     }
 ```
 
-**Override globally (per theme):**
+**Override globally (per theme, no plugin):**
 
 ```yaml
 Liquid Glass:
@@ -242,6 +248,32 @@ See [`CONTRIBUTING.md`](CONTRIBUTING.md).
 
 - Designed & maintained by **studio-prisma**
 - Mushroom & Bubble card token compatibility ensured
+
+## FAQ
+
+### Do I need card-mod for every card?
+
+No. The theme is plug-and-play. Once activated in **Profile → Theme**, every Lovelace card you already have inherits the Liquid Glass styling automatically — no per-card configuration. The card-mod snippets in [`docs/`](docs/) are **opt-in extras** (per-room accent overrides, floorplan glow effects); they exist for users who want extra polish, not as a requirement.
+
+### Do I need to edit any YAML to use the theme?
+
+No. The only manual step is copying the four background PNGs into `/config/www/liquid_glass/` (a one-time setup — see [Installation](#installation)). Everything else (theme variants, per-domain status colors, dark token coverage, energy dashboard styling) works automatically once you select the theme.
+
+### What dashboard cards are shown in the screenshots?
+
+Stock + popular community cards: standard Lovelace tile cards, [Mushroom](https://github.com/piitaya/lovelace-mushroom), [mini-graph-card](https://github.com/kalkih/mini-graph-card), [mini-media-player](https://github.com/kalkih/mini-media-player), [vacuum-card](https://github.com/denysdovhan/vacuum-card). All of them work without any per-card theming — they just pick up the Liquid Glass tokens. A reference dashboard YAML (with placeholder entity IDs) is in [`docs/demo-dashboard.yaml`](docs/demo-dashboard.yaml).
+
+### What's inside `themes/liquid_glass.yaml`?
+
+A ~1250-line YAML file with six theme variants. You don't need to open or edit it — HACS installs it, HA loads it automatically. If you want to tweak colors, see [Customization](#customization) above.
+
+### Why aren't the backgrounds installed automatically?
+
+HACS can deliver theme YAML, but it cannot write into `/config/www/`. Lovelace references background images by URL path (e.g. `/local/liquid_glass/aurora.png`), so the four PNGs need to live in your config's `www/` folder. The one-time copy step is unavoidable — but it's literally drag-and-drop.
+
+### Something looks wrong / contrast is off / a popup is white-on-white
+
+That's a token-coverage gap on a specific HA frontend component. Open an issue with: HA Core version, browser, the affected element (DevTools → Elements → screenshot of the computed CSS variable). The [Diagnosing issues](#diagnosing-issues) section walks through it.
 
 ## License
 

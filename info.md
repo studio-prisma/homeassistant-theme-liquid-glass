@@ -2,6 +2,8 @@
 
 A premium glass-morphism theme for Home Assistant — translucent surfaces, soft accents, refined dark UI.
 
+> 🎯 **Plug-and-play.** Install via HACS → activate the theme → done. Standard Lovelace cards (tile, mushroom, mini-graph) inherit the look automatically — no per-card configuration, no card-mod required for the theme to work.
+
 ## Six variants
 
 - **Liquid Glass** ⭐ — default, always dark with aurora.png background
