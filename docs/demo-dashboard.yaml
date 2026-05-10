@@ -1,170 +1,1150 @@
-# =====================================================================
-# Liquid Glass — Demo Dashboard
+# =============================================================================
+# Liquid Glass Theme — Demo Dashboard (Generic Sample)
+# =============================================================================
+# Generic showcase dashboard — replace entity IDs below with your own.
+# All entities use placeholder names (light.living_room, switch.dishwasher, etc.)
+# that you should map to your own setup.
 #
-# A minimal showcase dashboard for the Liquid Glass theme.
-# Replace the example entity_ids (light.living_room, climate.thermostat,
-# etc.) with your own. The structure highlights the theme's strengths:
-# layered translucency, per-domain status glow, sidebar refinement.
-#
-# Usage:
-#   1. Copy this file content into a new dashboard via Settings →
-#      Dashboards → Add Dashboard → "Show in sidebar" → switch to
-#      "Take control" / Raw config editor.
-#   2. Adjust entity references to your setup.
-#   3. Apply the theme: Profile → Theme → Liquid Glass (or Light/Compact).
-# =====================================================================
+# HACS dependencies (install separately): card-mod · mushroom · mod-card ·
+# mini-graph-card · mini-media-player · vacuum-card
+# =============================================================================
 
-title: Liquid Glass Demo
-theme: Liquid Glass
 views:
-
-  # -------------------------------------------------------------------
-  # View 1: Overview — Hero showcase
-  # -------------------------------------------------------------------
-  - title: Overview
-    path: overview
-    icon: mdi:home
-    type: sections
-    max_columns: 3
-    sections:
-
-      # ---- SECTION: Climate & Light ----
-      - type: grid
-        cards:
-          - type: heading
-            heading: Living Areas
-            heading_style: title
-
-          - type: tile
-            entity: light.living_room
-            name: Living Room
-            features:
-              - type: light-brightness
-
-          - type: tile
-            entity: light.kitchen
-            name: Kitchen
-            features:
-              - type: light-brightness
-
-          - type: tile
-            entity: climate.thermostat
-            name: Climate
-            features:
-              - type: target-temperature
-
-          - type: tile
-            entity: cover.bedroom_blinds
-            name: Bedroom Blinds
-
-      # ---- SECTION: Media & Presence ----
-      - type: grid
-        cards:
-          - type: heading
-            heading: Media & Presence
-            heading_style: title
-
-          - type: media-control
-            entity: media_player.living_room
-
-          - type: tile
-            entity: person.you
-            name: You
-
-          - type: tile
-            entity: lock.front_door
-            name: Front Door
-
-      # ---- SECTION: Sensors ----
-      - type: grid
-        cards:
-          - type: heading
-            heading: Sensors
-            heading_style: title
-
-          - type: glance
-            entities:
-              - entity: sensor.outdoor_temperature
-                name: Outdoor
-              - entity: sensor.indoor_humidity
-                name: Humidity
-              - entity: sensor.co2
-                name: CO₂
-              - entity: sensor.air_quality
-                name: Air
-
-          - type: sensor
-            entity: sensor.energy_today
-            name: Energy Today
-            graph: line
-
-  # -------------------------------------------------------------------
-  # View 2: Mushroom Showcase
-  # -------------------------------------------------------------------
-  - title: Mushroom
-    path: mushroom
-    icon: mdi:mushroom
-    badges: []
+- title: Overview
+  path: overview
+  icon: mdi:home
+  theme: Liquid Glass
+  type: panel
+  cards:
+  - type: vertical-stack
     cards:
-      - type: vertical-stack
+    - type: custom:mod-card
+      card_mod:
+        style: |
+          ha-card {
+            background: linear-gradient(135deg, rgba(157,130,230,0.20), rgba(122,184,255,0.10)) !important;
+            backdrop-filter: blur(40px) saturate(1.6);
+            -webkit-backdrop-filter: blur(40px) saturate(1.6);
+            border: 1px solid rgba(255,255,255,0.15) !important;
+            border-radius: 24px !important;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.25);
+            padding: 18px 24px;
+            margin-bottom: 10px;
+          }
+      card:
+        type: horizontal-stack
         cards:
-
-          - type: custom:mushroom-title-card
-            title: Mushroom + Liquid Glass
-
-          - type: horizontal-stack
-            cards:
-              - type: custom:mushroom-light-card
-                entity: light.bedside
-                name: Bedside
-                use_light_color: true
-              - type: custom:mushroom-fan-card
-                entity: fan.office
-                name: Office Fan
-              - type: custom:mushroom-media-player-card
-                entity: media_player.sonos
-
-          - type: horizontal-stack
-            cards:
-              - type: custom:mushroom-lock-card
-                entity: lock.front_door
-              - type: custom:mushroom-cover-card
-                entity: cover.garage
-              - type: custom:mushroom-person-card
-                entity: person.you
-
+        - type: markdown
+          content: |
+            # Welcome Home
+            ### {{ now().strftime('%A, %B %d') }} · Munich · 22° · Sunny
+          card_mod:
+            style: |
+              ha-card { background: transparent !important; border: none !important; box-shadow: none !important; padding: 0 !important; }
+              h1 { font-size: 2.0rem !important; font-weight: 600 !important; letter-spacing: -1px !important; margin: 0 0 2px 0 !important; white-space: nowrap !important; }
+              h3 { font-weight: 400 !important; opacity: 0.75 !important; margin: 0 !important; white-space: nowrap !important; font-size: 0.95rem !important; }
+        - type: markdown
+          content: |
+            ## {{ states('sensor.power_consumption') }} W
+            Total Power · {{ now().strftime('%H:%M') }}
+          card_mod:
+            style: |
+              ha-card { background: transparent !important; border: none !important; box-shadow: none !important; padding: 0 !important; }
+              h2 { font-size: 1.7rem !important; font-weight: 600 !important; letter-spacing: -0.5px !important; margin: 0 !important; color: #ffb454 !important; }
+              p { opacity: 0.7 !important; margin: 2px 0 0 0 !important; font-size: 0.85rem !important; }
+        - type: horizontal-stack
+          cards:
           - type: custom:mushroom-template-card
-            primary: All quiet
-            secondary: "Last motion: {{ relative_time(states.binary_sensor.motion.last_changed) }}"
-            icon: mdi:home-heart
+            primary: Alex
+            secondary: Home
+            icon: mdi:account-circle
             icon_color: green
-
-  # -------------------------------------------------------------------
-  # View 3: Compact (good for wall-tablets)
-  # -------------------------------------------------------------------
-  - title: Compact
-    path: compact
-    icon: mdi:tablet
-    theme: Liquid Glass Compact
-    badges: []
+            layout: horizontal
+            fill_container: true
+            card_mod:
+              style: |
+                ha-card { background: transparent !important; border: none !important; box-shadow: none !important; padding: 0 !important; }
+          - type: custom:mushroom-template-card
+            primary: Sam
+            secondary: Away
+            icon: mdi:account-circle-outline
+            icon_color: grey
+            layout: horizontal
+            fill_container: true
+            card_mod:
+              style: |
+                ha-card { background: transparent !important; border: none !important; box-shadow: none !important; padding: 0 !important; }
+    - type: custom:mushroom-chips-card
+      alignment: center
+      chips:
+      - type: action
+        icon: mdi:weather-sunny
+        content: Good Morning
+        icon_color: amber
+        tap_action:
+          action: toggle
+          entity: input_boolean.day_mode
+      - type: action
+        icon: mdi:weather-night
+        content: Good Night
+        icon_color: indigo
+        tap_action:
+          action: toggle
+          entity: input_boolean.night_mode
+      - type: action
+        icon: mdi:home-export-outline
+        content: Leaving
+        icon_color: red
+        tap_action:
+          action: call-service
+          service: light.turn_off
+          data:
+            entity_id: light.all_lights
+      - type: action
+        icon: mdi:movie-open
+        content: Movie Night
+        icon_color: purple
+        tap_action:
+          action: toggle
+          entity: media_player.tv_living_room
+      - type: entity
+        entity: switch.main_power
+        icon: mdi:power-plug
+        icon_color: blue
+        content_info: state
+      card_mod:
+        style: |
+          ha-card {
+            background: rgba(255,255,255,0.05) !important;
+            backdrop-filter: blur(30px) saturate(1.4);
+            -webkit-backdrop-filter: blur(30px) saturate(1.4);
+            border: 1px solid rgba(255,255,255,0.10) !important;
+            border-radius: 18px !important;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.25);
+            padding: 8px;
+            margin-bottom: 10px;
+          }
+    - type: horizontal-stack
+      cards:
+      - type: custom:mod-card
+        card_mod:
+          style: |
+            ha-card {
+              background: linear-gradient(135deg, rgba(255,180,84,0.18), rgba(255,140,84,0.06)) !important;
+              backdrop-filter: blur(40px) saturate(1.6);
+              -webkit-backdrop-filter: blur(40px) saturate(1.6);
+              border: 1px solid rgba(255,180,84,0.22) !important;
+              border-radius: 18px !important;
+              box-shadow: 0 8px 32px rgba(0,0,0,0.25);
+              padding: 12px;
+            }
+        card:
+          type: custom:mini-graph-card
+          entities:
+          - entity: sensor.power_consumption
+            name: Power
+          hours_to_show: 24
+          points_per_hour: 4
+          line_width: 3
+          smoothing: true
+          line_color: '#ffb454'
+          height: 100
+          show:
+            labels: false
+            fill: fade
+            legend: false
+            name: true
+            icon: false
+            points: false
+            state: true
+          card_mod:
+            style: |
+              ha-card { background: transparent !important; border: none !important; box-shadow: none !important; padding: 0 !important; }
+      - type: custom:mod-card
+        card_mod:
+          style: |
+            ha-card {
+              background: linear-gradient(135deg, rgba(122,184,255,0.16), rgba(100,220,220,0.04)) !important;
+              backdrop-filter: blur(40px) saturate(1.6);
+              -webkit-backdrop-filter: blur(40px) saturate(1.6);
+              border: 1px solid rgba(122,184,255,0.22) !important;
+              border-radius: 18px !important;
+              box-shadow: 0 8px 32px rgba(0,0,0,0.25);
+              padding: 12px;
+            }
+        card:
+          type: horizontal-stack
+          cards:
+          - type: gauge
+            entity: sensor.bedroom_temperature
+            name: Bedroom
+            min: 14
+            max: 30
+            needle: true
+            segments:
+            - from: 14
+              color: '#7ab8ff'
+            - from: 18
+              color: '#4ad295'
+            - from: 24
+              color: '#ffb454'
+          - type: gauge
+            entity: sensor.office_temperature
+            name: Office
+            min: 14
+            max: 30
+            needle: true
+            segments:
+            - from: 14
+              color: '#7ab8ff'
+            - from: 18
+              color: '#4ad295'
+            - from: 24
+              color: '#ffb454'
+          - type: gauge
+            entity: sensor.office_humidity
+            name: Humidity
+            min: 30
+            max: 70
+            needle: true
+            segments:
+            - from: 30
+              color: '#ff5a6e'
+            - from: 40
+              color: '#4ad295'
+            - from: 60
+              color: '#ffb454'
+    - type: custom:mod-card
+      card_mod:
+        style: 'ha-card { background: transparent !important; border: none !important; box-shadow: none !important; height: 10px !important; }'
+      card:
+        type: markdown
+        content: ' '
+    - type: horizontal-stack
+      cards:
+      - type: custom:mushroom-template-card
+        primary: Server Rack
+        secondary: '{{ states("sensor.serverschrank_stromstarke") }} A'
+        icon: mdi:server
+        icon_color: red
+        card_mod:
+          style: |
+            ha-card {
+              background: rgba(255,255,255,0.05) !important;
+              backdrop-filter: blur(30px) saturate(1.4);
+              -webkit-backdrop-filter: blur(30px) saturate(1.4);
+              border: 1px solid rgba(255,255,255,0.10) !important;
+              border-radius: 18px !important;
+              box-shadow: 0 8px 32px rgba(0,0,0,0.25);
+            }
+      - type: custom:mushroom-template-card
+        primary: Desk Setup
+        secondary: '{{ states("sensor.desk_displays_energy_total") }} kWh'
+        icon: mdi:monitor-multiple
+        icon_color: blue
+        card_mod:
+          style: |
+            ha-card {
+              background: rgba(255,255,255,0.05) !important;
+              backdrop-filter: blur(30px) saturate(1.4);
+              -webkit-backdrop-filter: blur(30px) saturate(1.4);
+              border: 1px solid rgba(255,255,255,0.10) !important;
+              border-radius: 18px !important;
+              box-shadow: 0 8px 32px rgba(0,0,0,0.25);
+            }
+      - type: custom:mushroom-template-card
+        primary: Dishwasher
+        secondary: '{{ states("sensor.dishwasher_energy_total") }} kWh'
+        icon: mdi:dishwasher
+        icon_color: cyan
+        card_mod:
+          style: |
+            ha-card {
+              background: rgba(255,255,255,0.05) !important;
+              backdrop-filter: blur(30px) saturate(1.4);
+              -webkit-backdrop-filter: blur(30px) saturate(1.4);
+              border: 1px solid rgba(255,255,255,0.10) !important;
+              border-radius: 18px !important;
+              box-shadow: 0 8px 32px rgba(0,0,0,0.25);
+            }
+      - type: custom:mushroom-template-card
+        primary: Washing M.
+        secondary: '{{ states("sensor.waschmaschine_energie_gesamt") }} kWh'
+        icon: mdi:washing-machine
+        icon_color: indigo
+        card_mod:
+          style: |
+            ha-card {
+              background: rgba(255,255,255,0.05) !important;
+              backdrop-filter: blur(30px) saturate(1.4);
+              -webkit-backdrop-filter: blur(30px) saturate(1.4);
+              border: 1px solid rgba(255,255,255,0.10) !important;
+              border-radius: 18px !important;
+              box-shadow: 0 8px 32px rgba(0,0,0,0.25);
+            }
+    - type: horizontal-stack
+      cards:
+      - type: custom:mushroom-template-card
+        primary: Internet
+        secondary: '{{ states("sensor.cloudflare_speed_test_90th_percentile_down") }} Mbps'
+        icon: mdi:web
+        icon_color: blue
+        card_mod:
+          style: |
+            ha-card {
+              background: rgba(255,255,255,0.05) !important;
+              backdrop-filter: blur(30px) saturate(1.4);
+              -webkit-backdrop-filter: blur(30px) saturate(1.4);
+              border: 1px solid rgba(255,255,255,0.10) !important;
+              border-radius: 18px !important;
+              box-shadow: 0 8px 32px rgba(0,0,0,0.25);
+            }
+      - type: custom:mushroom-template-card
+        primary: Packages
+        secondary: '{{ states("sensor.17track_unterwegs") }} in transit'
+        icon: mdi:package-variant
+        icon_color: purple
+        card_mod:
+          style: |
+            ha-card {
+              background: rgba(255,255,255,0.05) !important;
+              backdrop-filter: blur(30px) saturate(1.4);
+              -webkit-backdrop-filter: blur(30px) saturate(1.4);
+              border: 1px solid rgba(255,255,255,0.10) !important;
+              border-radius: 18px !important;
+              box-shadow: 0 8px 32px rgba(0,0,0,0.25);
+            }
+      - type: custom:mushroom-template-card
+        primary: Maintenance
+        secondary: '{{ states("sensor.home_maintenance_overdue_tasks") }} overdue'
+        icon: mdi:tools
+        icon_color: green
+        card_mod:
+          style: |
+            ha-card {
+              background: rgba(255,255,255,0.05) !important;
+              backdrop-filter: blur(30px) saturate(1.4);
+              -webkit-backdrop-filter: blur(30px) saturate(1.4);
+              border: 1px solid rgba(255,255,255,0.10) !important;
+              border-radius: 18px !important;
+              box-shadow: 0 8px 32px rgba(0,0,0,0.25);
+            }
+      - type: custom:mushroom-template-card
+        primary: Sunset
+        secondary: '{{ as_timestamp(states("sensor.sun_next_setting")) | timestamp_custom("%H:%M") }}'
+        icon: mdi:weather-sunset
+        icon_color: orange
+        card_mod:
+          style: |
+            ha-card {
+              background: rgba(255,255,255,0.05) !important;
+              backdrop-filter: blur(30px) saturate(1.4);
+              -webkit-backdrop-filter: blur(30px) saturate(1.4);
+              border: 1px solid rgba(255,255,255,0.10) !important;
+              border-radius: 18px !important;
+              box-shadow: 0 8px 32px rgba(0,0,0,0.25);
+            }
+    - type: custom:mod-card
+      card_mod:
+        style: |
+          ha-card {
+            background: rgba(255,255,255,0.05) !important;
+            backdrop-filter: blur(30px) saturate(1.4);
+            -webkit-backdrop-filter: blur(30px) saturate(1.4);
+            border: 1px solid rgba(255,255,255,0.10) !important;
+            border-radius: 18px !important;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.25);
+            padding: 12px;
+            margin-top: 10px;
+          }
+      card:
+        type: custom:mini-graph-card
+        name: 24h Temperature
+        entities:
+        - entity: sensor.bedroom_temperature
+          name: Bedroom
+          color: '#9d82e6'
+        - entity: sensor.office_temperature
+          name: Office
+          color: '#7ab8ff'
+        - entity: sensor.hallway_temperature
+          name: Hallway
+          color: '#4ad295'
+        hours_to_show: 24
+        points_per_hour: 2
+        line_width: 3
+        smoothing: true
+        height: 100
+        show:
+          labels: false
+          fill: fade
+          legend: true
+          name: true
+          icon: false
+        card_mod:
+          style: |
+            ha-card { background: transparent !important; border: none !important; box-shadow: none !important; padding: 0 !important; }
+- title: Living
+  path: living
+  icon: mdi:sofa
+  theme: Liquid Glass
+  type: panel
+  cards:
+  - type: vertical-stack
     cards:
-      - type: grid
-        columns: 4
-        square: true
+    - type: custom:mod-card
+      card_mod:
+        style: |
+          ha-card {
+            background: linear-gradient(135deg, rgba(255,180,84,0.18), rgba(255,200,140,0.06)) !important;
+            backdrop-filter: blur(40px) saturate(1.6);
+            -webkit-backdrop-filter: blur(40px) saturate(1.6);
+            border: 1px solid rgba(255,180,84,0.22) !important;
+            border-radius: 22px !important;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.25);
+            padding: 16px;
+            margin-bottom: 12px;
+          }
+      card:
+        type: custom:mushroom-light-card
+        entity: light.all_lights
+        name: All Lights
+        icon: mdi:lightbulb-group
+        show_brightness_control: true
+        collapsible_controls: false
+        card_mod:
+          style: |
+            ha-card { background: transparent !important; border: none !important; box-shadow: none !important; }
+    - type: horizontal-stack
+      cards:
+      - type: custom:mushroom-template-card
+        primary: Living Room
+        secondary: '{{ states("light.living_room") | title }}'
+        icon: mdi:sofa
+        icon_color: '{{ "amber" if is_state("light.living_room","on") else "grey" }}'
+        tap_action:
+          action: toggle
+          entity: light.living_room
+        hold_action:
+          action: more-info
+          entity: light.living_room
+        entity: light.living_room
+        card_mod:
+          style: |
+            ha-card {
+              background: {% if is_state(config.entity, 'on') %}linear-gradient(135deg, rgba(255,180,84,0.22), rgba(255,200,140,0.08)){% else %}rgba(255,255,255,0.05){% endif %} !important;
+              backdrop-filter: blur(30px) saturate(1.4);
+              -webkit-backdrop-filter: blur(30px) saturate(1.4);
+              border: 1px solid {% if is_state(config.entity, 'on') %}rgba(255,180,84,0.35){% else %}rgba(255,255,255,0.10){% endif %} !important;
+              border-radius: 22px !important;
+              box-shadow: {% if is_state(config.entity, 'on') %}0 0 24px rgba(255,180,84,0.18), 0 8px 32px rgba(0,0,0,0.25){% else %}0 8px 32px rgba(0,0,0,0.25){% endif %};
+              transition: all 0.4s ease;
+            }
+      - type: custom:mushroom-template-card
+        primary: Kitchen
+        secondary: '{{ states("light.kitchen") | title }}'
+        icon: mdi:silverware-fork-knife
+        icon_color: '{{ "amber" if is_state("light.kitchen","on") else "grey" }}'
+        tap_action:
+          action: toggle
+          entity: light.kitchen
+        hold_action:
+          action: more-info
+          entity: light.kitchen
+        entity: light.kitchen
+        card_mod:
+          style: |
+            ha-card {
+              background: {% if is_state(config.entity, 'on') %}linear-gradient(135deg, rgba(255,180,84,0.22), rgba(255,200,140,0.08)){% else %}rgba(255,255,255,0.05){% endif %} !important;
+              backdrop-filter: blur(30px) saturate(1.4);
+              -webkit-backdrop-filter: blur(30px) saturate(1.4);
+              border: 1px solid {% if is_state(config.entity, 'on') %}rgba(255,180,84,0.35){% else %}rgba(255,255,255,0.10){% endif %} !important;
+              border-radius: 22px !important;
+              box-shadow: {% if is_state(config.entity, 'on') %}0 0 24px rgba(255,180,84,0.18), 0 8px 32px rgba(0,0,0,0.25){% else %}0 8px 32px rgba(0,0,0,0.25){% endif %};
+              transition: all 0.4s ease;
+            }
+      - type: custom:mushroom-template-card
+        primary: Bedroom
+        secondary: '{{ states("light.bedroom") | title }}'
+        icon: mdi:bed
+        icon_color: '{{ "amber" if is_state("light.bedroom","on") else "grey" }}'
+        tap_action:
+          action: toggle
+          entity: light.bedroom
+        hold_action:
+          action: more-info
+          entity: light.bedroom
+        entity: light.bedroom
+        card_mod:
+          style: |
+            ha-card {
+              background: {% if is_state(config.entity, 'on') %}linear-gradient(135deg, rgba(255,180,84,0.22), rgba(255,200,140,0.08)){% else %}rgba(255,255,255,0.05){% endif %} !important;
+              backdrop-filter: blur(30px) saturate(1.4);
+              -webkit-backdrop-filter: blur(30px) saturate(1.4);
+              border: 1px solid {% if is_state(config.entity, 'on') %}rgba(255,180,84,0.35){% else %}rgba(255,255,255,0.10){% endif %} !important;
+              border-radius: 22px !important;
+              box-shadow: {% if is_state(config.entity, 'on') %}0 0 24px rgba(255,180,84,0.18), 0 8px 32px rgba(0,0,0,0.25){% else %}0 8px 32px rgba(0,0,0,0.25){% endif %};
+              transition: all 0.4s ease;
+            }
+      - type: custom:mushroom-template-card
+        primary: Office
+        secondary: '{{ states("light.office") | title }}'
+        icon: mdi:desk
+        icon_color: '{{ "amber" if is_state("light.office","on") else "grey" }}'
+        tap_action:
+          action: toggle
+          entity: light.office
+        hold_action:
+          action: more-info
+          entity: light.office
+        entity: light.office
+        card_mod:
+          style: |
+            ha-card {
+              background: {% if is_state(config.entity, 'on') %}linear-gradient(135deg, rgba(255,180,84,0.22), rgba(255,200,140,0.08)){% else %}rgba(255,255,255,0.05){% endif %} !important;
+              backdrop-filter: blur(30px) saturate(1.4);
+              -webkit-backdrop-filter: blur(30px) saturate(1.4);
+              border: 1px solid {% if is_state(config.entity, 'on') %}rgba(255,180,84,0.35){% else %}rgba(255,255,255,0.10){% endif %} !important;
+              border-radius: 22px !important;
+              box-shadow: {% if is_state(config.entity, 'on') %}0 0 24px rgba(255,180,84,0.18), 0 8px 32px rgba(0,0,0,0.25){% else %}0 8px 32px rgba(0,0,0,0.25){% endif %};
+              transition: all 0.4s ease;
+            }
+    - type: horizontal-stack
+      cards:
+      - type: custom:mushroom-template-card
+        primary: Bathroom
+        secondary: '{{ states("light.bathroom") | title }}'
+        icon: mdi:shower
+        icon_color: '{{ "amber" if is_state("light.bathroom","on") else "grey" }}'
+        tap_action:
+          action: toggle
+          entity: light.bathroom
+        hold_action:
+          action: more-info
+          entity: light.bathroom
+        entity: light.bathroom
+        card_mod:
+          style: |
+            ha-card {
+              background: {% if is_state(config.entity, 'on') %}linear-gradient(135deg, rgba(255,180,84,0.22), rgba(255,200,140,0.08)){% else %}rgba(255,255,255,0.05){% endif %} !important;
+              backdrop-filter: blur(30px) saturate(1.4);
+              -webkit-backdrop-filter: blur(30px) saturate(1.4);
+              border: 1px solid {% if is_state(config.entity, 'on') %}rgba(255,180,84,0.35){% else %}rgba(255,255,255,0.10){% endif %} !important;
+              border-radius: 22px !important;
+              box-shadow: {% if is_state(config.entity, 'on') %}0 0 24px rgba(255,180,84,0.18), 0 8px 32px rgba(0,0,0,0.25){% else %}0 8px 32px rgba(0,0,0,0.25){% endif %};
+              transition: all 0.4s ease;
+            }
+      - type: custom:mushroom-template-card
+        primary: Hallway
+        secondary: '{{ states("light.hallway") | title }}'
+        icon: mdi:floor-plan
+        icon_color: '{{ "amber" if is_state("light.hallway","on") else "grey" }}'
+        tap_action:
+          action: toggle
+          entity: light.hallway
+        hold_action:
+          action: more-info
+          entity: light.hallway
+        entity: light.hallway
+        card_mod:
+          style: |
+            ha-card {
+              background: {% if is_state(config.entity, 'on') %}linear-gradient(135deg, rgba(255,180,84,0.22), rgba(255,200,140,0.08)){% else %}rgba(255,255,255,0.05){% endif %} !important;
+              backdrop-filter: blur(30px) saturate(1.4);
+              -webkit-backdrop-filter: blur(30px) saturate(1.4);
+              border: 1px solid {% if is_state(config.entity, 'on') %}rgba(255,180,84,0.35){% else %}rgba(255,255,255,0.10){% endif %} !important;
+              border-radius: 22px !important;
+              box-shadow: {% if is_state(config.entity, 'on') %}0 0 24px rgba(255,180,84,0.18), 0 8px 32px rgba(0,0,0,0.25){% else %}0 8px 32px rgba(0,0,0,0.25){% endif %};
+              transition: all 0.4s ease;
+            }
+      - type: custom:mushroom-template-card
+        primary: Counter
+        secondary: '{{ states("light.counter") | title }}'
+        icon: mdi:led-strip-variant
+        icon_color: '{{ "amber" if is_state("light.counter","on") else "grey" }}'
+        tap_action:
+          action: toggle
+          entity: light.counter
+        hold_action:
+          action: more-info
+          entity: light.counter
+        entity: light.counter
+        card_mod:
+          style: |
+            ha-card {
+              background: {% if is_state(config.entity, 'on') %}linear-gradient(135deg, rgba(255,180,84,0.22), rgba(255,200,140,0.08)){% else %}rgba(255,255,255,0.05){% endif %} !important;
+              backdrop-filter: blur(30px) saturate(1.4);
+              -webkit-backdrop-filter: blur(30px) saturate(1.4);
+              border: 1px solid {% if is_state(config.entity, 'on') %}rgba(255,180,84,0.35){% else %}rgba(255,255,255,0.10){% endif %} !important;
+              border-radius: 22px !important;
+              box-shadow: {% if is_state(config.entity, 'on') %}0 0 24px rgba(255,180,84,0.18), 0 8px 32px rgba(0,0,0,0.25){% else %}0 8px 32px rgba(0,0,0,0.25){% endif %};
+              transition: all 0.4s ease;
+            }
+      - type: custom:mushroom-template-card
+        primary: Wake-up
+        secondary: '{{ states("light.wake_up_light") | title }}'
+        icon: mdi:weather-sunset-up
+        icon_color: '{{ "amber" if is_state("light.wake_up_light","on") else "grey" }}'
+        tap_action:
+          action: toggle
+          entity: light.wake_up_light
+        hold_action:
+          action: more-info
+          entity: light.wake_up_light
+        entity: light.wake_up_light
+        card_mod:
+          style: |
+            ha-card {
+              background: {% if is_state(config.entity, 'on') %}linear-gradient(135deg, rgba(255,180,84,0.22), rgba(255,200,140,0.08)){% else %}rgba(255,255,255,0.05){% endif %} !important;
+              backdrop-filter: blur(30px) saturate(1.4);
+              -webkit-backdrop-filter: blur(30px) saturate(1.4);
+              border: 1px solid {% if is_state(config.entity, 'on') %}rgba(255,180,84,0.35){% else %}rgba(255,255,255,0.10){% endif %} !important;
+              border-radius: 22px !important;
+              box-shadow: {% if is_state(config.entity, 'on') %}0 0 24px rgba(255,180,84,0.18), 0 8px 32px rgba(0,0,0,0.25){% else %}0 8px 32px rgba(0,0,0,0.25){% endif %};
+              transition: all 0.4s ease;
+            }
+    - type: horizontal-stack
+      cards:
+      - type: custom:mod-card
+        card_mod:
+          style: |
+            ha-card {
+              background: linear-gradient(135deg, rgba(157,130,230,0.20), rgba(190,150,230,0.06)) !important;
+              backdrop-filter: blur(40px) saturate(1.6);
+              -webkit-backdrop-filter: blur(40px) saturate(1.6);
+              border: 1px solid rgba(157,130,230,0.25) !important;
+              border-radius: 22px !important;
+              box-shadow: 0 8px 32px rgba(0,0,0,0.25);
+              padding: 8px;
+              margin-top: 12px;
+            }
+        card:
+          type: custom:mini-media-player
+          entity: media_player.tv_living_room
+          name: Living Room TV
+          artwork: cover
+          card_mod:
+            style: |
+              ha-card { background: transparent !important; border: none !important; box-shadow: none !important; }
+      - type: custom:mod-card
+        card_mod:
+          style: |
+            ha-card {
+              background: rgba(255,255,255,0.05) !important;
+              backdrop-filter: blur(30px) saturate(1.4);
+              -webkit-backdrop-filter: blur(30px) saturate(1.4);
+              border: 1px solid rgba(255,255,255,0.10) !important;
+              border-radius: 22px !important;
+              box-shadow: 0 8px 32px rgba(0,0,0,0.25);
+              padding: 8px;
+              margin-top: 12px;
+            }
+        card:
+          type: custom:vacuum-card
+          entity: vacuum.robot_vacuum
+          show_status: true
+          show_toolbar: true
+          card_mod:
+            style: |
+              ha-card { background: transparent !important; border: none !important; box-shadow: none !important; }
+    - type: horizontal-stack
+      cards:
+      - type: custom:mod-card
+        card_mod:
+          style: |
+            ha-card {
+              background: rgba(255,255,255,0.05) !important;
+              backdrop-filter: blur(30px) saturate(1.4);
+              -webkit-backdrop-filter: blur(30px) saturate(1.4);
+              border: 1px solid rgba(255,255,255,0.10) !important;
+              border-radius: 22px !important;
+              box-shadow: 0 8px 32px rgba(0,0,0,0.25);
+              padding: 8px;
+              margin-top: 12px;
+            }
+        card:
+          type: custom:mini-media-player
+          entity: media_player.office_speaker
+          name: Office Speaker
+          artwork: cover
+          card_mod:
+            style: |
+              ha-card { background: transparent !important; border: none !important; box-shadow: none !important; }
+      - type: custom:mod-card
+        card_mod:
+          style: |
+            ha-card {
+              background: rgba(255,255,255,0.05) !important;
+              backdrop-filter: blur(30px) saturate(1.4);
+              -webkit-backdrop-filter: blur(30px) saturate(1.4);
+              border: 1px solid rgba(255,255,255,0.10) !important;
+              border-radius: 22px !important;
+              box-shadow: 0 8px 32px rgba(0,0,0,0.25);
+              padding: 8px;
+              margin-top: 12px;
+            }
+        card:
+          type: custom:mini-media-player
+          entity: media_player.bedside
+          name: Bedside
+          artwork: cover
+          card_mod:
+            style: |
+              ha-card { background: transparent !important; border: none !important; box-shadow: none !important; }
+      - type: custom:mod-card
+        card_mod:
+          style: |
+            ha-card {
+              background: rgba(255,255,255,0.05) !important;
+              backdrop-filter: blur(30px) saturate(1.4);
+              -webkit-backdrop-filter: blur(30px) saturate(1.4);
+              border: 1px solid rgba(255,255,255,0.10) !important;
+              border-radius: 22px !important;
+              box-shadow: 0 8px 32px rgba(0,0,0,0.25);
+              padding: 8px;
+              margin-top: 12px;
+            }
+        card:
+          type: custom:mini-media-player
+          entity: media_player.tv_bedroom
+          name: Bedroom TV
+          artwork: cover
+          card_mod:
+            style: |
+              ha-card { background: transparent !important; border: none !important; box-shadow: none !important; }
+    - type: horizontal-stack
+      cards:
+      - type: custom:mushroom-template-card
+        primary: Coffee Machine
+        secondary: '{{ states("sensor.kaffeemaschine_zustand") | title }}'
+        icon: mdi:coffee
+        icon_color: '{{ "amber" if is_state("binary_sensor.kaffeemaschine_lauft","on") else "grey" }}'
+        badge_icon: '{{ "mdi:play-circle" if is_state("binary_sensor.kaffeemaschine_lauft","on") }}'
+        card_mod:
+          style: |
+            ha-card {
+              background: rgba(255,255,255,0.05) !important;
+              backdrop-filter: blur(30px) saturate(1.4);
+              -webkit-backdrop-filter: blur(30px) saturate(1.4);
+              border: 1px solid rgba(255,255,255,0.10) !important;
+              border-radius: 18px !important;
+              box-shadow: 0 8px 32px rgba(0,0,0,0.25);
+            }
+      - type: custom:mushroom-template-card
+        primary: Dishwasher
+        secondary: '{{ states("sensor.spulmaschine_zustand") | title }}'
+        icon: mdi:dishwasher
+        icon_color: '{{ "blue" if is_state("binary_sensor.spulmaschine_lauft","on") else "grey" }}'
+        card_mod:
+          style: |
+            ha-card {
+              background: rgba(255,255,255,0.05) !important;
+              backdrop-filter: blur(30px) saturate(1.4);
+              -webkit-backdrop-filter: blur(30px) saturate(1.4);
+              border: 1px solid rgba(255,255,255,0.10) !important;
+              border-radius: 18px !important;
+              box-shadow: 0 8px 32px rgba(0,0,0,0.25);
+            }
+      - type: custom:mushroom-template-card
+        primary: Washing Machine
+        secondary: '{{ states("sensor.waschmaschine_zustand") | title }}'
+        icon: mdi:washing-machine
+        icon_color: '{{ "cyan" if is_state("binary_sensor.waschmaschine_lauft","on") else "grey" }}'
+        card_mod:
+          style: |
+            ha-card {
+              background: rgba(255,255,255,0.05) !important;
+              backdrop-filter: blur(30px) saturate(1.4);
+              -webkit-backdrop-filter: blur(30px) saturate(1.4);
+              border: 1px solid rgba(255,255,255,0.10) !important;
+              border-radius: 18px !important;
+              box-shadow: 0 8px 32px rgba(0,0,0,0.25);
+            }
+      - type: custom:mushroom-template-card
+        primary: Air Fryer
+        secondary: '{{ states("sensor.heissluftfriteuse_zustand") | title }}'
+        icon: mdi:fryer
+        icon_color: '{{ "orange" if is_state("binary_sensor.heissluftfriteuse_lauft","on") else "grey" }}'
+        card_mod:
+          style: |
+            ha-card {
+              background: rgba(255,255,255,0.05) !important;
+              backdrop-filter: blur(30px) saturate(1.4);
+              -webkit-backdrop-filter: blur(30px) saturate(1.4);
+              border: 1px solid rgba(255,255,255,0.10) !important;
+              border-radius: 18px !important;
+              box-shadow: 0 8px 32px rgba(0,0,0,0.25);
+            }
+    - type: horizontal-stack
+      cards:
+      - type: custom:mushroom-template-card
+        primary: Desk Always-On
+        secondary: '{{ states("switch.desk_always_on") | title }}'
+        icon: mdi:power-plug
+        icon_color: '{{ "blue" if is_state("switch.desk_always_on","on") else "grey" }}'
+        tap_action:
+          action: toggle
+          entity: switch.desk_always_on
+        entity: switch.desk_always_on
+        card_mod:
+          style: |
+            ha-card {
+              background: {% if is_state(config.entity, 'on') %}linear-gradient(135deg, rgba(122,184,255,0.22), rgba(100,220,220,0.08)){% else %}rgba(255,255,255,0.05){% endif %} !important;
+              backdrop-filter: blur(30px) saturate(1.4);
+              -webkit-backdrop-filter: blur(30px) saturate(1.4);
+              border: 1px solid {% if is_state(config.entity, 'on') %}rgba(122,184,255,0.35){% else %}rgba(255,255,255,0.10){% endif %} !important;
+              border-radius: 22px !important;
+              box-shadow: {% if is_state(config.entity, 'on') %}0 0 24px rgba(122,184,255,0.18), 0 8px 32px rgba(0,0,0,0.25){% else %}0 8px 32px rgba(0,0,0,0.25){% endif %};
+              transition: all 0.4s ease;
+            }
+      - type: custom:mushroom-template-card
+        primary: Server Rack
+        secondary: '{{ states("switch.server_rack") | title }}'
+        icon: mdi:server-network
+        icon_color: '{{ "blue" if is_state("switch.server_rack","on") else "grey" }}'
+        tap_action:
+          action: toggle
+          entity: switch.server_rack
+        entity: switch.server_rack
+        card_mod:
+          style: |
+            ha-card {
+              background: {% if is_state(config.entity, 'on') %}linear-gradient(135deg, rgba(122,184,255,0.22), rgba(100,220,220,0.08)){% else %}rgba(255,255,255,0.05){% endif %} !important;
+              backdrop-filter: blur(30px) saturate(1.4);
+              -webkit-backdrop-filter: blur(30px) saturate(1.4);
+              border: 1px solid {% if is_state(config.entity, 'on') %}rgba(122,184,255,0.35){% else %}rgba(255,255,255,0.10){% endif %} !important;
+              border-radius: 22px !important;
+              box-shadow: {% if is_state(config.entity, 'on') %}0 0 24px rgba(122,184,255,0.18), 0 8px 32px rgba(0,0,0,0.25){% else %}0 8px 32px rgba(0,0,0,0.25){% endif %};
+              transition: all 0.4s ease;
+            }
+      - type: custom:mushroom-template-card
+        primary: Heating Pad
+        secondary: '{{ states("switch.heating_pad") | title }}'
+        icon: mdi:heating-coil
+        icon_color: '{{ "blue" if is_state("switch.heating_pad","on") else "grey" }}'
+        tap_action:
+          action: toggle
+          entity: switch.heating_pad
+        entity: switch.heating_pad
+        card_mod:
+          style: |
+            ha-card {
+              background: {% if is_state(config.entity, 'on') %}linear-gradient(135deg, rgba(122,184,255,0.22), rgba(100,220,220,0.08)){% else %}rgba(255,255,255,0.05){% endif %} !important;
+              backdrop-filter: blur(30px) saturate(1.4);
+              -webkit-backdrop-filter: blur(30px) saturate(1.4);
+              border: 1px solid {% if is_state(config.entity, 'on') %}rgba(122,184,255,0.35){% else %}rgba(255,255,255,0.10){% endif %} !important;
+              border-radius: 22px !important;
+              box-shadow: {% if is_state(config.entity, 'on') %}0 0 24px rgba(122,184,255,0.18), 0 8px 32px rgba(0,0,0,0.25){% else %}0 8px 32px rgba(0,0,0,0.25){% endif %};
+              transition: all 0.4s ease;
+            }
+      - type: custom:mushroom-template-card
+        primary: Dishwasher
+        secondary: '{{ states("switch.dishwasher") | title }}'
+        icon: mdi:dishwasher
+        icon_color: '{{ "blue" if is_state("switch.dishwasher","on") else "grey" }}'
+        tap_action:
+          action: toggle
+          entity: switch.dishwasher
+        entity: switch.dishwasher
+        card_mod:
+          style: |
+            ha-card {
+              background: {% if is_state(config.entity, 'on') %}linear-gradient(135deg, rgba(122,184,255,0.22), rgba(100,220,220,0.08)){% else %}rgba(255,255,255,0.05){% endif %} !important;
+              backdrop-filter: blur(30px) saturate(1.4);
+              -webkit-backdrop-filter: blur(30px) saturate(1.4);
+              border: 1px solid {% if is_state(config.entity, 'on') %}rgba(122,184,255,0.35){% else %}rgba(255,255,255,0.10){% endif %} !important;
+              border-radius: 22px !important;
+              box-shadow: {% if is_state(config.entity, 'on') %}0 0 24px rgba(122,184,255,0.18), 0 8px 32px rgba(0,0,0,0.25){% else %}0 8px 32px rgba(0,0,0,0.25){% endif %};
+              transition: all 0.4s ease;
+            }
+- title: Security
+  path: security
+  icon: mdi:shield-home
+  theme: Liquid Glass
+  type: panel
+  cards:
+  - type: vertical-stack
+    cards:
+    - type: custom:mod-card
+      card_mod:
+        style: |
+          ha-card {
+            background: linear-gradient(135deg, rgba(74,210,149,0.18), rgba(122,184,255,0.10)) !important;
+            backdrop-filter: blur(40px) saturate(1.6);
+            -webkit-backdrop-filter: blur(40px) saturate(1.6);
+            border: 1px solid rgba(74,210,149,0.25) !important;
+            border-radius: 28px !important;
+            box-shadow: 0 12px 48px rgba(0,0,0,0.30);
+            padding: 24px 28px;
+            margin-bottom: 12px;
+          }
+      card:
+        type: horizontal-stack
         cards:
-          - type: tile
-            entity: light.living_room
-          - type: tile
-            entity: light.kitchen
-          - type: tile
-            entity: light.bedside
-          - type: tile
-            entity: light.office
-          - type: tile
-            entity: switch.coffee_maker
-          - type: tile
-            entity: switch.tv
-          - type: tile
-            entity: cover.garage
-          - type: tile
-            entity: lock.front_door
+        - type: markdown
+          content: |
+            # Home Security
+            ### Disarmed · All clear
+          card_mod:
+            style: |
+              ha-card { background: transparent !important; border: none !important; box-shadow: none !important; padding: 0 !important; }
+              h1 { font-size: 2.4rem !important; font-weight: 600 !important; letter-spacing: -1px !important; margin: 0 0 4px 0 !important; }
+              h3 { font-weight: 400 !important; opacity: 0.85 !important; margin: 0 !important; color: #4ad295 !important; }
+        - type: custom:mushroom-chips-card
+          alignment: end
+          chips:
+          - type: action
+            icon: mdi:shield-home-outline
+            content: Arm Home
+            icon_color: amber
+            tap_action:
+              action: call-service
+              service: alarm_control_panel.alarm_arm_home
+              data:
+                entity_id: alarm_control_panel.home_alarm
+          - type: action
+            icon: mdi:shield-lock
+            content: Arm Away
+            icon_color: red
+            tap_action:
+              action: call-service
+              service: alarm_control_panel.alarm_arm_away
+              data:
+                entity_id: alarm_control_panel.home_alarm
+          - type: action
+            icon: mdi:shield-off-outline
+            content: Disarm
+            icon_color: green
+            tap_action:
+              action: call-service
+              service: alarm_control_panel.alarm_disarm
+              data:
+                entity_id: alarm_control_panel.home_alarm
+          card_mod:
+            style: |
+              ha-card { background: transparent !important; border: none !important; box-shadow: none !important; padding: 0 !important; }
+    - type: horizontal-stack
+      cards:
+      - type: custom:mushroom-template-card
+        primary: Front Door
+        secondary: '{{ "Open" if is_state("binary_sensor.haupteingang_offnung","on") else "Closed" }}'
+        icon: mdi:door
+        icon_color: '{{ "red" if is_state("binary_sensor.haupteingang_offnung","on") else "green" }}'
+        card_mod:
+          style: |
+            ha-card {
+              background: rgba(255,255,255,0.05) !important;
+              backdrop-filter: blur(30px) saturate(1.4);
+              -webkit-backdrop-filter: blur(30px) saturate(1.4);
+              border: 1px solid rgba(255,255,255,0.10) !important;
+              border-radius: 18px !important;
+              box-shadow: 0 8px 32px rgba(0,0,0,0.25);
+            }
+      - type: custom:mushroom-template-card
+        primary: Balcony
+        secondary: '{{ "Open" if is_state("binary_sensor.balkontur_offnung","on") else "Closed" }}'
+        icon: mdi:door-sliding
+        icon_color: '{{ "red" if is_state("binary_sensor.balkontur_offnung","on") else "green" }}'
+        card_mod:
+          style: |
+            ha-card {
+              background: rgba(255,255,255,0.05) !important;
+              backdrop-filter: blur(30px) saturate(1.4);
+              -webkit-backdrop-filter: blur(30px) saturate(1.4);
+              border: 1px solid rgba(255,255,255,0.10) !important;
+              border-radius: 18px !important;
+              box-shadow: 0 8px 32px rgba(0,0,0,0.25);
+            }
+      - type: custom:mushroom-template-card
+        primary: Living L
+        secondary: '{{ "Open" if is_state("binary_sensor.living_room_window_left_opening","on") else "Closed" }}'
+        icon: mdi:window-closed-variant
+        icon_color: '{{ "red" if is_state("binary_sensor.living_room_window_left_opening","on") else "green" }}'
+        card_mod:
+          style: |
+            ha-card {
+              background: rgba(255,255,255,0.05) !important;
+              backdrop-filter: blur(30px) saturate(1.4);
+              -webkit-backdrop-filter: blur(30px) saturate(1.4);
+              border: 1px solid rgba(255,255,255,0.10) !important;
+              border-radius: 18px !important;
+              box-shadow: 0 8px 32px rgba(0,0,0,0.25);
+            }
+      - type: custom:mushroom-template-card
+        primary: Living R
+        secondary: '{{ "Open" if is_state("binary_sensor.living_room_window_right","on") else "Closed" }}'
+        icon: mdi:window-closed-variant
+        icon_color: '{{ "red" if is_state("binary_sensor.living_room_window_right","on") else "green" }}'
+        card_mod:
+          style: |
+            ha-card {
+              background: rgba(255,255,255,0.05) !important;
+              backdrop-filter: blur(30px) saturate(1.4);
+              -webkit-backdrop-filter: blur(30px) saturate(1.4);
+              border: 1px solid rgba(255,255,255,0.10) !important;
+              border-radius: 18px !important;
+              box-shadow: 0 8px 32px rgba(0,0,0,0.25);
+            }
+      - type: custom:mushroom-template-card
+        primary: Bedroom L
+        secondary: '{{ "Open" if is_state("binary_sensor.bedroom_window_left","on") else "Closed" }}'
+        icon: mdi:window-closed-variant
+        icon_color: '{{ "red" if is_state("binary_sensor.bedroom_window_left","on") else "green" }}'
+        card_mod:
+          style: |
+            ha-card {
+              background: rgba(255,255,255,0.05) !important;
+              backdrop-filter: blur(30px) saturate(1.4);
+              -webkit-backdrop-filter: blur(30px) saturate(1.4);
+              border: 1px solid rgba(255,255,255,0.10) !important;
+              border-radius: 18px !important;
+              box-shadow: 0 8px 32px rgba(0,0,0,0.25);
+            }
+      - type: custom:mushroom-template-card
+        primary: Bedroom R
+        secondary: '{{ "Open" if is_state("binary_sensor.bedroom_window_right_opening","on") else "Closed" }}'
+        icon: mdi:window-closed-variant
+        icon_color: '{{ "red" if is_state("binary_sensor.bedroom_window_right_opening","on") else "green" }}'
+        card_mod:
+          style: |
+            ha-card {
+              background: rgba(255,255,255,0.05) !important;
+              backdrop-filter: blur(30px) saturate(1.4);
+              -webkit-backdrop-filter: blur(30px) saturate(1.4);
+              border: 1px solid rgba(255,255,255,0.10) !important;
+              border-radius: 18px !important;
+              box-shadow: 0 8px 32px rgba(0,0,0,0.25);
+            }
+    - type: horizontal-stack
+      cards:
+      - type: custom:mod-card
+        card_mod:
+          style: |
+            ha-card {
+              background: rgba(255,255,255,0.05) !important;
+              backdrop-filter: blur(30px) saturate(1.4);
+              -webkit-backdrop-filter: blur(30px) saturate(1.4);
+              border: 1px solid rgba(255,255,255,0.10) !important;
+              border-radius: 22px !important;
+              box-shadow: 0 8px 32px rgba(0,0,0,0.25);
+              padding: 6px;
+              overflow: hidden;
+              margin-top: 12px;
+            }
+        card:
+          type: picture-entity
+          entity: camera.living_room
+          name: Living Room
+          show_state: false
+          camera_view: auto
+          card_mod:
+            style: |
+              ha-card { background: transparent !important; border: none !important; box-shadow: none !important; border-radius: 18px !important; overflow: hidden !important; }
+      - type: custom:mod-card
+        card_mod:
+          style: |
+            ha-card {
+              background: rgba(255,255,255,0.05) !important;
+              backdrop-filter: blur(30px) saturate(1.4);
+              -webkit-backdrop-filter: blur(30px) saturate(1.4);
+              border: 1px solid rgba(255,255,255,0.10) !important;
+              border-radius: 22px !important;
+              box-shadow: 0 8px 32px rgba(0,0,0,0.25);
+              padding: 6px;
+              overflow: hidden;
+              margin-top: 12px;
+            }
+        card:
+          type: picture-entity
+          entity: camera.office
+          name: Office
+          show_state: false
+          camera_view: auto
+          card_mod:
+            style: |
+              ha-card { background: transparent !important; border: none !important; box-shadow: none !important; border-radius: 18px !important; overflow: hidden !important; }
+      - type: custom:mod-card
+        card_mod:
+          style: |
+            ha-card {
+              background: rgba(255,255,255,0.05) !important;
+              backdrop-filter: blur(30px) saturate(1.4);
+              -webkit-backdrop-filter: blur(30px) saturate(1.4);
+              border: 1px solid rgba(255,255,255,0.10) !important;
+              border-radius: 22px !important;
+              box-shadow: 0 8px 32px rgba(0,0,0,0.25);
+              padding: 6px;
+              overflow: hidden;
+              margin-top: 12px;
+            }
+        card:
+          type: picture-entity
+          entity: camera.hallway
+          name: Hallway
+          show_state: false
+          camera_view: auto
+          card_mod:
+            style: |
+              ha-card { background: transparent !important; border: none !important; box-shadow: none !important; border-radius: 18px !important; overflow: hidden !important; }
+    - type: horizontal-stack
+      cards:
+      - type: custom:mushroom-template-card
+        primary: Alex
+        secondary: Home
+        icon: mdi:account-circle
+        icon_color: green
+        card_mod:
+          style: |
+            ha-card {
+              background: rgba(255,255,255,0.05) !important;
+              backdrop-filter: blur(30px) saturate(1.4);
+              -webkit-backdrop-filter: blur(30px) saturate(1.4);
+              border: 1px solid rgba(255,255,255,0.10) !important;
+              border-radius: 18px !important;
+              box-shadow: 0 8px 32px rgba(0,0,0,0.25);
+            }
+      - type: custom:mushroom-template-card
+        primary: Sam
+        secondary: Away
+        icon: mdi:account-circle-outline
+        icon_color: grey
+        card_mod:
+          style: |
+            ha-card {
+              background: rgba(255,255,255,0.05) !important;
+              backdrop-filter: blur(30px) saturate(1.4);
+              -webkit-backdrop-filter: blur(30px) saturate(1.4);
+              border: 1px solid rgba(255,255,255,0.10) !important;
+              border-radius: 18px !important;
+              box-shadow: 0 8px 32px rgba(0,0,0,0.25);
+            }
+      - type: custom:mushroom-template-card
+        primary: Last Motion
+        secondary: 2 min ago
+        icon: mdi:motion-sensor
+        icon_color: blue
+        card_mod:
+          style: |
+            ha-card {
+              background: rgba(255,255,255,0.05) !important;
+              backdrop-filter: blur(30px) saturate(1.4);
+              -webkit-backdrop-filter: blur(30px) saturate(1.4);
+              border: 1px solid rgba(255,255,255,0.10) !important;
+              border-radius: 18px !important;
+              box-shadow: 0 8px 32px rgba(0,0,0,0.25);
+            }
+      - type: custom:mushroom-template-card
+        primary: Network
+        secondary: '{{ "Online" if is_state("binary_sensor.pi_hole_status","on") else "Offline" }}'
+        icon: mdi:shield-check
+        icon_color: cyan
+        card_mod:
+          style: |
+            ha-card {
+              background: rgba(255,255,255,0.05) !important;
+              backdrop-filter: blur(30px) saturate(1.4);
+              -webkit-backdrop-filter: blur(30px) saturate(1.4);
+              border: 1px solid rgba(255,255,255,0.10) !important;
+              border-radius: 18px !important;
+              box-shadow: 0 8px 32px rgba(0,0,0,0.25);
+            }

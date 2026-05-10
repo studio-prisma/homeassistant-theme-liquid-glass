@@ -1,35 +1,69 @@
 # Liquid Glass — Home Assistant Theme
 
 [![HACS Custom](https://img.shields.io/badge/HACS-Custom-orange.svg)](https://hacs.xyz/)
+[![Min HA Version](https://img.shields.io/badge/HA-2024.1.0%2B-blue.svg)](https://www.home-assistant.io/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-[![EN](https://img.shields.io/badge/Lang-EN-lightgrey.svg)](README.md)
+[![English](https://img.shields.io/badge/Lang-English-lightgrey.svg)](README.md)
 
-Premium Glass-Morphism-Theme für Home Assistant — durchscheinende Oberflächen, sanfte Akzente, Dark UI. Sechs Varianten.
+Premium Glass-Morphism-Theme für Home Assistant — durchscheinende Oberflächen, geschichteter Blur, sanfte Akzente, Dark UI. Sechs Varianten in einer Datei.
 
 > Maintained by **studio-prisma**.
 
-![Preview](docs/assets/screenshots/preview-main.svg)
+![Liquid Glass — Welcome Home Dashboard](docs/assets/screenshots/preview-welcome.png)
+
+> 🎯 **Plug-and-play.** Über HACS installieren → Theme aktivieren → fertig. Die Dashboards in den Screenshots nutzen Standard-Lovelace-Karten (Tile, Mushroom, Mini-Graph) — **keine Per-Card-Konfiguration nötig, damit das Theme greift**. Jede vorhandene Karte übernimmt automatisch den Liquid-Glass-Look. `card-mod` wird nur benötigt, wenn du die **optionalen** Snippets in [`docs/`](docs/) (Per-Room-Accents, Floorplan-Glow) nutzen willst. Siehe [FAQ](#faq) unten.
 
 ## Varianten
 
-| Theme-Name (HA Dropdown) | Verhalten |
+| Theme-Name (HA-Dropdown) | Verhalten |
 |---|---|
-| **Liquid Glass** ⭐ | **Standard — immer dunkel** mit `aurora.png` Hintergrund |
-| **Liquid Glass Auto (experimental)** | OS-gesteuerter Light/Dark-Switch — bekannte HA-Limitierungen |
-| **Liquid Glass Light only** | Immer hell — `dawn.png` Hintergrund |
+| **Liquid Glass** ⭐ | **Standard — immer dunkel** mit `aurora.png`-Hintergrund. Empfohlen. |
+| **Liquid Glass Auto (experimental)** | OS-gesteuerter Light/Dark-Switch — bekannte HA-Limitierungen (siehe Hinweis) |
+| **Liquid Glass Light only** | Immer hell, ignoriert OS — `dawn.png`-Hintergrund |
 | **Liquid Glass Compact** | Immer dunkel + tighter Spacing für Wall-Tablets |
 | **Liquid Glass Sunset** | Immer dunkel + warme Rosa/Amber-Palette |
-| **Liquid Glass Floorplan** | Immer dunkel + Heatmap-Glow für Picture-Element-Cards |
+| **Liquid Glass Floorplan** | Immer dunkel + Heatmap-Glow für Picture-Element-Karten |
 
-> ⚠️ **Warum ist "Auto" experimental?** HAs `modes:`-Block kann `lovelace-background` und einige Form-Komponenten (Sprache-Picker, Suchfelder) nicht zuverlässig zwischen Light/Dark umschalten. Für verlässliche Ergebnisse: feste Variante wählen. Für Auto-Switch nach Sonnenstand: Automation zwischen **Liquid Glass** und **Liquid Glass Light only** (siehe unten).
+> ⚠️ **Warum ist "Auto" experimental?** HAs `modes:`-Block überschreibt die `lovelace-background`-CSS-Variable nicht zuverlässig, und einige Form/Dropdown-Komponenten (Suchfelder, Sprache-Picker) rendern mit nicht-passenden Farben. Die Auto-Variante ist Best-Effort. Für konsistente Ergebnisse: feste Variante wählen.
+
+Auswählen unter **Profil → Theme** oder pro Dashboard via `theme: Liquid Glass Compact`.
+
+## Übersicht — Lichter, Medien, Schalter
+
+![Übersichts-View mit Mushroom-Karten, Staubsauger, Media Players und Switch-Tiles](docs/assets/screenshots/preview-overview.png)
+
+## Home-Security-View
+
+![Security-View mit Tür-Sensoren, Kameras und Anwesenheits-Tiles](docs/assets/screenshots/preview-security.png)
+
+## Features
+
+- Glass-Morphism mit gestaffelten transparenten Oberflächen und Blur
+- Pro-Domain-Statusfarben: light, switch, climate, cover, fan, media_player, person, lock, vacuum
+- **Per-Room-Accent-Tokens** (`room-living-rgb`, ...) — Karten pro Bereich einfärben
+- **Energy-Dashboard-Integration** — Grid, Solar, Batterie, Gas, Wasser harmonisiert
+- **Notification-Toast-Styling** — System-Pop-ups passen sich dem Theme an
+- **Form-Field- & Dropdown-Styling** — Sprache-Picker, Suchfelder, Selects, Alarmcode-Input, Time-Picker, Tooltips, Dialog-Popovers rendern alle korrekt im Dark Mode
+- Sidebar-Refinement, Mushroom- & Bubble-Card-Tokens
+- Card-Mod-Globale-Variablen
+- **Background-Pack** — vier PNGs (Aurora, Dawn, Night, Calm)
+
+## Getestet mit
+
+- Home Assistant Core 2026.5.0
+- Frontend 20260509.x (WebAwesome + Material Web 3 Komponenten)
+- Supervisor 2026.05.0 / OS 17.3
+- Browser: Chrome/Firefox/Safari/Edge Desktop, iOS Companion App
+
+Mindestens unterstützt: **Core 2024.1.0**. WCAG-AA-Kontrast für alle Varianten verifiziert (v1.2.8 + v1.3.0 für Auto).
 
 ## Installation
 
 ### Schritt 1 — Theme via HACS
 
-1. **HACS** → **Frontend** → 3-Punkte → **Custom repositories**
+1. **HACS** → **Frontend** → 3-Punkte-Menü → **Custom repositories**
 2. URL: `https://github.com/studio-prisma/homeassistant-theme-liquid-glass`
-3. Kategorie: **Theme** → Add → installieren → HA neu starten
+3. Kategorie: **Theme** → **Add** → installieren → HA neu starten
 
 `configuration.yaml`:
 
@@ -42,13 +76,13 @@ frontend:
 
 1. Ordner anlegen: `/config/www/liquid_glass/`
 2. Alle vier PNGs aus [`docs/assets/backgrounds/`](docs/assets/backgrounds/) reinkopieren
-3. **Developer Tools → YAML → Reload Themes**
+3. Entwicklerwerkzeuge → YAML → **Themes neu laden**
 
 ### Schritt 3 — Aktivieren
 
 **Profil → Theme → Liquid Glass** (Standard-Empfehlung).
 
-## Auto-Switch — empfohlene Variante
+## Auto-Switch-Strategie (empfohlen)
 
 Statt der experimental-Variante: HA-Automation, läuft zuverlässig:
 
@@ -73,54 +107,20 @@ action:
       name: Liquid Glass Light only
 ```
 
-## Hintergrundbild wechseln (per Dashboard)
+Vollständige Light/Dark-Übergänge inklusive Hintergründe, ohne Überraschungen.
 
-```yaml
-title: Home
-theme: Liquid Glass
-background: 'center / cover no-repeat url("/local/liquid_glass/night.png") fixed'
-```
+## Demo-Dashboard
 
-## Eigene Bilder
+[`docs/demo-dashboard.yaml`](docs/demo-dashboard.yaml) — generischer Showcase mit Platzhalter-Entity-IDs. Anpassen an dein Setup.
 
-1920×1200+, dunkel, ≤ 500 KB. In `/config/www/liquid_glass/` ablegen.
+## Optional: Card-mod-Snippets
 
-Quellen: [Unsplash](https://unsplash.com/), [Pexels](https://pexels.com/), [Pixabay](https://pixabay.com/), oder AI-Generatoren (Prompt: "premium dashboard background, deep blue ambient, soft gradient, minimal, 16:10").
+> ℹ️ **Diesen Abschnitt überspringen, wenn du keinen Extra-Polish brauchst.** Das Theme funktioniert vollständig ohne card-mod. Die folgenden Dateien sind **Opt-in-Extras**.
 
-## Getestet
+Für User, die [card-mod](https://github.com/thomasloven/lovelace-card-mod) bereits haben oder installieren wollen:
 
-HA Core 2026.5.0 · Frontend 20260509.x · Supervisor 2026.05.0 · OS 17.3
-Browser: Chrome/Firefox/Safari/Edge Desktop, iOS Companion App
-WCAG AA Kontrast verifiziert für alle Dark-Varianten (Audit in v1.2.8).
-Minimum: HA Core 2024.1.0.
-
-## Architektur — Token-Layer
-
-HAs Frontend hat über die Jahre mehrere CSS-Token-Generationen angesammelt. Ein Theme, das auf modernen HA-Installationen sauber rendert, muss alle abdecken — daher die Größe der YAML.
-
-| Layer | Genutzt von | Generation |
-|---|---|---|
-| `--mdc-*` | Legacy Material Design Components | HA ≤ 2023 |
-| `--paper-*` | Polymer-Inputs | HA ≤ 2022 |
-| `--input-*`, `--mwc-*` | HA-Aliases der obigen | Bridge-Layer |
-| `--wa-color-*` | WebAwesome (Shoelace-Fork) — moderne Form-Controls | HA 2025+ |
-| `--ha-color-*`, `--ha-color-fill-*-*-*`, `--ha-color-surface-*` | HA's eigenes Semantik-Token-System | HA 2025+ |
-| `--md-sys-color-*`, `--md-list-item-*` | Material Web 3 — Combo-Boxen, Dialoge, List-Items | HA 2025+ |
-
-### Wie `modes:` den Dark-Mode aktiviert
-
-HAs Resolver (`src/state/themes-mixin.ts`) lädt `darkSemanticColorStyles` + `darkColorStyles` nur, wenn das Theme einen `modes:`-Block deklariert. Jede dunkle Variante in diesem Theme deklariert ein leeres `modes: dark: {}`, um diesen Load zu triggern — dadurch rendern Tooltips, Dropdown-Popovers, Dialog-Hintergründe und Active-Filter-Pills automatisch dunkel, ohne dass wir jeden Token einzeln aufzählen müssen.
-
-Nebeneffekt: HA injiziert dann auch `<meta name="color-scheme" content="dark">`, was Browsern die echte CSS-`color-scheme`-Property gibt — die wiederum Native `<input type="time">` und `<input type="number">` (Alarm-Code, Time-Picker) korrekt rendern lässt.
-
-### Bekannte Limitierungen
-
-- **Auto (experimental)** — der `modes.light`-Block ist voll für OS-gesteuertes Switching, aber `modes.dark` ist bewusst nicht deklariert (Legacy-Entscheidung aus v1.1.2 zur Deaktivierung von HA's Auto-Switch). Für verlässlichen Light/Dark-Wechsel: Automation-Pattern aus dem [Auto-Switch-Abschnitt](#auto-switch--empfohlene-variante) nutzen.
-- **WCAG AA-Audit-Scope** — alle Top-Level-Varianten geprüft. Auto's verschachtelter `modes.light`-Block wurde in v1.2.8 nicht token-by-token auditiert (deferred — überlappt stark mit Light-only, das geprüft wurde).
-
-### Issues diagnostizieren
-
-DevTools → Elements → `#shadow-root`-Ketten aufklappen → Computed-Tab → CSS-Variable identifizieren, die die falsche Farbe resolved. Issue-Templates in [`CONTRIBUTING.md`](CONTRIBUTING.md) führen durch das Format.
+- [`docs/card-mod-snippets.yaml`](docs/card-mod-snippets.yaml) — neun Drop-in-Mods
+- [`docs/floorplan-snippets.yaml`](docs/floorplan-snippets.yaml) — Picture-Element-Snippets
 
 ## Anpassung
 
@@ -134,4 +134,107 @@ Liquid Glass:
 
 ### Per-Room-Accent-Tokens
 
-Jede Variante liefert acht Raum-Tokens als RGB-Triplets — ready-to-use für `rgb()` / `rgba()`, um Karten pro Bereich einzufärben. Defaults stehen 
+Jede Variante liefert acht Raum-Tokens als RGB-Triplets — ready-to-use für `rgb()` / `rgba()`, um Karten pro Bereich einzufärben.
+
+| Token | Default (Liquid Glass) | Vorgeschlagener Bereich |
+|---|---|---|
+| `--room-living-rgb` | `255, 180, 84` (Amber) | Wohnzimmer |
+| `--room-bedroom-rgb` | `157, 130, 230` (Lavendel) | Schlafzimmer |
+| `--room-office-rgb` | `122, 184, 255` (Sky Blue) | Büro / Arbeitsplatz |
+| `--room-kitchen-rgb` | `255, 139, 74` (Coral) | Küche |
+| `--room-bathroom-rgb` | `100, 220, 220` (Teal) | Bad |
+| `--room-garden-rgb` | `74, 210, 149` (Mint) | Garten / Outdoor |
+| `--room-garage-rgb` | `120, 120, 130` (Graphit) | Garage / Werk |
+| `--room-workshop-rgb` | `255, 200, 100` (warmes Gold) | Werkstatt / Hobby |
+
+**Theme-only-Nutzung (kein Plugin nötig):** Die Tokens sind bereits in den Pro-Domain-Farben verdrahtet.
+
+**Optional — Per-Card-Override via card-mod** (benötigt das card-mod-Plugin):
+
+```yaml
+type: tile
+entity: light.wohnzimmer_main
+card_mod:
+  style: |
+    ha-card {
+      background: rgba(var(--room-living-rgb), 0.18);
+      border-left: 3px solid rgb(var(--room-living-rgb));
+    }
+```
+
+**Global überschreiben (pro Theme, kein Plugin):**
+
+```yaml
+Liquid Glass:
+  room-living-rgb: "210, 90, 130"
+  room-office-rgb: "90, 200, 170"
+```
+
+## Architektur — Token-Layer
+
+HAs Frontend hat über die Zeit mehrere CSS-Token-Generationen angesammelt. Ein Theme, das auf einer modernen HA-Installation korrekt rendern soll, muss alle abdecken.
+
+| Layer | Genutzt von | Generation |
+|---|---|---|
+| `--mdc-*` | Legacy Material Design Components | HA ≤ 2023 |
+| `--paper-*` | Polymer-Inputs | HA ≤ 2022 |
+| `--input-*`, `--mwc-*` | HA-Aliases der obigen | Bridge-Layer |
+| `--wa-color-*` | WebAwesome (Shoelace-Fork) — moderne Form-Controls | HA 2025+ |
+| `--ha-color-*`, `--ha-color-fill-*-*-*`, `--ha-color-surface-*` | HAs eigenes Semantik-Token-System | HA 2025+ |
+| `--md-sys-color-*` | Material Web 3 — Combo-Boxen, Dialoge | HA 2025+ |
+
+### Wie `modes:` den Dark Mode aktiviert
+
+HAs Resolver lädt `darkSemanticColorStyles` + `darkColorStyles` nur, wenn das Theme einen `modes:`-Block deklariert. Jede dunkle Variante deklariert ein leeres `modes: dark: {}`, um den Load zu triggern.
+
+### Bekannte Limitierungen
+
+- **Auto (experimental)** — `modes.light`-Block voll für OS-gesteuertes Switching, `modes.dark` bewusst nicht deklariert. Für verlässlichen Light/Dark-Wechsel: Automation-Pattern aus dem Auto-Switch-Abschnitt nutzen.
+- **WCAG-AA-Audit** — Alle Varianten auditiert: Top-Level + Auto `modes.light`. **13/13 Paare bestehen** (3.78:1 bis 17.18:1) seit v1.3.0.
+
+### Issues diagnostizieren
+
+DevTools → Elements → `#shadow-root`-Ketten aufklappen → Computed-Tab → CSS-Variable identifizieren. Issue-Templates in [`CONTRIBUTING.md`](CONTRIBUTING.md).
+
+## Versionierung
+
+[Semantic Versioning](https://semver.org/). Siehe [`CHANGELOG.md`](CHANGELOG.md).
+
+## Beitragen
+
+Siehe [`CONTRIBUTING.md`](CONTRIBUTING.md).
+
+## Credits
+
+- Designed & maintained by **studio-prisma**
+- Mushroom- & Bubble-Card-Token-Kompatibilität sichergestellt
+
+## FAQ
+
+### Brauche ich card-mod für jede Karte?
+
+Nein. Das Theme ist Plug-and-Play. Sobald du es unter **Profil → Theme** aktivierst, übernimmt jede vorhandene Lovelace-Karte automatisch das Liquid-Glass-Styling — keine Per-Card-Konfiguration nötig. Die card-mod-Snippets in [`docs/`](docs/) sind **Opt-in-Extras** für User, die Extra-Polish wollen.
+
+### Muss ich YAML editieren, um das Theme zu nutzen?
+
+Nein. Der einzige manuelle Schritt ist, die vier Hintergrund-PNGs in `/config/www/liquid_glass/` zu kopieren (einmaliges Setup). Alles andere funktioniert automatisch.
+
+### Welche Dashboard-Karten sind in den Screenshots zu sehen?
+
+Standard- + populäre Community-Karten: Lovelace-Tile, [Mushroom](https://github.com/piitaya/lovelace-mushroom), [mini-graph-card](https://github.com/kalkih/mini-graph-card), [mini-media-player](https://github.com/kalkih/mini-media-player), [vacuum-card](https://github.com/denysdovhan/vacuum-card). Alle funktionieren ohne Per-Card-Theming. Referenz-Dashboard: [`docs/demo-dashboard.yaml`](docs/demo-dashboard.yaml).
+
+### Was ist in `themes/liquid_glass.yaml`?
+
+Eine ~1250-zeilige YAML-Datei mit sechs Theme-Varianten. Du musst sie nicht öffnen oder editieren — HACS installiert sie, HA lädt sie automatisch.
+
+### Warum werden die Hintergründe nicht automatisch installiert?
+
+HACS kann Theme-YAML ausliefern, aber nicht in `/config/www/` schreiben. Lovelace referenziert Bilder per URL-Pfad — die vier PNGs müssen also einmalig in den `www/`-Ordner deiner Config.
+
+### Etwas sieht falsch aus / Kontrast stimmt nicht / ein Popup ist Weiß-auf-Weiß
+
+Issue öffnen mit: HA-Core-Version, Browser, betroffenes Element (DevTools-Screenshot der computed CSS-Variable). Der Abschnitt "Issues diagnostizieren" oben führt durch.
+
+## Lizenz
+
+MIT — siehe [LICENSE](LICENSE).
