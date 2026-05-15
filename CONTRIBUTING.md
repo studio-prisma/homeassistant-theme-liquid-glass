@@ -35,6 +35,19 @@ This prevents the speculative-fix-stacking pattern that hit v1.2.2 → v1.2.3 �
 4. Update `CHANGELOG.md` under `[Unreleased]`
 5. Push and open a Pull Request
 
+## Translations
+
+Currently maintained: **English** (`README.md`) and **Deutsch** (`README.de.md`). EN is the source of truth — DE is kept in sync best-effort by the maintainer.
+
+**PRs for additional languages welcome** — French, Spanish, Italian, Dutch, Polish, etc. To contribute a translation:
+
+1. Add `README.<lang>.md` (lowercase ISO 639-1 code, e.g. `README.fr.md`) at repo root
+2. Add a language badge to the EN README's badge row, linking to your file
+3. Add a back-link badge in your file pointing to `README.md` (English)
+4. Commit to keeping it roughly in sync via follow-up PRs when substantial EN content lands
+
+The maintainer does not actively maintain non-EN/DE translations. If a translation goes stale (>6 months out of sync after major EN updates) it may be removed.
+
 ## Style Guide
 
 - YAML: 2-space indent, no trailing whitespace

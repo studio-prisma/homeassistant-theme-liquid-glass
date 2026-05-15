@@ -8,12 +8,36 @@
 # =====================================================================
 
 # ---------------------------------------------------------------------
-# 1) Universal Glass Card Base
-#    Applies the full glass-morphism effect to any ha-card.
-#    Paste under any card config:
+# 1) Universal Glass Card Base  —  the "screenshot look" recipe
+#
+#    This is the snippet that gives stock Tile / Thermostat / Area /
+#    Entities cards the full glass-morphism effect (backdrop blur +
+#    translucent surface + soft border) you see in the README hero
+#    screenshots.
+#
+#    Why opt-in: HA themes can only set CSS variables — they cannot
+#    inject the `backdrop-filter` CSS rule globally. card-mod is the
+#    sanctioned way to attach that rule per card. We intentionally do
+#    NOT ship a global `ha-card { backdrop-filter }` override because
+#    it has been observed to break Bubble Card v3 pop-up rendering
+#    (Bubble Card issue #2347).
+#
+#    Usage — paste under any card config:
+#      type: tile
+#      entity: light.living_room
 #      card_mod:
 #        style: |
-#          ...
+#          ha-card {
+#            background: var(--glass-bg);
+#            backdrop-filter: var(--glass-blur);
+#            -webkit-backdrop-filter: var(--glass-blur);
+#            border: var(--glass-border);
+#            border-radius: var(--glass-radius);
+#            box-shadow: var(--glass-shadow);
+#          }
+#
+#    The anchor below (`&glass_card_base`) lets you reference this
+#    snippet from elsewhere in the same YAML file with `<<: *glass_card_base`.
 # ---------------------------------------------------------------------
 glass_card_base: &glass_card_base
   card_mod:
