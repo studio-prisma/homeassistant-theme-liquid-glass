@@ -11,7 +11,7 @@ A premium glass-morphism theme for Home Assistant — translucent surfaces, laye
 
 ![Liquid Glass — Welcome Home Dashboard](docs/assets/screenshots/preview-welcome.png)
 
-> 🎯 **Plug-and-play, with two effect tiers.** Install via HACS → activate the theme → done. **Tier 1** (automatic, no card-mod): every card inherits the Liquid Glass color tokens — translucent dark surface, rounded corners, refined borders, harmonized per-domain state colors, full WCAG-AA-compliant text. **Tier 2** (opt-in, card-mod required): the full glass-morphism backdrop blur seen in the screenshots — added per card via a single drop-in snippet. The Tier-2 split is deliberate: a global blur on `ha-card` is known to break Bubble Card v3 pop-ups, so we ship it as an explicit opt-in. See [Effect Tiers](#effect-tiers--what-the-theme-gives-you-automatically-vs-opt-in) below for the table and the copy-paste snippet, or jump to the [FAQ](#faq).
+> 🎯 **True plug-and-play (since v1.4.0).** Install via HACS → activate the theme → done. Every card automatically gets the full glass-morphism look — translucent surface, backdrop blur, soft border, glass-grade shadow, harmonized per-domain state colors, WCAG-AA-compliant text. No per-card snippet required. Mushroom and Bubble Card supported; pop-ups remain intact thanks to the upstream fix in [Bubble Card issue #2347](https://github.com/Clooos/Bubble-Card/issues/2347). Prerequisites: `card-mod` installed via HACS (one-time) and Bubble Card on the current official release. See [What you get out of the box](#what-you-get-out-of-the-box) for the details.
 
 ## Variants
 
@@ -32,13 +32,13 @@ Pick in **Profile → Theme** or per dashboard via `theme: Liquid Glass Compact`
 
 ![Overview view with Mushroom cards, vacuum, media players, and switch tiles](docs/assets/screenshots/preview-overview.png)
 
-> *Screenshot composition: Mushroom cards bring their own blur via `--mush-control-*` tokens (no card-mod needed); standard Tile/Thermostat cards in the lower half use the [Tier-2 snippet](#effect-tiers--what-the-theme-gives-you-automatically-vs-opt-in) to match the surrounding aesthetic. Without the Tier-2 snippet they render with Tier-1 token-only translucency.*
+> *Stock Tile, Thermostat, Area and Mushroom cards — all rendered automatically with the full glass look since v1.4.0. No per-card snippets required.*
 
 ## Home Security View
 
 ![Security view with door sensors, cameras, and presence tiles](docs/assets/screenshots/preview-security.png)
 
-> *Tile cards in this view use the Tier-2 `glass_card_base` snippet; the picture-element camera grid uses the Floorplan-variant tokens directly.*
+> *Tile cards in this view render with the full glass effect out-of-the-box; the picture-element camera grid uses the Floorplan-variant tokens.*
 
 ## Features
 
@@ -49,49 +49,33 @@ Pick in **Profile → Theme** or per dashboard via `theme: Liquid Glass Compact`
 - **Notification toast styling** — system pop-ups match the theme
 - **Form field & dropdown styling** — language picker, search fields, selects, alarm-code input, time pickers, tooltips, dialog popovers all render correctly in dark mode via HA's dark token system (`modes:` block triggers `darkSemanticColorStyles` + `<meta color-scheme=dark>` injection — see [Architecture](#architecture--token-layers))
 - Sidebar refinement, Mushroom & Bubble card tokens
-- Card-mod global variables
+- **Global `card-mod-card` rule** (v1.4.0+) — every card gets the full glass-morphism look automatically; no per-card snippet needed
 - **Background Pack** — four PNGs (Aurora, Dawn, Night, Calm)
 
-## Effect Tiers — what the theme gives you automatically vs. opt-in
+## What you get out of the box
 
-The theme delivers two layers of visual effect. Tier 1 is automatic; Tier 2 is a one-line card-mod opt-in.
+Since v1.4.0 the theme ships a global `card-mod-card` rule (one per variant) that applies the full glass-morphism look — translucent surface, `backdrop-filter` blur, soft border, glass-grade shadow — to every `ha-card` automatically. Just install the theme and activate it.
 
-| Card family | Tier 1 — automatic (no plugin) | Tier 2 — `glass_card_base` snippet (card-mod) |
-|---|---|---|
-| **Tile** | dark translucent BG, rounded, soft border, theme text | + full `backdrop-filter` blur, hover glow, glass-grade shadow |
-| **Thermostat** | dark translucent BG, rounded, theme accent | + full blur, hover glow |
-| **Area** | dark translucent BG, theme tokens | + full blur, soft border, hover glow |
-| **Entities / Glance / Button** | dark translucent BG, theme tokens | + full blur, hover glow |
-| **Mushroom** | dark translucent BG + Mushroom's own blur via `--mush-*` tokens (looks "full glass" already) | further refinements via `mushroom_glass` snippet |
-| **Bubble Card** | dark translucent BG via theme tokens, pop-ups intact | per-card snippet only — do NOT apply a global `ha-card` blur |
-| **picture-elements (Floorplan variant)** | heatmap-glow tokens via `--floorplan-*` | room-marker / heatmap snippets in `docs/floorplan-snippets.yaml` |
+| Card family | Look out-of-the-box |
+|---|---|
+| **Tile / Thermostat / Area / Entities / Glance / Button** | Full glass: translucent surface + backdrop blur + soft border + hover glow |
+| **Mushroom** | Mushroom's own blur via `--mush-*` tokens + theme translucency |
+| **Bubble Card** | Theme tokens applied; pop-ups remain intact (rendered outside the `ha-card` tree since the upstream fix) |
+| **picture-elements (Floorplan variant)** | Heatmap-glow tokens via `--floorplan-*` |
 
-### Why Tier 2 is opt-in (not a default)
+### Why v1.4.0 — and what changed
 
-HA theme YAML can only define CSS *variables* — it cannot inject CSS *rules*. The `backdrop-filter: blur(...)` declaration is a rule, not a variable, so a theme cannot apply it globally to `ha-card` without going through a `card-mod-theme` override. We deliberately do **not** ship that override, because in earlier development we observed it breaking Bubble Card v3 pop-up rendering (Bubble Card issue #2347 — globally styled `ha-card-*` properties leak into the pop-up internals and the pop-up body renders empty). Tier 2 as a per-card opt-in is the safest path that preserves plugin compatibility.
+Earlier releases shipped the glass effect as a per-card opt-in (`glass_card_base` snippet) because a globally applied `backdrop-filter: blur(...)` on `ha-card` was observed to break Bubble Card v3 pop-up rendering ([Bubble Card issue #2347](https://github.com/Clooos/Bubble-Card/issues/2347)). The upstream fix (post-v3.2.0-beta4) moves Bubble Card pop-ups outside the `ha-card` tree, so a global rule no longer affects them. v1.4.0 ships that global rule as the default.
 
-### Copy-paste — the Tier-2 snippet
+### Prerequisites
 
-Drop this under any Tile, Thermostat, Area, Entities or Glance card to match the screenshots:
+- [`card-mod`](https://github.com/thomasloven/lovelace-card-mod) installed via HACS — required for every Liquid Glass v1.4.0+ install, because the global rule is delivered via the `card-mod-theme` mechanism.
+- **Bubble Card on the current official release** (anything past v3.2.0-beta4, which contains the fix). Older Bubble Card builds will render pop-ups empty under a global blur — this is upstream-fixed, not a theme bug.
 
-```yaml
-type: tile
-entity: light.living_room
-card_mod:
-  style: |
-    ha-card {
-      background: var(--glass-bg);
-      backdrop-filter: var(--glass-blur);
-      -webkit-backdrop-filter: var(--glass-blur);
-      border: var(--glass-border);
-      border-radius: var(--glass-radius);
-      box-shadow: var(--glass-shadow);
-    }
-```
+### Want to override per card?
 
-The snippet uses theme variables, so it adapts automatically when you switch between Liquid Glass / Light only / Compact / Sunset. Full snippet library: [`docs/card-mod-snippets.yaml`](docs/card-mod-snippets.yaml).
+Set `card_mod` directly on the card to override the global rule, or use any of the snippets in [`docs/card-mod-snippets.yaml`](docs/card-mod-snippets.yaml) — all use the same `--glass-*` tokens, so overrides stay coherent with the theme palette.
 
-Prerequisite: [card-mod](https://github.com/thomasloven/lovelace-card-mod) installed via HACS.
 
 ## Tested With
 
@@ -196,11 +180,11 @@ Full light/dark transitions including backgrounds, no surprises.
 
 ## Optional: Card-mod Snippets
 
-> ℹ️ **Skip this section unless you want extra polish.** The theme works fully at Tier 1 without card-mod. The files below are **opt-in extras** — install card-mod only if you want Tier-2 effects (full blur on stock cards) or the extras listed here.
+> ℹ️ **`card-mod` is now required** (since v1.4.0 — for the global glass-morphism rule). The files below are **opt-in extras** beyond that: per-card overrides, glow effects, per-room accents, mushroom polish.
 
-For users who already have or want to install [card-mod](https://github.com/thomasloven/lovelace-card-mod):
+Snippet libraries:
 
-- [`docs/card-mod-snippets.yaml`](docs/card-mod-snippets.yaml) — twelve drop-in mods, starting with the Tier-2 `glass_card_base` recipe
+- [`docs/card-mod-snippets.yaml`](docs/card-mod-snippets.yaml) — twelve drop-in mods (`glass_card_base` is now bundled into the theme; the snippet is kept as a copy-paste template for per-card overrides)
 - [`docs/floorplan-snippets.yaml`](docs/floorplan-snippets.yaml) — picture-element snippets
 
 ## Customization
@@ -298,11 +282,11 @@ See [`CONTRIBUTING.md`](CONTRIBUTING.md).
 
 ### Do I need card-mod for every card?
 
-No. The theme is plug-and-play at **Tier 1** — every Lovelace card you already have automatically picks up the Liquid Glass color tokens (translucent dark background, rounded corners, refined borders, WCAG-AA text). card-mod only comes into play for **Tier 2** — adding the full backdrop blur effect to stock cards, or applying the optional polish snippets in [`docs/`](docs/). See [Effect Tiers](#effect-tiers--what-the-theme-gives-you-automatically-vs-opt-in) for the exact split.
+No. `card-mod` must be installed once via HACS — but you don't add anything per card. Since v1.4.0 the theme ships a global `card-mod-card` rule that applies the full glass look to every `ha-card` automatically. Per-card overrides remain possible if you want custom looks; see [`docs/card-mod-snippets.yaml`](docs/card-mod-snippets.yaml).
 
 ### Why don't my Tile / Thermostat / Area cards have the same blur as the screenshots?
 
-That's the deliberate Tier-1 vs. Tier-2 split. Tier 1 is what every card inherits automatically: translucent dark surface, rounded corners, theme borders, harmonized state colors. Tier 2 — the full `backdrop-filter: blur(...)` glass effect — is opt-in per card via the `glass_card_base` snippet in [`docs/card-mod-snippets.yaml`](docs/card-mod-snippets.yaml). The reason it's not a default: applying `backdrop-filter` globally on `ha-card` via `card-mod-theme` has been observed to break Bubble Card v3 pop-up rendering, so we ship it as an explicit opt-in instead. Copy-paste the eight-line snippet under any card and you get the screenshot look. [Snippet](#effect-tiers--what-the-theme-gives-you-automatically-vs-opt-in) | [Full snippet library](docs/card-mod-snippets.yaml).
+They should — since v1.4.0 the full glass effect is applied globally. If you don't see it, check: (1) is `card-mod` installed via HACS? (2) is Bubble Card on the current official release (post-v3.2.0-beta4)? (3) is the dashboard's Edit-Mode off? (4) browser cache cleared? If yes to all and the look is still missing, open an issue with a DOM-inspect screenshot. See [What you get out of the box](#what-you-get-out-of-the-box) for the full setup.
 
 ### Do I need to edit any YAML to use the theme?
 
@@ -310,7 +294,7 @@ No. The only manual step is copying the four background PNGs into `/config/www/l
 
 ### What dashboard cards are shown in the screenshots?
 
-Stock + popular community cards: standard Lovelace tile cards, [Mushroom](https://github.com/piitaya/lovelace-mushroom), [mini-graph-card](https://github.com/kalkih/mini-graph-card), [mini-media-player](https://github.com/kalkih/mini-media-player), [vacuum-card](https://github.com/denysdovhan/vacuum-card). The Mushroom and mini-graph cards bring their own blur and look "full glass" at Tier 1. The standard Tile cards visible in the screenshots use the Tier-2 `glass_card_base` snippet to match. A reference dashboard YAML (with placeholder entity IDs) is in [`docs/demo-dashboard.yaml`](docs/demo-dashboard.yaml).
+Stock + popular community cards: standard Lovelace tile cards, [Mushroom](https://github.com/piitaya/lovelace-mushroom), [mini-graph-card](https://github.com/kalkih/mini-graph-card), [mini-media-player](https://github.com/kalkih/mini-media-player), [vacuum-card](https://github.com/denysdovhan/vacuum-card). Since v1.4.0 every visible card — including standard Tile — renders with the full glass look automatically. Mushroom and mini-graph cards layer their own blur on top. A reference dashboard YAML (with placeholder entity IDs) is in [`docs/demo-dashboard.yaml`](docs/demo-dashboard.yaml).
 
 ### What's inside `themes/liquid_glass.yaml`?
 

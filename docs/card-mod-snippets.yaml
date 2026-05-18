@@ -10,19 +10,27 @@
 # ---------------------------------------------------------------------
 # 1) Universal Glass Card Base  —  the "screenshot look" recipe
 #
-#    This is the snippet that gives stock Tile / Thermostat / Area /
-#    Entities cards the full glass-morphism effect (backdrop blur +
-#    translucent surface + soft border) you see in the README hero
-#    screenshots.
+#    SINCE v1.4.0 this snippet is bundled into the theme itself as a
+#    global `card-mod-card` rule. Every card automatically gets the
+#    full glass-morphism look (backdrop blur + translucent surface +
+#    soft border + glass-grade shadow). You no longer need to paste
+#    this snippet on every card to match the README screenshots.
 #
-#    Why opt-in: HA themes can only set CSS variables — they cannot
-#    inject the `backdrop-filter` CSS rule globally. card-mod is the
-#    sanctioned way to attach that rule per card. We intentionally do
-#    NOT ship a global `ha-card { backdrop-filter }` override because
-#    it has been observed to break Bubble Card v3 pop-up rendering
-#    (Bubble Card issue #2347).
+#    History: earlier releases shipped this as per-card opt-in because
+#    a global `ha-card { backdrop-filter }` rule used to break Bubble
+#    Card v3 pop-up rendering (Bubble Card issue #2347). The upstream
+#    fix (post-v3.2.0-beta4) moved pop-ups outside the `ha-card` tree,
+#    so a global rule no longer affects them. v1.4.0 ships that rule
+#    as the default — see README "What you get out of the box".
 #
-#    Usage — paste under any card config:
+#    Why this snippet is still here:
+#    - Copy-paste template for per-card OVERRIDES (different blur
+#      strength on a single card, custom hover, etc.)
+#    - Reference for users on older theme versions
+#    - Yaml anchor (`&glass_card_base`) for shared overrides within a
+#      single dashboard file
+#
+#    Per-card override usage:
 #      type: tile
 #      entity: light.living_room
 #      card_mod:
@@ -35,9 +43,6 @@
 #            border-radius: var(--glass-radius);
 #            box-shadow: var(--glass-shadow);
 #          }
-#
-#    The anchor below (`&glass_card_base`) lets you reference this
-#    snippet from elsewhere in the same YAML file with `<<: *glass_card_base`.
 # ---------------------------------------------------------------------
 glass_card_base: &glass_card_base
   card_mod:
