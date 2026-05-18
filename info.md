@@ -2,7 +2,7 @@
 
 A premium glass-morphism theme for Home Assistant — translucent surfaces, soft accents, refined dark UI.
 
-> 🎯 **Plug-and-play, with two effect tiers.** Install via HACS → activate the theme → done. **Tier 1** (automatic, no card-mod): every Lovelace card inherits the Liquid Glass color tokens — translucent dark surface, rounded corners, refined borders, WCAG-AA-compliant text. **Tier 2** (opt-in, card-mod required): the full backdrop blur seen in the screenshots — added per card via a single drop-in `glass_card_base` snippet from `docs/card-mod-snippets.yaml`. The split is deliberate to preserve Bubble Card v3 pop-up compatibility (a global `ha-card` blur is known to break those). Full details and snippet in the README "Effect Tiers" section.
+> 🎯 **True plug-and-play (since v1.4.0).** Install via HACS → activate the theme → done. Every Lovelace card automatically renders with the full glass-morphism look — translucent surface, backdrop blur, soft border, glass-grade shadow, WCAG-AA-compliant text. Prerequisites: `card-mod` installed via HACS (one-time, the global glass rule rides on top of card-mod's `card-mod-theme` mechanism) and Bubble Card on the current official release. Mushroom and Bubble Card are supported; pop-ups remain intact thanks to the upstream fix in Bubble Card issue #2347 (post-v3.2.0-beta4).
 
 ## Six variants
 

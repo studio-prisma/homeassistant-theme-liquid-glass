@@ -207,6 +207,23 @@ Liquid Glass:
   ha-color-on-primary-quiet: "var(--primary-text-color)"
   ha-color-on-primary-normal: "var(--primary-text-color)"
   ha-color-on-primary-loud: "var(--text-primary-color)"
+  # --- v1.4.0: globaler card-mod-card-Block (Bubble Card #2347 fixed) ---
+  # Pop-ups sind seit offiziellem Release ausserhalb des ha-card-Trees,
+  # globaler ha-card-Blur trifft sie nicht mehr -> Tier 2 wird Tier 1.
+  card-mod-theme: "Liquid Glass"
+  card-mod-card: |
+    ha-card {
+      background: var(--glass-bg);
+      backdrop-filter: var(--glass-blur);
+      -webkit-backdrop-filter: var(--glass-blur);
+      border: var(--glass-border);
+      border-radius: var(--glass-radius);
+      box-shadow: var(--glass-shadow);
+      transition: all var(--transition-duration) var(--transition-timing-function);
+    }
+    ha-card:hover {
+      background: var(--glass-bg-hover);
+    }
   modes:
     dark: {}
 # Liquid Glass Auto — OS-driven (known limitations)
@@ -323,6 +340,23 @@ Liquid Glass Auto (experimental):
   glass-glow-cool: "linear-gradient(135deg, rgba(122, 184, 255, 0.22), rgba(100, 220, 220, 0.08))"
   glass-glow-violet: "linear-gradient(135deg, rgba(157, 130, 230, 0.22), rgba(190, 150, 230, 0.08))"
   glass-glow-mint: "linear-gradient(135deg, rgba(74, 210, 149, 0.22), rgba(120, 230, 180, 0.08))"
+  # --- v1.4.0: globaler card-mod-card-Block (Bubble Card #2347 fixed) ---
+  # Pop-ups sind seit offiziellem Release ausserhalb des ha-card-Trees,
+  # globaler ha-card-Blur trifft sie nicht mehr -> Tier 2 wird Tier 1.
+  card-mod-theme: "Liquid Glass Auto (experimental)"
+  card-mod-card: |
+    ha-card {
+      background: var(--glass-bg);
+      backdrop-filter: var(--glass-blur);
+      -webkit-backdrop-filter: var(--glass-blur);
+      border: var(--glass-border);
+      border-radius: var(--glass-radius);
+      box-shadow: var(--glass-shadow);
+      transition: all var(--transition-duration) var(--transition-timing-function);
+    }
+    ha-card:hover {
+      background: var(--glass-bg-hover);
+    }
   modes:
     light:
       primary-background-color: "#f5f3ee"
@@ -732,6 +766,23 @@ Liquid Glass Light only:
   md-list-item-leading-icon-color: "var(--state-icon-color)"
   md-list-item-container-color: "transparent"
 
+  # --- v1.4.0: globaler card-mod-card-Block (Bubble Card #2347 fixed) ---
+  # Pop-ups sind seit offiziellem Release ausserhalb des ha-card-Trees,
+  # globaler ha-card-Blur trifft sie nicht mehr -> Tier 2 wird Tier 1.
+  card-mod-theme: "Liquid Glass Light only"
+  card-mod-card: |
+    ha-card {
+      background: var(--glass-bg);
+      backdrop-filter: var(--glass-blur);
+      -webkit-backdrop-filter: var(--glass-blur);
+      border: var(--glass-border);
+      border-radius: var(--glass-radius);
+      box-shadow: var(--glass-shadow);
+      transition: all var(--transition-duration) var(--transition-timing-function);
+    }
+    ha-card:hover {
+      background: var(--glass-bg-hover);
+    }
   modes:
     light: {}
 # Liquid Glass Compact — tighter spacing
@@ -889,6 +940,23 @@ Liquid Glass Compact:
   ha-color-on-primary-quiet: "var(--primary-text-color)"
   ha-color-on-primary-normal: "var(--primary-text-color)"
   ha-color-on-primary-loud: "var(--text-primary-color)"
+  # --- v1.4.0: globaler card-mod-card-Block (Bubble Card #2347 fixed) ---
+  # Pop-ups sind seit offiziellem Release ausserhalb des ha-card-Trees,
+  # globaler ha-card-Blur trifft sie nicht mehr -> Tier 2 wird Tier 1.
+  card-mod-theme: "Liquid Glass Compact"
+  card-mod-card: |
+    ha-card {
+      background: var(--glass-bg);
+      backdrop-filter: var(--glass-blur);
+      -webkit-backdrop-filter: var(--glass-blur);
+      border: var(--glass-border);
+      border-radius: var(--glass-radius);
+      box-shadow: var(--glass-shadow);
+      transition: all var(--transition-duration) var(--transition-timing-function);
+    }
+    ha-card:hover {
+      background: var(--glass-bg-hover);
+    }
   modes:
     dark: {}
 # Liquid Glass Sunset — warm rose/amber palette
@@ -1085,6 +1153,23 @@ Liquid Glass Sunset:
   ha-color-on-primary-quiet: "var(--primary-text-color)"
   ha-color-on-primary-normal: "var(--primary-text-color)"
   ha-color-on-primary-loud: "var(--text-primary-color)"
+  # --- v1.4.0: globaler card-mod-card-Block (Bubble Card #2347 fixed) ---
+  # Pop-ups sind seit offiziellem Release ausserhalb des ha-card-Trees,
+  # globaler ha-card-Blur trifft sie nicht mehr -> Tier 2 wird Tier 1.
+  card-mod-theme: "Liquid Glass Sunset"
+  card-mod-card: |
+    ha-card {
+      background: var(--glass-bg);
+      backdrop-filter: var(--glass-blur);
+      -webkit-backdrop-filter: var(--glass-blur);
+      border: var(--glass-border);
+      border-radius: var(--glass-radius);
+      box-shadow: var(--glass-shadow);
+      transition: all var(--transition-duration) var(--transition-timing-function);
+    }
+    ha-card:hover {
+      background: var(--glass-bg-hover);
+    }
   modes:
     dark: {}
 # Liquid Glass Floorplan — heatmap-glow accents
@@ -1249,5 +1334,22 @@ Liquid Glass Floorplan:
   ha-color-on-primary-quiet: "var(--primary-text-color)"
   ha-color-on-primary-normal: "var(--primary-text-color)"
   ha-color-on-primary-loud: "var(--text-primary-color)"
+  # --- v1.4.0: globaler card-mod-card-Block (Bubble Card #2347 fixed) ---
+  # Pop-ups sind seit offiziellem Release ausserhalb des ha-card-Trees,
+  # globaler ha-card-Blur trifft sie nicht mehr -> Tier 2 wird Tier 1.
+  card-mod-theme: "Liquid Glass Floorplan"
+  card-mod-card: |
+    ha-card {
+      background: var(--glass-bg);
+      backdrop-filter: var(--glass-blur);
+      -webkit-backdrop-filter: var(--glass-blur);
+      border: var(--glass-border);
+      border-radius: var(--glass-radius);
+      box-shadow: var(--glass-shadow);
+      transition: all var(--transition-duration) var(--transition-timing-function);
+    }
+    ha-card:hover {
+      background: var(--glass-bg-hover);
+    }
   modes:
     dark: {}

@@ -7,6 +7,26 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.4.0] - 2026-05-18
+
+### Added
+- **Global `card-mod-card` rule shipped in all six theme variants** — every `ha-card` now automatically gets the full glass-morphism look (translucent surface, `backdrop-filter` blur, soft border, glass-grade shadow). Replaces the previous per-card opt-in (`glass_card_base` snippet under each card). Closes the "Does every card need the card-mod snippet?" community-forum feedback ([thread post #3](https://community.home-assistant.io/t/liquid-glass-premium-glass-morphism-theme-with-six-variants/1009825/3)).
+- README + README.de **"What you get out of the box" section** (replaces the previous "Effect Tiers" Tier-1-vs-Tier-2 split). Documents the global rule, lists card-family expectations, and explains the v1.3.x → v1.4.0 architectural change.
+- README + README.de **"Why v1.4.0" subsection** documenting the upstream Bubble Card issue #2347 fix (pop-ups moved outside `ha-card` tree, post-v3.2.0-beta4) that makes a global blur safe again.
+- Prerequisites block in README + README.de + info.md: `card-mod` is now a hard install requirement (was: optional for "extras only"); minimum Bubble Card release for pop-up compatibility documented.
+
+### Changed
+- **Plug-and-play banner** (README + README.de + info.md) reformulated from "Plug-and-play, with two effect tiers" → "True plug-and-play". Tier-1 vs. Tier-2 terminology removed throughout — there is now only one tier.
+- **FAQ "Do I need card-mod for every card?"** rewritten — card-mod is required once (HACS install), no per-card work.
+- **FAQ "Why don't my Tile/Thermostat/Area cards have the same blur as the screenshots?"** rewritten — they should, since v1.4.0; if not, troubleshooting steps (card-mod installed? Bubble Card current? Edit-Mode off? Cache cleared?).
+- **FAQ "What dashboard cards are shown in the screenshots?"** clarified — since v1.4.0 every visible card (including stock Tile) renders with the full glass look out-of-the-box.
+- **Screenshot captions** updated for Overview and Home Security views — no more references to "Tier-2 snippet".
+- **`docs/card-mod-snippets.yaml` snippet #1 (`glass_card_base`) header** rewritten — explains it is now built-in, kept as a copy-paste template for per-card overrides + as a YAML anchor for shared dashboard overrides.
+- **"Optional: Card-mod Snippets" section** intro: `card-mod` is now required (for the global rule); listed snippets are opt-in extras *beyond* that.
+
+### Decided
+- v1.4.0 is a minor version bump (not patch) because the default behavior changes: previously a global blur was deliberately not shipped (Bubble Card pop-up safety), now it is. Users on Bubble Card builds older than v3.2.0-beta4 will see empty pop-ups under the new global blur — documented as a prerequisite, not a regression.
+
 ### Added
 - `SECURITY.md` — disclosure policy. Documents the narrow security surface (frontend theme = no backend, no user data, no auth), points reporters to GitHub Private Vulnerability Reporting, defines a 14-day first-response target, lists supported versions (1.3.x), and clarifies out-of-scope items.
 - Three real dashboard screenshots replacing the previous SVG mockups: `preview-welcome.png` (hero — Welcome Home dashboard with gauges, energy stats, 24h temperature graph), `preview-overview.png` (Mushroom-style lights/media/switches/vacuum grid), `preview-security.png` (Home Security view with door sensors, cameras, presence tiles).
