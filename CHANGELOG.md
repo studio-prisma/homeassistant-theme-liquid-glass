@@ -7,6 +7,27 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.5.0-rc.1] - 2026-05-18
+
+### Added
+- **Liquid Glass Lite variant** (7th variant in `themes/liquid_glass.yaml`) — same translucent look, **no `backdrop-filter`**. Targets wall tablets, older iPads, and low-end devices where GPU-blur is expensive. Inherits the same `--glass-*` tokens as the default variant; only `glass-bg` slightly more opaque (0.09 vs 0.05) to keep visual depth without blur.
+- **Auto-Switch Blueprint** at `blueprints/automation/studio-prisma/liquid_glass_auto_switch.yaml` — 1-click sunset/sunrise theme-toggle via My-Home-Assistant import button. Inputs for dark/light theme name, sunset/sunrise offsets, optional notification.
+- **My-Home-Assistant install button** in README EN + DE — `my.home-assistant.io/redirect/hacs_repository/` redirect drops HACS-install-flow from ~5 steps to 1 click.
+- **My-Home-Assistant blueprint import button** in README EN + DE — `my.home-assistant.io/redirect/blueprint_import/` redirect for the new Auto-Switch Blueprint.
+- README + README.de **FAQ entry "Can I use my own background image without copying PNGs?"** — documents `background: url(...)` dashboard-level override, both remote URLs and local `/config/www/` paths.
+- README + README.de **Liquid Glass Lite section** in Variants table and "What you get out of the box" table.
+- README + README.de **v1.5.0 banner line** under the existing v1.4.0 plug-and-play banner, summarizing the three new highlights.
+
+### Changed
+- **Global `card-mod-card` rule now uses CSS `:where(ha-card)`** instead of `ha-card` (all 7 variants). Zero-specificity selector means a per-card `card_mod` block with a regular `ha-card` selector wins automatically — no `!important` needed for user overrides.
+- README + README.de **"Want to override per card?"** subsection extended with a note explaining the `:where()` specificity behavior.
+- README + README.de **Auto-Switch section** restructured: "Auto-Switch Blueprint (1-click install)" is now the primary path; the manual YAML automation pattern is kept as "Auto-Switch Strategy (manual YAML — alternative)".
+
+### Notes
+- This is a **release candidate** — not a stable v1.5.0. Tagged `v1.5.0-rc.1` for community testing. Promotion to `v1.5.0` after smoke-test feedback from early adopters.
+- Bubble Card compatibility: continues to require post-v3.2.0-beta4 (no change from v1.4.0).
+
+
 ## [1.4.0] - 2026-05-18
 
 ### Added
