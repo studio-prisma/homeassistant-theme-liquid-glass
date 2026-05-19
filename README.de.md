@@ -1,5 +1,8 @@
 # Liquid Glass — Home Assistant Theme
 
+[![Liquid Glass in deinem Home Assistant öffnen](https://my.home-assistant.io/badges/hacs_repository.svg)](https://my.home-assistant.io/redirect/hacs_repository/?owner=studio-prisma&repository=homeassistant-theme-liquid-glass&category=theme)
+[![Auto-Switch-Blueprint importieren](https://my.home-assistant.io/badges/blueprint_import.svg)](https://my.home-assistant.io/redirect/blueprint_import/?blueprint_url=https%3A%2F%2Fgithub.com%2Fstudio-prisma%2Fhomeassistant-theme-liquid-glass%2Fblob%2Fmain%2Fblueprints%2Fautomation%2Fstudio-prisma%2Fliquid_glass_auto_switch.yaml)
+
 [![HACS Custom](https://img.shields.io/badge/HACS-Custom-orange.svg)](https://hacs.xyz/)
 [![Min HA Version](https://img.shields.io/badge/HA-2024.1.0%2B-blue.svg)](https://www.home-assistant.io/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
@@ -12,6 +15,8 @@ Premium Glass-Morphism-Theme für Home Assistant — durchscheinende Oberfläche
 ![Liquid Glass — Welcome Home Dashboard](docs/assets/screenshots/preview-welcome.png)
 
 > 🎯 **Echtes Plug-and-Play (seit v1.4.0).** Über HACS installieren → Theme aktivieren → fertig. Jede Karte erhält automatisch den vollen Glass-Morphism-Look — durchscheinende Oberfläche, Backdrop-Blur, feine Border, Glas-Schatten, harmonisierte Pro-Domain-Statusfarben, WCAG-AA-konformer Text. Kein Per-Card-Snippet mehr nötig. Mushroom und Bubble Card werden unterstützt; Pop-ups bleiben intakt dank des Upstream-Fix in [Bubble Card Issue #2347](https://github.com/Clooos/Bubble-Card/issues/2347). Voraussetzungen: `card-mod` einmalig via HACS installieren und Bubble Card auf dem aktuellen offiziellen Release. Details: [Was du out-of-the-box bekommst](#was-du-out-of-the-box-bekommst).
+>
+> ✨ **v1.5.0:** neue **Liquid Glass Lite**-Variante (kein `backdrop-filter`, für Wall-Tablets / Low-End-Geräte), Per-Card-`card_mod`-Overrides werden via `:where()` respektiert, plus 1-Klick-[Auto-Switch-Blueprint](#auto-switch-blueprint-1-klick-install) für Sonnenauf-/-untergangs-Switching.
 
 ## Varianten
 
@@ -23,6 +28,7 @@ Premium Glass-Morphism-Theme für Home Assistant — durchscheinende Oberfläche
 | **Liquid Glass Compact** | Immer dunkel + tighter Spacing für Wall-Tablets |
 | **Liquid Glass Sunset** | Immer dunkel + warme Rosa/Amber-Palette |
 | **Liquid Glass Floorplan** | Immer dunkel + Heatmap-Glow für Picture-Element-Karten |
+| **Liquid Glass Lite** | Immer dunkel, **kein `backdrop-filter`** — selber transparenter Look ohne GPU-Blur. Für Wall-Tablets, ältere iPads, Low-End-Geräte. |
 
 > ⚠️ **Warum ist "Auto" experimental?** HAs `modes:`-Block überschreibt die `lovelace-background`-CSS-Variable nicht zuverlässig, und einige Form/Dropdown-Komponenten (Suchfelder, Sprache-Picker) rendern mit nicht-passenden Farben. Die Auto-Variante ist Best-Effort. Für konsistente Ergebnisse: feste Variante wählen.
 
@@ -62,6 +68,7 @@ Seit v1.4.0 liefert das Theme eine globale `card-mod-card`-Regel (eine pro Varia
 | **Mushroom** | Mushrooms eigener Blur via `--mush-*`-Tokens + Theme-Transparenz |
 | **Bubble Card** | Theme-Tokens werden angewendet; Pop-ups bleiben intakt (rendern seit dem Upstream-Fix außerhalb des `ha-card`-Trees) |
 | **picture-elements (Floorplan-Variante)** | Heatmap-Glow-Tokens via `--floorplan-*` |
+| **Liquid Glass Lite-Variante** | Selber transparenter Look wie die anderen Varianten, aber ohne `backdrop-filter` — spart die GPU-Blur-Kosten auf Wall-Tablets / älteren iPads / Low-End-Geräten |
 
 ### Warum v1.4.0 — und was sich geändert hat
 
@@ -75,6 +82,8 @@ Frühere Releases haben den Glas-Effekt als Per-Card-Opt-in (`glass_card_base`-S
 ### Pro Karte überschreiben?
 
 `card_mod` direkt auf der Karte setzt die globale Regel außer Kraft, oder eines der Snippets in [`docs/card-mod-snippets.yaml`](docs/card-mod-snippets.yaml) nutzen — alle verwenden dieselben `--glass-*`-Tokens, Overrides bleiben farblich konsistent.
+
+Seit v1.5.0 nutzt die globale Regel des Themes die CSS-`:where()`-Pseudo-Klasse mit Specificity 0 — ein normaler Per-Card-`card_mod`-Block mit `ha-card`-Selector **gewinnt immer**, ohne `!important`. Cleanste Override-Mechanik.
 
 
 ## Getestet mit
@@ -111,9 +120,15 @@ frontend:
 
 **Profil → Theme → Liquid Glass** (Standard-Empfehlung).
 
-## Auto-Switch-Strategie (empfohlen)
+## Auto-Switch-Blueprint (1-Klick-Install)
 
-Statt der experimental-Variante: HA-Automation, läuft zuverlässig:
+Seit v1.5.0 wird der Sonnenauf-/-untergangs-Theme-Switch als Home-Assistant-Blueprint ausgeliefert. Auf den Badge oben klicken (oder [diesen Link](https://my.home-assistant.io/redirect/blueprint_import/?blueprint_url=https%3A%2F%2Fgithub.com%2Fstudio-prisma%2Fhomeassistant-theme-liquid-glass%2Fblob%2Fmain%2Fblueprints%2Fautomation%2Fstudio-prisma%2Fliquid_glass_auto_switch.yaml)) zum direkten Import. Inputs: Dark-Theme-Name (Default `Liquid Glass`), Light-Theme-Name (Default `Liquid Glass Light only`), Sunset-Offset (Default `-00:30:00`), Sunrise-Offset (Default `00:00:00`), optionale Benachrichtigung.
+
+[![Auto-Switch-Blueprint importieren](https://my.home-assistant.io/badges/blueprint_import.svg)](https://my.home-assistant.io/redirect/blueprint_import/?blueprint_url=https%3A%2F%2Fgithub.com%2Fstudio-prisma%2Fhomeassistant-theme-liquid-glass%2Fblob%2Fmain%2Fblueprints%2Fautomation%2Fstudio-prisma%2Fliquid_glass_auto_switch.yaml)
+
+## Auto-Switch-Strategie (manuelles YAML — Alternative)
+
+Lieber YAML statt Blueprint? HA-Automation, läuft zuverlässig:
 
 ```yaml
 alias: Theme — Sonnenuntergang zu Dark
@@ -259,6 +274,18 @@ Standard- + populäre Community-Karten: Lovelace-Tile, [Mushroom](https://github
 ### Was ist in `themes/liquid_glass.yaml`?
 
 Eine ~1250-zeilige YAML-Datei mit sechs Theme-Varianten. Du musst sie nicht öffnen oder editieren — HACS installiert sie, HA lädt sie automatisch.
+
+### Kann ich ein eigenes Hintergrundbild ohne PNG-Kopie nutzen?
+
+Ja. Die vier PNGs in `/config/www/liquid_glass/` sind Defaults; pro Dashboard kann `background:` auf jede URL gesetzt werden — lokal oder remote:
+
+```yaml
+title: Home
+theme: Liquid Glass
+background: 'center / cover no-repeat url("https://example.com/mein-hintergrund.jpg") fixed'
+```
+
+Für lokale Hosting ohne `liquid_glass/`-Ordner: PNG/JPG nach `/config/www/` ablegen und via `url("/local/dein-file.png")` referenzieren. Ziel: 1920×1200+, niedriger Kontrast, ≤500 KB.
 
 ### Warum werden die Hintergründe nicht automatisch installiert?
 

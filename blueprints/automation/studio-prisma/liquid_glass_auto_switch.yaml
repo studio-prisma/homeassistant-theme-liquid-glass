@@ -1,0 +1,79 @@
+blueprint:
+  name: Liquid Glass — Auto-Switch (sunset / sunrise)
+  description: >
+    Switch between two Liquid Glass theme variants based on sun events.
+    Default: Liquid Glass (dark) at sunset, Liquid Glass Light only at sunrise.
+    Adjust the variants and the offset to your preference. Works with any pair
+    of installed themes — not limited to Liquid Glass.
+  domain: automation
+  source_url: https://github.com/studio-prisma/homeassistant-theme-liquid-glass/blob/main/blueprints/automation/studio-prisma/liquid_glass_auto_switch.yaml
+  author: studio-prisma
+  input:
+    dark_theme:
+      name: Dark theme
+      description: Theme to activate at sunset (or after sunset offset).
+      default: Liquid Glass
+      selector:
+        text:
+    light_theme:
+      name: Light theme
+      description: Theme to activate at sunrise (or after sunrise offset).
+      default: Liquid Glass Light only
+      selector:
+        text:
+    sunset_offset:
+      name: Sunset offset
+      description: >
+        Offset applied to the sunset event (HH:MM:SS, may be negative).
+        Default -00:30:00 = 30 minutes before sunset, giving the dark theme a head start.
+      default: "-00:30:00"
+      selector:
+        text:
+    sunrise_offset:
+      name: Sunrise offset
+      description: >
+        Offset applied to the sunrise event (HH:MM:SS, may be negative).
+        Default 00:00:00 = right at sunrise.
+      default: "00:00:00"
+      selector:
+        text:
+    notify_on_switch:
+      name: Notify on switch (optional)
+      description: >
+        Optional persistent notification when the theme switches.
+        Leave off for silent operation.
+      default: false
+      selector:
+        boolean:
+
+mode: single
+max_exceeded: silent
+
+trigger:
+  - platform: sun
+    event: sunset
+    offset: !input sunset_offset
+    id: sunset_trigger
+  - platform: sun
+    event: sunrise
+    offset: !input sunrise_offset
+    id: sunrise_trigger
+
+action:
+  - variables:
+      dark_theme: !input dark_theme
+      light_theme: !input light_theme
+      notify: !input notify_on_switch
+      target_theme: "{{ dark_theme if trigger.id == 'sunset_trigger' else light_theme }}"
+  - service: frontend.set_theme
+    data:
+      name: "{{ target_theme }}"
+  - if:
+      - condition: template
+        value_template: "{{ notify }}"
+    then:
+      - service: persistent_notification.create
+        data:
+          title: "Liquid Glass — theme switched"
+          message: "Theme set to '{{ target_theme }}' (trigger: {{ trigger.id }})"
+          notification_id: "liquid_glass_auto_switch"
