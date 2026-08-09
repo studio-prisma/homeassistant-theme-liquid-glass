@@ -212,7 +212,7 @@ Liquid Glass:
   # Pop-ups sind seit offiziellem Release ausserhalb des ha-card-Trees,
   # globaler ha-card-Blur trifft sie nicht mehr -> Tier 2 wird Tier 1.
   card-mod-theme: "Liquid Glass"
-  card-mod-card: |
+  card-mod-card: &glass_card_mod |
     :where(ha-card) {
       background: var(--glass-bg);
       backdrop-filter: var(--glass-blur);
@@ -345,19 +345,7 @@ Liquid Glass Auto (experimental):
   # Pop-ups sind seit offiziellem Release ausserhalb des ha-card-Trees,
   # globaler ha-card-Blur trifft sie nicht mehr -> Tier 2 wird Tier 1.
   card-mod-theme: "Liquid Glass Auto (experimental)"
-  card-mod-card: |
-    :where(ha-card) {
-      background: var(--glass-bg);
-      backdrop-filter: var(--glass-blur);
-      -webkit-backdrop-filter: var(--glass-blur);
-      border: var(--glass-border);
-      border-radius: var(--glass-radius);
-      box-shadow: var(--glass-shadow);
-      transition: all var(--transition-duration) var(--transition-timing-function);
-    }
-    :where(ha-card:hover) {
-      background: var(--glass-bg-hover);
-    }
+  card-mod-card: *glass_card_mod
   modes:
     light:
       primary-background-color: "#f5f3ee"
@@ -771,19 +759,7 @@ Liquid Glass Light only:
   # Pop-ups sind seit offiziellem Release ausserhalb des ha-card-Trees,
   # globaler ha-card-Blur trifft sie nicht mehr -> Tier 2 wird Tier 1.
   card-mod-theme: "Liquid Glass Light only"
-  card-mod-card: |
-    :where(ha-card) {
-      background: var(--glass-bg);
-      backdrop-filter: var(--glass-blur);
-      -webkit-backdrop-filter: var(--glass-blur);
-      border: var(--glass-border);
-      border-radius: var(--glass-radius);
-      box-shadow: var(--glass-shadow);
-      transition: all var(--transition-duration) var(--transition-timing-function);
-    }
-    :where(ha-card:hover) {
-      background: var(--glass-bg-hover);
-    }
+  card-mod-card: *glass_card_mod
   modes:
     light: {}
 # Liquid Glass Compact — tighter spacing
@@ -945,19 +921,7 @@ Liquid Glass Compact:
   # Pop-ups sind seit offiziellem Release ausserhalb des ha-card-Trees,
   # globaler ha-card-Blur trifft sie nicht mehr -> Tier 2 wird Tier 1.
   card-mod-theme: "Liquid Glass Compact"
-  card-mod-card: |
-    :where(ha-card) {
-      background: var(--glass-bg);
-      backdrop-filter: var(--glass-blur);
-      -webkit-backdrop-filter: var(--glass-blur);
-      border: var(--glass-border);
-      border-radius: var(--glass-radius);
-      box-shadow: var(--glass-shadow);
-      transition: all var(--transition-duration) var(--transition-timing-function);
-    }
-    :where(ha-card:hover) {
-      background: var(--glass-bg-hover);
-    }
+  card-mod-card: *glass_card_mod
   modes:
     dark: {}
 # Liquid Glass Sunset — warm rose/amber palette
@@ -1158,19 +1122,7 @@ Liquid Glass Sunset:
   # Pop-ups sind seit offiziellem Release ausserhalb des ha-card-Trees,
   # globaler ha-card-Blur trifft sie nicht mehr -> Tier 2 wird Tier 1.
   card-mod-theme: "Liquid Glass Sunset"
-  card-mod-card: |
-    :where(ha-card) {
-      background: var(--glass-bg);
-      backdrop-filter: var(--glass-blur);
-      -webkit-backdrop-filter: var(--glass-blur);
-      border: var(--glass-border);
-      border-radius: var(--glass-radius);
-      box-shadow: var(--glass-shadow);
-      transition: all var(--transition-duration) var(--transition-timing-function);
-    }
-    :where(ha-card:hover) {
-      background: var(--glass-bg-hover);
-    }
+  card-mod-card: *glass_card_mod
   modes:
     dark: {}
 # Liquid Glass Floorplan — heatmap-glow accents
@@ -1339,19 +1291,7 @@ Liquid Glass Floorplan:
   # Pop-ups sind seit offiziellem Release ausserhalb des ha-card-Trees,
   # globaler ha-card-Blur trifft sie nicht mehr -> Tier 2 wird Tier 1.
   card-mod-theme: "Liquid Glass Floorplan"
-  card-mod-card: |
-    :where(ha-card) {
-      background: var(--glass-bg);
-      backdrop-filter: var(--glass-blur);
-      -webkit-backdrop-filter: var(--glass-blur);
-      border: var(--glass-border);
-      border-radius: var(--glass-radius);
-      box-shadow: var(--glass-shadow);
-      transition: all var(--transition-duration) var(--transition-timing-function);
-    }
-    :where(ha-card:hover) {
-      background: var(--glass-bg-hover);
-    }
+  card-mod-card: *glass_card_mod
   modes:
     dark: {}
 
