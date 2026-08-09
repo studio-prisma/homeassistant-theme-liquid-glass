@@ -1,0 +1,35 @@
+# Permanent CRLF-drift fix for cross-OS checkouts.
+# Without this, `.github/workflows/*.yml` (and any LF-checked-in file) flips to CRLF
+# on Windows clones and shows up as phantom-modified in `git status`.
+
+# Default: let git detect text vs. binary, force LF on commit + checkout for text files.
+* text=auto eol=lf
+
+# Explicit overrides — always LF (even on Windows checkout).
+*.md      text eol=lf
+*.php     text eol=lf
+*.py      text eol=lf
+*.yaml    text eol=lf
+*.yml     text eol=lf
+*.json    text eol=lf
+*.txt     text eol=lf
+
+# Shell scripts must stay LF and executable.
+*.sh      text eol=lf
+
+# Explicit binary (no EOL handling).
+*.png     binary
+*.jpg     binary
+*.jpeg    binary
+*.gif     binary
+*.svg     text eol=lf
+
+# Keep development-only paths out of the source archive.
+# Deliberate deviation from the studio-prisma skeleton: /docs/ is NOT export-ignored
+# here. The README links docs/card-mod-snippets.yaml, docs/floorplan-snippets.yaml
+# and the screenshots under docs/assets/ — anyone downloading a release source
+# archive expects those to be in it.
+/tests/       export-ignore
+/.github/     export-ignore
+/.gitattributes export-ignore
+/.gitignore   export-ignore
