@@ -204,17 +204,45 @@ Snippet libraries:
 
 ## Customization
 
-### Override base colors
+### Where customization goes
+
+Every YAML snippet in this section is a **theme definition**. It belongs in a file under your Home Assistant `config/themes/` directory, at the top level, keyed by theme name. It is not dashboard config, and it does not go into `configuration.yaml`.
+
+> ⚠️ **A second file using the same theme name replaces the theme — it does not merge into it.**
+> Home Assistant loads themes with `!include_dir_merge_named`, which combines files via a flat `dict.update()`. Create `config/themes/my_colors.yaml` containing `Liquid Glass:` plus two lines, and Home Assistant discards the entire shipped theme and keeps only those two lines. Which file wins isn't even deterministic — it depends on directory read order. Use one of the two routes below instead.
+
+#### Route A — your own derived variant (survives HACS updates)
+
+1. Copy `themes/liquid_glass.yaml` to `config/themes/my_liquid_glass.yaml`.
+2. Rename the top-level key(s) — e.g. `Liquid Glass:` → `My Liquid Glass:`. Keep only the variants you use.
+3. Change `card-mod-theme:` inside that variant to the same new name, otherwise the global glass rule won't apply.
+4. Edit the tokens.
+5. Reload (see below), then pick **My Liquid Glass** in your user profile.
 
 ```yaml
-Liquid Glass:
+# config/themes/my_liquid_glass.yaml
+My Liquid Glass:
+  # ... full token block copied from themes/liquid_glass.yaml ...
   primary-color: "#ff7a8a"
   accent-color: "#7af5b8"
+  card-mod-theme: "My Liquid Glass"   # must match the key above
 ```
+
+HACS never touches your file. The trade-off: upstream fixes don't reach you automatically — re-copy when you want them.
+
+#### Route B — edit in place (fast, overwritten on update)
+
+Edit `themes/liquid_glass.yaml` directly. Every HACS update of this theme overwrites the file and your changes are gone. Fine for trying a color out, not for anything you want to keep.
+
+#### Applying changes
+
+**Developer Tools → YAML → Reload Themes.** If the theme was already active, re-select it in your user profile — Home Assistant caches the active theme per user. A full restart is not needed.
+
+For overriding a single card instead of the whole theme, use a per-card `card_mod` block — see [`docs/card-mod-snippets.yaml`](docs/card-mod-snippets.yaml). Since v1.5.0 those win over the theme's global rule without `!important`.
 
 ### Per-room accent tokens
 
-Each variant ships eight room tokens as RGB triplets, ready to use with `rgb()` / `rgba()` for area-specific tinting. Defaults live inside `themes/liquid_glass.yaml`; override per dashboard via card-mod or globally via theme-mixin.
+Each variant ships eight room tokens as RGB triplets, ready to use with `rgb()` / `rgba()` for area-specific tinting. Defaults live inside `themes/liquid_glass.yaml`; override per card via card-mod, or theme-wide via [Route A](#route-a--your-own-derived-variant-survives-hacs-updates).
 
 | Token | Default (Liquid Glass) | Suggested area |
 |---|---|---|
@@ -242,10 +270,12 @@ card_mod:
     }
 ```
 
-**Override globally (per theme, no plugin):**
+**Override theme-wide (no plugin):** add the tokens to your derived variant — see [Where customization goes](#where-customization-goes). A separate file reusing the `Liquid Glass` key will not work.
 
 ```yaml
-Liquid Glass:
+# config/themes/my_liquid_glass.yaml — inside your renamed variant
+My Liquid Glass:
+  # ... rest of the copied token block ...
   room-living-rgb: "210, 90, 130"   # custom rose for living
   room-office-rgb: "90, 200, 170"   # custom teal for office
 ```
