@@ -88,10 +88,12 @@ Seit v1.5.0 nutzt die globale Regel des Themes die CSS-`:where()`-Pseudo-Klasse 
 
 ## Getestet mit
 
-- Home Assistant Core 2026.5.0
-- Frontend 20260509.x (WebAwesome + Material Web 3 Komponenten)
-- Supervisor 2026.05.0 / OS 17.3
+- Home Assistant Core 2026.8.1
+- Frontend 20260729.6 (WebAwesome + Material Web 3 Komponenten)
+- Supervisor 2026.07.5 / OS 18.2
 - Browser: Chrome/Firefox/Safari/Edge Desktop, iOS Companion App
+
+In Issues gehört die Frontend-Build-Nummer dazu, nicht nur die Core-Version. Das Styling einzelner Komponenten kann sich zwischen Frontend-Builds unterscheiden, die mit demselben Core-Release ausgeliefert werden — siehe [#5](https://github.com/studio-prisma/homeassistant-theme-liquid-glass/issues/5), wo ein fehlender `backdrop-filter`-Reset nur im laufenden Build existierte, nicht im Upstream-Quelltext.
 
 Mindestens unterstützt: **Core 2024.1.0**. WCAG-AA-Kontrast für alle Varianten verifiziert (v1.2.8 + v1.3.0 für Auto).
 

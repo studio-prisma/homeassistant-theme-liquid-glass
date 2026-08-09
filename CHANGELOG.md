@@ -7,6 +7,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+- **"Tested With" refreshed** to Core 2026.8.1 / Frontend 20260729.6 / Supervisor 2026.07.5 / OS 18.2 in README, README.de and info.md — the previous entry still named Core 2026.5.0. Added a note asking reporters for the frontend build number alongside the Core version, because component styling can differ between frontend builds shipping with the same Core release, which is what made [#5](https://github.com/studio-prisma/homeassistant-theme-liquid-glass/issues/5) hard to pin down.
+
 ## [1.5.1] - 2026-08-09
 
 ### Fixed

@@ -88,10 +88,12 @@ Since v1.5.0 the theme's global rule uses the CSS `:where()` pseudo-class for ze
 
 ## Tested With
 
-- Home Assistant Core 2026.5.0
-- Frontend 20260509.x (WebAwesome + Material Web 3 components)
-- Supervisor 2026.05.0 / OS 17.3
+- Home Assistant Core 2026.8.1
+- Frontend 20260729.6 (WebAwesome + Material Web 3 components)
+- Supervisor 2026.07.5 / OS 18.2
 - Browser: Chrome/Firefox/Safari/Edge desktop, iOS Companion App
+
+The frontend build number is worth reporting in issues, not just the Core version. Component styling can differ between frontend builds that ship with the same Core release — see [#5](https://github.com/studio-prisma/homeassistant-theme-liquid-glass/issues/5), where a missing `backdrop-filter` reset existed only in the running build and not in the upstream source.
 
 Minimum supported: **Core 2024.1.0**. WCAG AA contrast verified for all dark variants (audit in v1.2.8).
 
