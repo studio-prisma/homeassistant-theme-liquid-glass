@@ -7,6 +7,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+- **Heading cards no longer receive the glass treatment** (all 7 variants). HA's heading card is chrome-less by design and resets `background`, `border` and `box-shadow` on its own `ha-card`, which outranked the theme's zero-specificity `:where(ha-card)` rule — but the running frontend build carried **no `backdrop-filter` reset**, so the global blur applied unopposed and left a blurred rectangle where the card is otherwise invisible. Diagnosed by dumping the heading card's `adoptedStyleSheets` at runtime, not inferred from upstream source. The theme now resets the glass properties itself via `:host(.type-heading) ha-card, :host(hui-heading-card) ha-card` (specificity `0,1,1`), so the result no longer depends on what upstream happens to reset. ([#5](https://github.com/studio-prisma/homeassistant-theme-liquid-glass/issues/5))
+- **README + README.de "Customization" section rewritten** — the `Liquid Glass: primary-color: …` snippet was shown without any indication of where it belongs, and the obvious reading (a separate file in `config/themes/`) silently destroys the theme: Home Assistant merges theme files with a flat `dict.update()` via `!include_dir_merge_named`, so a second file reusing the `Liquid Glass` key replaces the entire theme instead of extending it. New "Where customization goes" subsection documents the two routes that work (derived variant / edit in place), the `card-mod-theme:` rename that Route A requires, and the Reload-Themes step. Same correction applied to the per-room token override block. ([#4](https://github.com/studio-prisma/homeassistant-theme-liquid-glass/issues/4))
+
+### Changed
+- **The global `card-mod-card` block is defined once and reused via a YAML anchor** (`&glass_card_mod` / `*glass_card_mod`). It had been duplicated verbatim across six variants, which is why the missing heading-card exception had to be fixed in six places rather than one. Liquid Glass Lite keeps its own block (no `backdrop-filter`). Purely structural — the parsed theme dictionary is byte-identical to before.
+
+## [1.5.0] - 2026-05-19
+
+Promotion of `v1.5.0-rc.1` to stable after HACS-beta-channel soak-test. No functional changes since the release candidate — see the [1.5.0-rc.1](#150-rc1---2026-05-18) section below for the full change list.
+
 ## [1.5.0-rc.1] - 2026-05-18
 
 ### Added
@@ -343,7 +354,10 @@ All values present in every dark variant (Liquid Glass, Compact, Sunset, Floorpl
 ### Added
 - Initial public release of Liquid Glass Theme
 
-[Unreleased]: https://github.com/studio-prisma/homeassistant-theme-liquid-glass/compare/v1.3.0...HEAD
+[Unreleased]: https://github.com/studio-prisma/homeassistant-theme-liquid-glass/compare/v1.5.0...HEAD
+[1.5.0]: https://github.com/studio-prisma/homeassistant-theme-liquid-glass/compare/v1.5.0-rc.1...v1.5.0
+[1.5.0-rc.1]: https://github.com/studio-prisma/homeassistant-theme-liquid-glass/compare/v1.4.0...v1.5.0-rc.1
+[1.4.0]: https://github.com/studio-prisma/homeassistant-theme-liquid-glass/compare/v1.3.0...v1.4.0
 [1.3.0]: https://github.com/studio-prisma/homeassistant-theme-liquid-glass/compare/v1.2.8...v1.3.0
 [1.2.8]: https://github.com/studio-prisma/homeassistant-theme-liquid-glass/compare/v1.2.7...v1.2.8
 [1.2.7]: https://github.com/studio-prisma/homeassistant-theme-liquid-glass/compare/v1.2.6...v1.2.7
