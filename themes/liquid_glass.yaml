@@ -225,6 +225,17 @@ Liquid Glass:
     :where(ha-card:hover) {
       background: var(--glass-bg-hover);
     }
+    /* Heading cards are chrome-less by design. Not every frontend build ships a
+       backdrop-filter reset on them, so the global blur can land on an otherwise
+       invisible card. Reset it ourselves instead of relying on upstream. */
+    :host(.type-heading) ha-card,
+    :host(hui-heading-card) ha-card {
+      background: none;
+      backdrop-filter: none;
+      -webkit-backdrop-filter: none;
+      border: none;
+      box-shadow: none;
+    }
   modes:
     dark: {}
 # Liquid Glass Auto — OS-driven (known limitations)
@@ -1499,6 +1510,14 @@ Liquid Glass Lite:
     }
     :where(ha-card:hover) {
       background: var(--glass-bg-hover);
+    }
+    /* Heading cards are chrome-less by design — keep them free of glass surface
+       treatment here too, so Lite matches the other variants. */
+    :host(.type-heading) ha-card,
+    :host(hui-heading-card) ha-card {
+      background: none;
+      border: none;
+      box-shadow: none;
     }
   modes:
     dark: {}
