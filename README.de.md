@@ -168,13 +168,41 @@ Snippet-Bibliotheken:
 
 ## Anpassung
 
-### Basis-Farben überschreiben
+### Wohin die Anpassung gehört
+
+Jedes YAML-Snippet in diesem Abschnitt ist eine **Theme-Definition**. Es gehört in eine Datei im Verzeichnis `config/themes/` deiner Home-Assistant-Installation, auf oberster Ebene, mit dem Theme-Namen als Key. Es ist keine Dashboard-Konfiguration und gehört nicht in die `configuration.yaml`.
+
+> ⚠️ **Eine zweite Datei mit demselben Theme-Namen ersetzt das Theme — sie ergänzt es nicht.**
+> Home Assistant lädt Themes per `!include_dir_merge_named`, und das führt Dateien mit einem flachen `dict.update()` zusammen. Legst du `config/themes/meine_farben.yaml` mit `Liquid Glass:` und zwei Zeilen an, wirft Home Assistant das komplette mitgelieferte Theme weg und behält nur diese zwei Zeilen. Welche Datei gewinnt, ist nicht einmal deterministisch — das hängt an der Lesereihenfolge des Verzeichnisses. Nimm stattdessen einen der beiden Wege unten.
+
+#### Weg A — eigene abgeleitete Variante (übersteht HACS-Updates)
+
+1. `themes/liquid_glass.yaml` nach `config/themes/my_liquid_glass.yaml` kopieren.
+2. Top-Level-Key umbenennen — z. B. `Liquid Glass:` → `My Liquid Glass:`. Nur die Varianten behalten, die du nutzt.
+3. `card-mod-theme:` innerhalb der Variante auf denselben neuen Namen setzen, sonst greift die globale Glas-Regel nicht.
+4. Tokens anpassen.
+5. Neu laden (siehe unten), dann **My Liquid Glass** im Benutzerprofil auswählen.
 
 ```yaml
-Liquid Glass:
+# config/themes/my_liquid_glass.yaml
+My Liquid Glass:
+  # ... vollständiger Token-Block aus themes/liquid_glass.yaml ...
   primary-color: "#ff7a8a"
   accent-color: "#7af5b8"
+  card-mod-theme: "My Liquid Glass"   # muss dem Key oben entsprechen
 ```
+
+HACS fasst deine Datei nie an. Der Preis: Upstream-Fixes kommen nicht automatisch bei dir an — du kopierst neu, wenn du sie willst.
+
+#### Weg B — direkt editieren (schnell, wird überschrieben)
+
+`themes/liquid_glass.yaml` direkt bearbeiten. Jedes HACS-Update dieses Themes überschreibt die Datei, deine Änderungen sind weg. Gut zum Ausprobieren einer Farbe, nicht für etwas, das bleiben soll.
+
+#### Änderungen aktivieren
+
+**Entwicklerwerkzeuge → YAML → Themes neu laden.** War das Theme schon aktiv, im Benutzerprofil erneut auswählen — Home Assistant cacht das aktive Theme pro Benutzer. Ein Neustart ist nicht nötig.
+
+Wenn du statt des ganzen Themes nur eine einzelne Karte anpassen willst, nimm einen `card_mod`-Block pro Karte — siehe [`docs/card-mod-snippets.yaml`](docs/card-mod-snippets.yaml). Seit v1.5.0 gewinnen die gegen die globale Theme-Regel ohne `!important`.
 
 ### Per-Room-Accent-Tokens
 
@@ -206,10 +234,12 @@ card_mod:
     }
 ```
 
-**Global überschreiben (pro Theme, kein Plugin):**
+**Theme-weit überschreiben (kein Plugin):** die Tokens in deine abgeleitete Variante eintragen — siehe [Wohin die Anpassung gehört](#wohin-die-anpassung-gehört). Eine separate Datei mit dem Key `Liquid Glass` funktioniert nicht.
 
 ```yaml
-Liquid Glass:
+# config/themes/my_liquid_glass.yaml — innerhalb deiner umbenannten Variante
+My Liquid Glass:
+  # ... Rest des kopierten Token-Blocks ...
   room-living-rgb: "210, 90, 130"
   room-office-rgb: "90, 200, 170"
 ```
