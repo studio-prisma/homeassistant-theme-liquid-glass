@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Home Assistant Community Forum thread
+    url: https://community.home-assistant.io/t/liquid-glass-premium-glass-morphism-theme-with-six-variants/1009825
+    about: For usage questions, dashboard showcases, and general discussion. Faster than opening a GitHub issue.
+  - name: HACS documentation
+    url: https://hacs.xyz/docs/use/repositories/type/theme/
+    about: For HACS installation and theme-handling questions not specific to Liquid Glass.

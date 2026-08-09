@@ -1,0 +1,110 @@
+name: Bug report
+description: Something is broken (errors, crashes, theme doesn't load, etc.)
+title: "[Bug]: "
+labels: ["bug", "needs-reproduction"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for reporting a bug. The fields below help triage quickly — please fill in everything you can.
+
+        For **visual** issues (wrong color, missing blur, white-on-white), use the *Visual bug* template instead.
+        For **plugin compatibility** issues, use the *Compatibility report* template.
+
+  - type: input
+    id: ha_core
+    attributes:
+      label: Home Assistant Core version
+      placeholder: "e.g. 2026.5.0"
+    validations:
+      required: true
+
+  - type: input
+    id: ha_frontend
+    attributes:
+      label: Home Assistant Frontend version
+      description: "Settings → About → Frontend"
+      placeholder: "e.g. 20260509.0"
+    validations:
+      required: true
+
+  - type: input
+    id: theme_version
+    attributes:
+      label: Liquid Glass version
+      placeholder: "e.g. v1.5.0"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: variant
+    attributes:
+      label: Which theme variant?
+      options:
+        - Liquid Glass (default dark)
+        - Liquid Glass Auto (experimental)
+        - Liquid Glass Light only
+        - Liquid Glass Compact
+        - Liquid Glass Sunset
+        - Liquid Glass Floorplan
+        - Liquid Glass Lite
+    validations:
+      required: true
+
+  - type: dropdown
+    id: browser
+    attributes:
+      label: Browser / app
+      options:
+        - Chrome desktop
+        - Firefox desktop
+        - Safari desktop
+        - Edge desktop
+        - iOS Companion App
+        - Android Companion App
+        - Fully Kiosk / wall-tablet browser
+        - Other (specify in description)
+    validations:
+      required: true
+
+  - type: textarea
+    id: description
+    attributes:
+      label: What is broken?
+      description: What did you expect to happen, and what happened instead?
+      placeholder: |
+        Steps to reproduce:
+        1.
+        2.
+        3.
+
+        Expected:
+
+        Actual:
+    validations:
+      required: true
+
+  - type: textarea
+    id: logs
+    attributes:
+      label: Browser DevTools console output (if any errors)
+      description: F12 → Console tab → copy any red errors
+      render: shell
+
+  - type: textarea
+    id: screenshot
+    attributes:
+      label: Screenshot
+      description: Drag-and-drop, or paste from clipboard.
+
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Pre-flight
+      options:
+        - label: I've installed `card-mod` via HACS (required since v1.4.0)
+          required: true
+        - label: I've cleared my browser cache / restarted the Companion App
+          required: true
+        - label: I've searched existing issues and didn't find a duplicate
+          required: true

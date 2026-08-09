@@ -25,3 +25,21 @@ jobs:
         uses: hacs/action@main
         with:
           category: theme
+
+  # Single aggregating context for the branch ruleset. Every studio-prisma repo
+  # requires exactly one check named "Gate", so the ruleset is identical everywhere
+  # and jobs above can be added or renamed without touching branch protection.
+  gate:
+    name: Gate
+    runs-on: ubuntu-latest
+    needs: [hacs]
+    if: always()
+    steps:
+      - name: Fail unless every job succeeded
+        if: >-
+          contains(needs.*.result, 'failure') ||
+          contains(needs.*.result, 'cancelled') ||
+          contains(needs.*.result, 'skipped')
+        run: |
+          echo "hacs=${{ needs.hacs.result }}"
+          exit 1

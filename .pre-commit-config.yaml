@@ -1,0 +1,33 @@
+# Pre-commit hooks for Liquid Glass.
+# Install once on a new clone:
+#   pip install pre-commit
+#   pre-commit install
+# Then hooks run automatically on every `git commit`.
+#
+# Manual run on all files:
+#   pre-commit run --all-files
+
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v5.0.0
+    hooks:
+      - id: check-yaml
+        name: Validate YAML syntax
+        args: [--allow-multiple-documents]
+        # Theme YAML uses non-standard `!input` and similar HA-specific tags in blueprints —
+        # skip files where that's expected.
+        exclude: ^blueprints/.*\.yaml$
+      - id: check-json
+        name: Validate JSON syntax
+      - id: end-of-file-fixer
+        name: Ensure files end with newline
+      - id: trailing-whitespace
+        name: Trim trailing whitespace
+      - id: mixed-line-ending
+        name: Normalize line endings to LF
+        args: [--fix=lf]
+      - id: check-merge-conflict
+        name: Block accidental merge-conflict markers
+      - id: check-added-large-files
+        name: Block files > 1 MB
+        args: [--maxkb=1024]
