@@ -39,8 +39,11 @@ jobs:
           TAG="${{ steps.tag.outputs.name }}"
           VERSION="${TAG#v}"
           # Pull lines from "## [VERSION]" up to (but not including) the next "## [" header.
+          # index() on a literal string, not a dynamic regex: "\\[" in a regex
+          # string is stripped to "[", which opens a character class instead of
+          # matching a bracket, so the section header never matched.
           NOTES=$(awk -v v="$VERSION" '
-            $0 ~ "^## \\["v"\\]" { found=1; next }
+            index($0, "## [" v "]") == 1 { found=1; next }
             found && /^## \[/ { exit }
             found { print }
           ' CHANGELOG.md)
