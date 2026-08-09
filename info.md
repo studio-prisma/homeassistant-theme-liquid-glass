@@ -31,7 +31,7 @@ frontend:
 
 ## Tested
 
-HA Core 2026.5.0 · Frontend 20260509.x · Supervisor 2026.05.0 · OS 17.3
+HA Core 2026.8.1 · Frontend 20260729.6 · Supervisor 2026.07.5 · OS 18.2
 Minimum supported: Core 2024.1.0.
 
 ## Maintainer
