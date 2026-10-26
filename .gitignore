@@ -19,3 +19,7 @@ desktop.ini
 local/
 private/
 .drafts/
+
+# Build output and packages (CONVENTIONS §5)
+dist/
+*.zip
