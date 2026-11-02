@@ -1,0 +1,24 @@
+name: Dependency review
+
+# Fails a pull request that adds or upgrades to a dependency with a known
+# vulnerability. Complements Dependabot, which only reports what is already
+# on the default branch.
+
+on:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  dependency-review:
+    name: Dependency review
+    runs-on: ubuntu-latest
+    steps:
+      - name: Review dependency changes
+        uses: actions/dependency-review-action@v5
+        with:
+          fail-on-severity: moderate
+          # Development dependencies count too: they run in CI with the
+          # repository token.
+          fail-on-scopes: runtime, development
