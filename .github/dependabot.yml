@@ -1,6 +1,10 @@
 version: 2
 updates:
   - package-ecosystem: "github-actions"
+    # Propose new versions only after 14 days (supply chain);
+    # security updates are not delayed.
+    cooldown:
+      default-days: 14
     directory: "/"
     schedule:
       interval: "weekly"
