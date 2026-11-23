@@ -224,7 +224,7 @@ views:
       cards:
       - type: custom:mushroom-template-card
         primary: Server Rack
-        secondary: '{{ states("sensor.serverschrank_stromstarke") }} A'
+        secondary: '{{ states("sensor.server_rack_current") }} A'
         icon: mdi:server
         icon_color: red
         card_mod:
@@ -269,7 +269,7 @@ views:
             }
       - type: custom:mushroom-template-card
         primary: Washing M.
-        secondary: '{{ states("sensor.waschmaschine_energie_gesamt") }} kWh'
+        secondary: '{{ states("sensor.washing_machine_energy_total") }} kWh'
         icon: mdi:washing-machine
         icon_color: indigo
         card_mod:
@@ -286,7 +286,7 @@ views:
       cards:
       - type: custom:mushroom-template-card
         primary: Internet
-        secondary: '{{ states("sensor.cloudflare_speed_test_90th_percentile_down") }} Mbps'
+        secondary: '{{ states("sensor.speed_test_download") }} Mbps'
         icon: mdi:web
         icon_color: blue
         card_mod:
@@ -301,7 +301,7 @@ views:
             }
       - type: custom:mushroom-template-card
         primary: Packages
-        secondary: '{{ states("sensor.17track_unterwegs") }} in transit'
+        secondary: '{{ states("sensor.parcels_in_transit") }} in transit'
         icon: mdi:package-variant
         icon_color: purple
         card_mod:
@@ -716,10 +716,10 @@ views:
       cards:
       - type: custom:mushroom-template-card
         primary: Coffee Machine
-        secondary: '{{ states("sensor.kaffeemaschine_zustand") | title }}'
+        secondary: '{{ states("sensor.coffee_machine_state") | title }}'
         icon: mdi:coffee
-        icon_color: '{{ "amber" if is_state("binary_sensor.kaffeemaschine_lauft","on") else "grey" }}'
-        badge_icon: '{{ "mdi:play-circle" if is_state("binary_sensor.kaffeemaschine_lauft","on") }}'
+        icon_color: '{{ "amber" if is_state("binary_sensor.coffee_machine_running","on") else "grey" }}'
+        badge_icon: '{{ "mdi:play-circle" if is_state("binary_sensor.coffee_machine_running","on") }}'
         card_mod:
           style: |
             ha-card {
@@ -732,9 +732,9 @@ views:
             }
       - type: custom:mushroom-template-card
         primary: Dishwasher
-        secondary: '{{ states("sensor.spulmaschine_zustand") | title }}'
+        secondary: '{{ states("sensor.dishwasher_state") | title }}'
         icon: mdi:dishwasher
-        icon_color: '{{ "blue" if is_state("binary_sensor.spulmaschine_lauft","on") else "grey" }}'
+        icon_color: '{{ "blue" if is_state("binary_sensor.dishwasher_running","on") else "grey" }}'
         card_mod:
           style: |
             ha-card {
@@ -747,9 +747,9 @@ views:
             }
       - type: custom:mushroom-template-card
         primary: Washing Machine
-        secondary: '{{ states("sensor.waschmaschine_zustand") | title }}'
+        secondary: '{{ states("sensor.washing_machine_state") | title }}'
         icon: mdi:washing-machine
-        icon_color: '{{ "cyan" if is_state("binary_sensor.waschmaschine_lauft","on") else "grey" }}'
+        icon_color: '{{ "cyan" if is_state("binary_sensor.washing_machine_running","on") else "grey" }}'
         card_mod:
           style: |
             ha-card {
@@ -762,9 +762,9 @@ views:
             }
       - type: custom:mushroom-template-card
         primary: Air Fryer
-        secondary: '{{ states("sensor.heissluftfriteuse_zustand") | title }}'
+        secondary: '{{ states("sensor.air_fryer_state") | title }}'
         icon: mdi:fryer
-        icon_color: '{{ "orange" if is_state("binary_sensor.heissluftfriteuse_lauft","on") else "grey" }}'
+        icon_color: '{{ "orange" if is_state("binary_sensor.air_fryer_running","on") else "grey" }}'
         card_mod:
           style: |
             ha-card {
@@ -927,9 +927,9 @@ views:
       cards:
       - type: custom:mushroom-template-card
         primary: Front Door
-        secondary: '{{ "Open" if is_state("binary_sensor.haupteingang_offnung","on") else "Closed" }}'
+        secondary: '{{ "Open" if is_state("binary_sensor.front_door","on") else "Closed" }}'
         icon: mdi:door
-        icon_color: '{{ "red" if is_state("binary_sensor.haupteingang_offnung","on") else "green" }}'
+        icon_color: '{{ "red" if is_state("binary_sensor.front_door","on") else "green" }}'
         card_mod:
           style: |
             ha-card {
@@ -942,9 +942,9 @@ views:
             }
       - type: custom:mushroom-template-card
         primary: Balcony
-        secondary: '{{ "Open" if is_state("binary_sensor.balkontur_offnung","on") else "Closed" }}'
+        secondary: '{{ "Open" if is_state("binary_sensor.balcony_door","on") else "Closed" }}'
         icon: mdi:door-sliding
-        icon_color: '{{ "red" if is_state("binary_sensor.balkontur_offnung","on") else "green" }}'
+        icon_color: '{{ "red" if is_state("binary_sensor.balcony_door","on") else "green" }}'
         card_mod:
           style: |
             ha-card {
@@ -1135,7 +1135,7 @@ views:
             }
       - type: custom:mushroom-template-card
         primary: Network
-        secondary: '{{ "Online" if is_state("binary_sensor.pi_hole_status","on") else "Offline" }}'
+        secondary: '{{ "Online" if is_state("binary_sensor.dns_filter_status","on") else "Offline" }}'
         icon: mdi:shield-check
         icon_color: cyan
         card_mod:
