@@ -19,17 +19,17 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v7
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
 
       - name: HACS Action
-        uses: hacs/action@main
+        uses: hacs/action@1ebf01c408f29afcb6406bd431bc98fd8cbb15aa # main
         with:
           category: theme
 
   # Zentraler Security-Scan: gitleaks, TruffleHog, Trivy, Semgrep (alle blockierend).
   # Semgrep blockiert nur neue Funde. Version: Commit des Release-Tags, siehe Kommentar.
   security:
-    uses: studio-prisma/github-config-security-workflow/.github/workflows/security.yml@510cea39c4ecb83fb25fdfca88649dc014eae883 # v1.1.0
+    uses: studio-prisma/github-config-security-workflow/.github/workflows/security.yml@2a6e60b71951334b84bb1982a0f319d94fb6aff4 # v1.2.0
     with:
       semgrep-rules: "p/security-audit"
     secrets:
